@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <header className="w-full">
       <div className="px-3 py-4 mx-auto flex justify-between items-center gap-3">
-        <Image src="./klip-logo.svg" width={90} height={40} alt="Klip Logo" />
+        <Image src="./klip-icon.svg" width={40} height={40} alt="Klip Logo" />
         <nav className="flex gap-8">
           <Link
             href="/#features"
@@ -28,11 +28,7 @@ export default function Home() {
           >
             Planes
           </Link>
-          <Link
-            href="/#faq"
-            color="foreground"
-            className="text-neutral-700"
-          >
+          <Link href="/#faq" color="foreground" className="text-neutral-700">
             Preguntas Frecuentes
           </Link>
         </nav>

@@ -8,7 +8,7 @@ export class CustomerRegistrar {
   constructor(public repository: CustomerRepository) {}
 
   registrar(params: {
-    id: string | undefined;
+    id: string;
     firstName: string;
     lastName: string;
     dob: string;
@@ -16,7 +16,7 @@ export class CustomerRegistrar {
     companyId: string;
   }) {
     const customer = new Customer(
-      params.id ? new CustomerId(params.id) : CustomerId.nextId(),
+      new CustomerId(params.id),
       params.firstName,
       params.lastName,
       new Date(params.dob),
