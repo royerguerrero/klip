@@ -13,4 +13,8 @@ export class BcryptPasswordHasher extends PasswordHasher {
   hash(password: Password): string {
     return bcrypt.hashSync(password.value, this.saltRounds);
   }
+
+  compare(password: Password, passwordHashed: string): boolean {
+    return bcrypt.compareSync(password.value, passwordHashed);
+  }
 }

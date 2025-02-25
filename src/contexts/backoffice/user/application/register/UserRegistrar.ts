@@ -5,10 +5,12 @@ import { Password } from "../../domain/Password";
 import { User } from "../../domain/User";
 import { PasswordHasher } from "../shared/PasswordHasher";
 import { Company } from "../../domain/Company";
+import { CompanyFinder } from "./CompanyFinder";
 
 export class UserRegistrar {
   constructor(
     private repository: UserRepository,
+    private companyFinder: CompanyFinder,
     private passwordHasher: PasswordHasher
   ) {}
 
@@ -20,14 +22,17 @@ export class UserRegistrar {
     password: Password;
     company: Company;
   }) {
-    const user = new User(
+    const company = await this.companyFinder.search(params.company.id);
+
+    const user = User.create(
       params.id,
       params.firstName,
       params.lastName,
       params.email,
       this.passwordHasher.hash(params.password),
-      params.company
+      new Company(company.id, [])
     );
+
     this.repository.save(user);
 
     return user;

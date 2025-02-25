@@ -5,9 +5,6 @@ import { UserId } from "../../domain/UserId";
 import { Email } from "@/contexts/shared/domain/value-object/Email";
 import { Password } from "../../domain/Password";
 import { Company } from "../../domain/Company";
-import { CompanyId } from "@/contexts/backoffice/shared/domain/value-object/CompanyId";
-import { Team } from "../../domain/Team";
-import { TeamId } from "../../domain/TeamId";
 
 export class RegisterUserCommandHandler
   implements CommandHandler<RegisterUserCommand>
@@ -21,12 +18,7 @@ export class RegisterUserCommandHandler
       lastName: command.lastName,
       email: new Email(command.email),
       password: new Password(command.password),
-      company: new Company(
-        new CompanyId(command.company.id),
-        command.company.teams.map(
-          (team) => new Team(new TeamId(team.id), team.name)
-        )
-      ),
+      company: Company.fromPrimitives(command.company),
     });
   }
 }

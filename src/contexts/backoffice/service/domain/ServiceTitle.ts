@@ -1,6 +1,6 @@
 import { ValueObject } from "@/contexts/shared/domain/value-object/ValueObject";
 
-export class ServiceTitle extends ValueObject {
+export class ServiceTitle implements ValueObject {
   readonly MAX_LENGTH = 40;
   constructor(readonly value: string) {
     super();

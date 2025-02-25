@@ -5,8 +5,6 @@ type Currency = {
   symbol: string;
 };
 
-export class Money extends ValueObject {
-  constructor(readonly amount: number, readonly currency: Currency) {
-    super();
-  }
+export class Money implements ValueObject {
+  constructor(readonly amount: number, readonly currency: Currency) {}
 }

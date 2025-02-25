@@ -1,9 +1,8 @@
 import { EmailIsNotValid } from "./EmailIsNotValid";
 import { ValueObject } from "./ValueObject";
 
-export class Email extends ValueObject {
+export class Email implements ValueObject {
   constructor(readonly value: string) {
-    super();
     this.ensureIsValidEmail();
   }
 

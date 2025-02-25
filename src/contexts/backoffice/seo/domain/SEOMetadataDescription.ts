@@ -1,8 +1,7 @@
 import { ValueObject } from "@/contexts/shared/domain/value-object/ValueObject";
 
-export class SEOMetadataDescription extends ValueObject {
+export class SEOMetadataDescription implements ValueObject {
   constructor(public value: string) {
-    super();
     this.ensureIsValidSEODescription(value);
   }
 

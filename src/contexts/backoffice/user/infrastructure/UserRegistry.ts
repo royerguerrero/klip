@@ -7,6 +7,8 @@ import { BcryptPasswordHasher } from "./BcryptPasswordHasher";
 import { RegisterUserCommand } from "../application/register/RegisterUserCommand";
 import { RegisterUserCommandHandler } from "../application/register/RegisterUserCommandHandler";
 import { UserRegistrar } from "../application/register/UserRegistrar";
+import { CompanyFinder } from "../application/register/CompanyFinder";
+import { DrizzleCompanyRepository } from "./persistence/drizzle/DrizzleCompanyRepository";
 
 export class UserRegistry extends Registry {
   queryHandlers = new Map([
@@ -26,6 +28,7 @@ export class UserRegistry extends Registry {
       new RegisterUserCommandHandler(
         new UserRegistrar(
           new DrizzleUserRepository(),
+          new CompanyFinder(new DrizzleCompanyRepository()),
           new BcryptPasswordHasher()
         )
       ),

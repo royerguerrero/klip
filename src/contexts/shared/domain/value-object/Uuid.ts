@@ -1,9 +1,8 @@
 import { ValueObject } from "./ValueObject";
 import { v4 as uuid, validate } from "uuid";
 
-export class UUID extends ValueObject {
+export class UUID implements ValueObject {
   constructor(public value: string) {
-    super();
     this.ensureIsValidUUID(value);
   }
 

@@ -25,14 +25,14 @@ export default function CustomerForm() {
 
   return (
     <>
-      <Button onPress={onOpen} variant="flat">
+      <Button onPress={onOpen} variant="flat" className="text-sm tracking-tight font-medium">
         Añadir Cliente
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur">
         <ModalContent>
           {(onClose) => (
             <Form onSubmit={onSubmit} validationBehavior="native">
-              <ModalHeader className="flex flex-col gap-1 w-full">
+              <ModalHeader className="flex flex-col gap-1 w-full tracking-tight">
                 Añadir Cliente
               </ModalHeader>
               <ModalBody className="w-full">

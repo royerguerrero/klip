@@ -25,7 +25,7 @@ export class User extends AggregateRoot {
       id: string;
       teams: {
         id: string;
-        name: string;
+        permissions: string[];
       }[];
     };
   }): User {
@@ -37,6 +37,17 @@ export class User extends AggregateRoot {
       primitives.password,
       Company.fromPrimitives(primitives.company)
     );
+  }
+
+  static create(
+    id: UserId,
+    firstName: string,
+    lastName: string,
+    email: Email,
+    password: string,
+    company: Company
+  ): User {
+    return new User(id, firstName, lastName, email, password, company);
   }
 
   toPrimitives() {

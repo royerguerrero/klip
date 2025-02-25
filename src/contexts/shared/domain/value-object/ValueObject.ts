@@ -1,1 +1,1 @@
-export abstract class ValueObject {}
+export interface ValueObject {}

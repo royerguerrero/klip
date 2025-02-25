@@ -11,7 +11,7 @@ export class RegisterUserCommand implements Command {
       id: string;
       teams: {
         id: string;
-        name: string;
+        permissions: string[];
       }[];
     }
   ) {}

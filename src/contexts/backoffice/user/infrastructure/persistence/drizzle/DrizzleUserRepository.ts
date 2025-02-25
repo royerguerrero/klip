@@ -32,7 +32,7 @@ export class DrizzleUserRepository implements UserRepository {
       firstName: user.firstName,
       lastName: user.lastName || "",
       email: user.email || "",
-      password: user.password,
+      password: user.password || "",
       company: {
         id: user.companyId,
         teams: [],

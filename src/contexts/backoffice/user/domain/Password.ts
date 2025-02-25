@@ -1,9 +1,8 @@
 import { ValueObject } from "@/contexts/shared/domain/value-object/ValueObject";
-import { InvalidCredentialsError } from "./InvalidCredentialsError";
+import { InvalidCredentials } from "./errors/InvalidCredentials";
 
-export class Password extends ValueObject {
+export class Password implements ValueObject {
   constructor(readonly value: string) {
-    super();
     this.ensureIsValidPassword(value);
   }
 
@@ -21,7 +20,7 @@ export class Password extends ValueObject {
       // !hasNumber ||
       // !hasSpecialChar
     ) {
-      throw new InvalidCredentialsError(
+      throw new InvalidCredentials(
         "Password does meet the password requirements"
       );
     }

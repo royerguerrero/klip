@@ -23,7 +23,13 @@ export const servicesTable = pgTable("services", {
     .references(() => categoriesTable.id)
     .notNull(),
   subCategory: varchar("sub_category", { length: 100 }),
+
   companyId: uuid("company_id")
     .references(() => companiesTable.id)
     .notNull(),
+});
+
+export const serviceDetails = pgTable("service_details", {
+  id: uuid().primaryKey().defaultRandom(),
+  service: uuid().references(() => servicesTable.id),
 });

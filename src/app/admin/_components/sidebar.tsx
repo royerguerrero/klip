@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
 import {
   HouseLine,
   UsersThree,
@@ -9,6 +9,7 @@ import {
   CardsThree,
   CalendarDots,
   Wallet,
+  Buildings,
 } from "@phosphor-icons/react/dist/ssr";
 import { usePathname } from "next/navigation";
 import TeamSwitcher from "./team-switcher";
@@ -69,8 +70,19 @@ export default function Sidebar() {
         ))}
       </nav>
       <div>
-        <div className="border rounded-xl mb-2 p-1 bg-neutral-50">
-          <TeamSwitcher />
+        <div className="border rounded-xl mb-2 p-2 bg-neutral-50 flex gap-2 items-center relative">
+          <Avatar
+            classNames={{
+              base: "bg-neutral-200 rounded-xl w-9 h-9",
+              icon: "text-neutral-400",
+            }}
+            icon={<Buildings size={18} weight="fill" />}
+          />
+          <div className="font-semibold tracking-tight text-sm flex flex-col">
+            <span>Transversal 91</span>
+            <span className="text-neutral-400 leading-none">10 Miembros</span>
+          </div>
+          {/* <TeamSwitcher /> */}
         </div>
         <Link href="/admin/settings/company">
           <Button

@@ -10,16 +10,16 @@ export class Company extends Entity {
   toPrimitives() {
     return {
       id: this.id.value,
-      temas: this.teams.map((team) => ({
+      teams: this.teams.map((team) => ({
         id: team.id,
-        name: team.name,
+        permissions: team.permissions,
       })),
     };
   }
 
   static fromPrimitives(primitives: {
     id: string;
-    teams: { id: string; name: string }[];
+    teams: { id: string; permissions: string[] }[];
   }) {
     return new Company(
       new CompanyId(primitives.id),

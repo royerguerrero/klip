@@ -1,3 +1,5 @@
 export interface AuthenticateUserQueryResponse {
-    email: string
+  id: string;
+  email: string;
+  companyId: string;
 }

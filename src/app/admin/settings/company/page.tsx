@@ -10,12 +10,14 @@ export default function Page() {
     {
       logo: "",
       app: "Airbnb",
-      description: "Vincula tus reservas de Airbnb para evitar sobre agendamiento",
+      description:
+        "Vincula tus reservas de Airbnb para evitar sobre agendamiento",
     },
     {
       logo: "",
       app: "Booking",
-      description: "Vincula tus reservas de Booking para evitar sobre agendamiento",
+      description:
+        "Vincula tus reservas de Booking para evitar sobre agendamiento",
     },
   ];
   return (
@@ -31,9 +33,12 @@ export default function Page() {
         <p className="text-sm text-neutral-400 font-medium">
           Busca y conecta otras aplicaciones
         </p>
-        <div className="flex flex-col gap-2 md:flex-row pt-4">
+        <div className="flex flex-col gap-2 md:flex-row pt-4 w-">
           {integrations.map((integration, idx) => (
-            <div key={idx} className="bg-neutral-100 border p-3 rounded-xl flex flex-col justify-between md:h-56 md:w-80 gap-3">
+            <div
+              key={idx}
+              className="bg-neutral-100 border p-3 rounded-xl flex flex-col justify-between md:h-56 md:w-80 gap-3"
+            >
               <div>
                 <h2 className="text-lg font-semibold tracking-tight">
                   {integration.app}

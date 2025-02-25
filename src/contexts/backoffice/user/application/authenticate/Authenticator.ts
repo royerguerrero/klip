@@ -1,8 +1,8 @@
-import { Email } from "@/contexts/shared/domain/value-object/Email";
 import { User } from "../../domain/User";
 import { UserRepository } from "../../domain/UserRepository";
-import { InvalidCredentialsError } from "../../domain/InvalidCredentialsError";
 import { PasswordHasher } from "../shared/PasswordHasher";
+import { InvalidCredentials } from "../../domain/errors/InvalidCredentials";
+import { Email } from "@/contexts/shared/domain/value-object/Email";
 import { Password } from "../../domain/Password";
 
 export class Authenticator {
@@ -16,14 +16,12 @@ export class Authenticator {
     password: Password;
   }): Promise<User> {
     const user = await this.userRepository.getByEmail(params.email);
-
     if (!user) {
-      throw new InvalidCredentialsError();
+      throw new InvalidCredentials();
     }
 
-    const passwordHashed = this.passwordHasher.hash(params.password);
-    if (passwordHashed != user.password) {
-      throw new InvalidCredentialsError();
+    if (!this.passwordHasher.compare(params.password, user.password)) {
+      throw new InvalidCredentials();
     }
 
     return user;

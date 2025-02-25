@@ -13,6 +13,8 @@ export class RegisterCustomerCommandHandler
       firstName: command.firstName,
       lastName: command.lastName,
       dob: command.dob,
+      identityDocumentType: command.identityDocumentType,
+      identityDocumentNumber: command.identityDocumentNumber,
       phoneNumber: command.phoneNumber,
       companyId: command.companyId,
     });

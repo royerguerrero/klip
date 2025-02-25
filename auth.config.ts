@@ -5,6 +5,17 @@ export const authConfig = {
     signIn: "/auth/login/",
   },
   callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      session.user.id = token.id as string;
+
+      return session;
+    },
     authorized({ auth, request: { nextUrl } }) {
       if (nextUrl.pathname.includes("/admin")) {
         const isAuthenticated = !!auth?.user;
