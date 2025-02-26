@@ -20,12 +20,18 @@ export default function CustomerForm() {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     createCustomer(data);
-    router.refresh()
+    router.refresh();
   };
 
   return (
     <>
-      <Button onPress={onOpen} variant="flat" className="text-sm tracking-tight font-medium">
+      <Button
+        onPress={onOpen}
+        variant="flat"
+        color="primary"
+        size="sm"
+        className="text-sm tracking-tight font-medium"
+      >
         Añadir Cliente
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur">
@@ -36,12 +42,44 @@ export default function CustomerForm() {
                 Añadir Cliente
               </ModalHeader>
               <ModalBody className="w-full">
-                <Input isRequired label="Nombre" name="firstName" type="text" />
+                <Input
+                  isRequired
+                  label="Nombre"
+                  name="firstName"
+                  type="text"
+                  size="sm"
+                />
                 <Input
                   isRequired
                   label="Apellidos"
                   name="lastName"
                   type="text"
+                  size="sm"
+                />
+                <Input
+                  isRequired
+                  label="Documento de identidad"
+                  name="identityDocumentNumber"
+                  placeholder="xxxxxxxxxxx"
+                  type="text"
+                  startContent={
+                    <div className="flex items-center">
+                      <label className="sr-only" htmlFor="currency">
+                        Prefix
+                      </label>
+                      <select
+                        className="outline-none border-0 bg-transparent text-small"
+                        id="identityDocumentType"
+                        name="identityDocumentType"
+                        defaultValue="CC"
+                      >
+                        <option value="TI">TI</option>
+                        <option value="CC">CC</option>
+                        <option value="PP">PP</option>
+                        <option value="PPT">PPT</option>
+                      </select>
+                    </div>
+                  }
                 />
                 <Input
                   isRequired
@@ -64,13 +102,31 @@ export default function CustomerForm() {
                     </div>
                   }
                 />
-                <DatePicker name="dob" label="Fecha de Nacimiento" isRequired />
+                <DatePicker
+                  name="dob"
+                  label="Fecha de Nacimiento"
+                  isRequired
+                  size="sm"
+                />
               </ModalBody>
               <ModalFooter className="w-full">
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button
+                  color="danger"
+                  variant="light"
+                  size="sm"
+                  className="text-sm tracking-tight font-medium"
+                  onPress={onClose}
+                >
                   Cerrar
                 </Button>
-                <Button color="primary" type="submit" onPress={onClose}>
+                <Button
+                  color="primary"
+                  variant="flat"
+                  size="sm"
+                  className="text-sm tracking-tight font-medium"
+                  type="submit"
+                  onPress={onClose}
+                >
                   Guardar
                 </Button>
               </ModalFooter>

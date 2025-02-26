@@ -1,6 +1,22 @@
-import { pgTable, uuid, varchar, date, timestamp } from "drizzle-orm/pg-core";
-import { companiesTable } from "./companies";
+import {
+  pgTable,
+  uuid,
+  varchar,
+  date,
+  timestamp,
+  pgEnum,
+} from "drizzle-orm/pg-core";
 import { usersTable } from "./user";
+
+const identifyDocumentNumberEnum = pgEnum("identify_document_type", [
+  "TI",
+  "CC",
+  "PP",
+  "PPT",
+]);
+
+export type IdentifyDocumentType =
+  (typeof identifyDocumentNumberEnum.enumValues)[number];
 
 export const customersTable = pgTable("customers", {
   id: uuid().primaryKey().defaultRandom().notNull(),
@@ -9,6 +25,12 @@ export const customersTable = pgTable("customers", {
     .notNull()
     .unique(),
   dateOfBirth: date("date_of_birth").notNull().notNull(),
+  identifyDocumentType: identifyDocumentNumberEnum("identify_document_type")
+    .default("CC")
+    .notNull(),
+  identifyDocumentNumber: varchar("identify_document_number", { length: 100 })
+    .default("")
+    .notNull(),
   createdAt: timestamp("created_at", { mode: "date", precision: 3 })
     .defaultNow()
     .notNull(),

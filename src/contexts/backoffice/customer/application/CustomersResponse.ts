@@ -3,6 +3,7 @@ import { Customer } from "../domain/Customer";
 export interface CustomerResponseDTO {
   id: string;
   name: string;
+  identityDocument: string;
 }
 
 export class CustomersResponse {
@@ -14,6 +15,7 @@ export class CustomersResponse {
       return {
         id: primitives.id,
         name: `${primitives.firstName} ${primitives.lastName}`,
+        identityDocument: primitives.identityDocument,
       };
     });
   }

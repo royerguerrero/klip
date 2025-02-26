@@ -7,11 +7,11 @@ export default async function Page() {
   const customers = await listCustomers();
 
   return (
-    <>
+    <div className="py-2">
       <Heading title="Clientes">
-        <CustomerForm />
+        <CustomerForm modalTitle="Añadir Cliente" />
       </Heading>
       <CustomersTable customers={customers} />
-    </>
+    </div>
   );
 }

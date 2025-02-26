@@ -12,4 +12,8 @@ export class ColombianIdentityDocument implements ValueObject {
     readonly type: IdentityDocumentType,
     readonly documentNumber: string
   ) {}
+
+  toString(): string {
+    return `${this.type} ${this.documentNumber}`;
+  }
 }

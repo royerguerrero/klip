@@ -1,4 +1,7 @@
-import { customersTable } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/customers";
+import {
+  customersTable,
+  IdentifyDocumentType,
+} from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/customers";
 import { Customer } from "../../../domain/Customer";
 import { CustomerRepository } from "../../../domain/CustomerRepository";
 import { db } from "@/contexts/shared/infrastructure/persistence/drizzle";
@@ -22,6 +25,9 @@ export class DrizzleCustomerRepository extends CustomerRepository {
         id: customer.id.value,
         userId: user[0].id,
         dateOfBirth: customer.dateOfBirth.value.toISOString(),
+        identifyDocumentType: customer.identityDocument
+          .type as string as IdentifyDocumentType,
+        identifyDocumentNumber: customer.identityDocument.documentNumber,
       });
     });
   }
@@ -42,8 +48,8 @@ export class DrizzleCustomerRepository extends CustomerRepository {
         phoneNumber: row.users.phoneNumber ?? "",
         companyId: row.users.companyId,
         identityDocument: {
-          type: "",
-          documentNumber: "",
+          type: row.customers.identifyDocumentType,
+          documentNumber: row.customers.identifyDocumentNumber,
         },
       })
     );

@@ -7,12 +7,14 @@ export const authConfig = {
   callbacks: {
     jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
+        token = { ...token, ...user };
       }
+
       return token;
     },
     session({ session, token }) {
       session.user.id = token.id as string;
+      session.user.companyId = token.companyId as string;
 
       return session;
     },

@@ -6,17 +6,18 @@ import { RegisterCustomerCommand } from "@/contexts/backoffice/customer/applicat
 import { CustomerId } from "@/contexts/backoffice/customer/domain/CustomerId";
 
 export async function createCustomer(formData: FormData) {
-  const session = auth();
+  const session = await auth();
+  if (!session?.user) return null;
 
   const command = new RegisterCustomerCommand(
     CustomerId.nextId().value,
     formData.get("firstName") as string,
     formData.get("lastName") as string,
     formData.get("dob") as string,
-    "",
-    "",
-    formData.get("phoneNumber") as string,
-    ""
+    formData.get("identityDocumentType") as string,
+    formData.get("identityDocumentNumber") as string,
+    `${formData.get("prefix")}${formData.get("phoneNumber")}`,
+    session.user.companyId
   );
   await bootstrap.commandBus.dispatch(command);
 

@@ -1,10 +1,18 @@
-import NextAuth from "next-auth";
+import NextAuth, { type DefaultSession } from "next-auth";
 import { authConfig } from "../../auth.config";
 import Credentials from "next-auth/providers/credentials";
 import bootstrap from "./auth/_lib/bootstrap";
 import { AuthenticateUserQuery } from "@/contexts/backoffice/user/application/authenticate/AuthenticateUserQuery";
 import { InvalidCredentials } from "@/contexts/backoffice/user/domain/errors/InvalidCredentials";
 import { AuthenticateUserQueryResponse } from "@/contexts/backoffice/user/application/authenticate/AuthenticateUserQueryResponse";
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      companyId: string;
+    } & DefaultSession["user"];
+  }
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
