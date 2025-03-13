@@ -4,6 +4,10 @@ import { UserRepository } from "../../../domain/UserRepository";
 import { db } from "@/contexts/shared/infrastructure/persistence/drizzle";
 import { eq } from "drizzle-orm";
 import { usersTable } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/user";
+import {
+  teamMembersTable,
+  teamsTable,
+} from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/team";
 
 export class DrizzleUserRepository implements UserRepository {
   async save(user: User): Promise<void> {
@@ -25,17 +29,29 @@ export class DrizzleUserRepository implements UserRepository {
     if (query.length === 0) {
       return null;
     }
-
     const user = query[0];
+
+    const teams = await db
+      .select()
+      .from(teamMembersTable)
+      .innerJoin(teamsTable, eq(teamMembersTable.teamId, teamsTable.id))
+      .where(eq(teamMembersTable.userId, user.id));
+
+    console.log(teams);
+
     return User.fromPrimitives({
       id: user.id.toString(),
       firstName: user.firstName,
       lastName: user.lastName || "",
-      email: user.email || "",
-      password: user.password || "",
+      email: user.email as string,
+      password: user.password as string,
       company: {
         id: user.companyId,
-        teams: [],
+        teams: teams.map((row) => ({
+          id: row.team_members.teamId,
+          name: row.teams.name,
+          permissions: row.team_members.permissions,
+        })),
       },
     });
   }

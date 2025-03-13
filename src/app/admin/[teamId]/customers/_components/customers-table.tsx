@@ -1,18 +1,18 @@
 "use client";
 
 import {
-  Button,
+  Avatar,
   Table,
   TableBody,
   TableCell,
   TableColumn,
   TableHeader,
   TableRow,
-  User,
 } from "@heroui/react";
 import { User as UserIcon } from "@phosphor-icons/react/dist/ssr";
 import { CustomerResponseDTO } from "@/contexts/backoffice/customer/application/CustomersResponse";
 import React, { useCallback } from "react";
+import { CustomerDetailDrawer } from "./customer-detail-drawer";
 
 type Props = {
   customers: CustomerResponseDTO[];
@@ -20,6 +20,8 @@ type Props = {
 
 const columns = [
   { name: "Nombre", uid: "name" },
+  { name: "Documento", uid: "identityDocument" },
+  { name: "Fecha de ingreso", uid: "createdAt" },
   { name: "Acciones", uid: "actions" },
 ];
 
@@ -31,39 +33,33 @@ export default function CustomersTable({ customers }: Props) {
       switch (columnKey) {
         case "name":
           return (
-            <User
-              classNames={{
-                name: "font-semibold tracking-tight",
-                description: "font-semibold",
-              }}
-              avatarProps={{
-                classNames: {
+            <span className="text-neutral-950 flex items-center gap-2 whitespace-nowrap font-medium">
+              <Avatar
+                classNames={{
                   base: "bg-neutral-200",
                   icon: "text-neutral-400",
-                },
-                radius: "lg",
-                icon: <UserIcon size={20} weight="fill" />,
-              }}
-              description={customer.identityDocument}
-              name={customer.name}
-            />
+                }}
+                icon={<UserIcon size={14} weight="fill" />}
+                className="w-6 h-6 text-tiny"
+              />
+              {customer.firstName} {customer.lastName}
+            </span>
+          );
+        case "identityDocument":
+          return (
+            <span>
+              {customer.identityDocumentType} {customer.identityDocumentNumber}
+            </span>
           );
         case "actions":
-          return (
-            <Button
-              size="sm"
-              variant="flat"
-              radius="full"
-              className="text-sm tracking-tight font-medium"
-            >
-              Editar
-            </Button>
-          );
+          return <CustomerDetailDrawer customer={customer} />;
         default:
-          return cellValue;
+          return (
+            <span className="line-clamp-1">{cellValue?.toLocaleString()}</span>
+          );
       }
     },
-    []
+    [],
   );
 
   return (
@@ -98,11 +94,13 @@ export default function CustomersTable({ customers }: Props) {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody items={customers}>
+      <TableBody items={customers} emptyContent={"Not customers"}>
         {(item) => (
-          <TableRow key={item.id} className="rounded-lg">
+          <TableRow key={item.id}>
             {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
+              <TableCell className="font-medium text-neutral-400">
+                {renderCell(item, columnKey)}
+              </TableCell>
             )}
           </TableRow>
         )}

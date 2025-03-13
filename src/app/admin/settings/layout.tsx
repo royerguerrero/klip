@@ -10,7 +10,14 @@ export default function Layout({ children }: Props) {
   return (
     <div className="flex flex-col gap-2">
       <Heading title="Configuración">
-        <Button variant="flat">Soporte</Button>
+        <Button
+          variant="flat"
+          color="primary"
+          className="text-sm font-medium"
+          size="sm"
+        >
+          Soporte
+        </Button>
       </Heading>
       <Navbar />
       <div className="pt-3">{children}</div>

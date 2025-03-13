@@ -9,10 +9,14 @@ import {
   useDisclosure,
 } from "@heroui/modal";
 import { Button, DatePicker, Form, Input } from "@heroui/react";
-import { createCustomer } from "../_lib/actions";
 import { useRouter } from "next/navigation";
+import { createCustomer } from "../_lib/actions";
+import {
+  ColombianDocumentTypes,
+  PhonePrefixes,
+} from "@/app/admin/_lib/constants";
 
-export default function CustomerForm() {
+export default function CreateCustomerModal() {
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -64,19 +68,18 @@ export default function CustomerForm() {
                   type="text"
                   startContent={
                     <div className="flex items-center">
-                      <label className="sr-only" htmlFor="currency">
-                        Prefix
-                      </label>
+                      <label className="sr-only">Prefix</label>
                       <select
                         className="outline-none border-0 bg-transparent text-small"
                         id="identityDocumentType"
                         name="identityDocumentType"
                         defaultValue="CC"
                       >
-                        <option value="TI">TI</option>
-                        <option value="CC">CC</option>
-                        <option value="PP">PP</option>
-                        <option value="PPT">PPT</option>
+                        {Object.entries(ColombianDocumentTypes).map(([key]) => (
+                          <option key={key} value={key}>
+                            {key}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   }
@@ -97,7 +100,11 @@ export default function CustomerForm() {
                         id="prefix"
                         name="prefix"
                       >
-                        <option value="+57">🇨🇴 +57</option>
+                        {Object.entries(PhonePrefixes).map(([key, value]) => (
+                          <option key={key} value={key}>
+                            {value}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   }

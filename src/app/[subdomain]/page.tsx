@@ -43,7 +43,7 @@ export default async function Page({ params }: Props) {
               <Link
                 key={service.fingerprint}
                 href={`${subdomain}/s/${service.fingerprint}`}
-                className="p-3 border bg-neutral-100 rounded-xl tracking-tight flex flex-col gap-1"
+                className="p-3 border bg-neutral-100 rounded-xl flex flex-col gap-1"
               >
                 <h2 className="text-lg font-semibold tracking-tight leading-tight">
                   {service.title}
@@ -51,6 +51,9 @@ export default async function Page({ params }: Props) {
                 <p className="text-neutral-500 text-sm leading-4 line-clamp-2">
                   {service.description}
                 </p>
+                <div className="p-3 border border-rose-500">
+                  <span>Desde</span>
+                </div>
               </Link>
             ))}
           </div>

@@ -29,10 +29,11 @@ export class CustomerRegistrar {
       new CustomerDateOfBirth(new Date(params.dob)),
       new ColombianIdentityDocument(
         params.identityDocumentType as IdentityDocumentType,
-        params.identityDocumentNumber
+        params.identityDocumentNumber,
       ),
       new PhoneNumber(params.phoneNumber),
-      new CompanyId(params.companyId)
+      null,
+      new CompanyId(params.companyId),
     );
     this.repository.save(customer);
   }

@@ -37,7 +37,7 @@ export default function Page() {
           {integrations.map((integration, idx) => (
             <div
               key={idx}
-              className="bg-neutral-100 border p-3 rounded-xl flex flex-col justify-between md:h-56 md:w-80 gap-3"
+              className="bg-neutral-100 border p-3 rounded-lg flex flex-col justify-between md:h-56 md:w-80 gap-3"
             >
               <div>
                 <h2 className="text-lg font-semibold tracking-tight">
@@ -47,7 +47,7 @@ export default function Page() {
                   {integration.description}
                 </p>
               </div>
-              <Button variant="flat" className="">
+              <Button variant="flat" className="text-sm font-medium" size="sm">
                 Conectar
               </Button>
             </div>

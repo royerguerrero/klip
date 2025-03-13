@@ -1,5 +1,6 @@
 import Heading from "../../_components/heading";
-import CustomerForm from "./_components/customer-form";
+import CreateCustomerModal from "./_components/create-customer-modal";
+
 import CustomersTable from "./_components/customers-table";
 import { listCustomers } from "./_lib/data";
 
@@ -9,9 +10,13 @@ export default async function Page() {
   return (
     <div className="py-2">
       <Heading title="Clientes">
-        <CustomerForm modalTitle="Añadir Cliente" />
+        <CreateCustomerModal />
       </Heading>
-      <CustomersTable customers={customers} />
+      {customers != null ? (
+        <CustomersTable customers={customers} />
+      ) : (
+        "unauthorized"
+      )}
     </div>
   );
 }

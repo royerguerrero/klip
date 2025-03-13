@@ -6,6 +6,7 @@ export default async function Page() {
   const session = await auth();
   console.log(session);
   const events = await nextEvents(session?.user?.id || "");
+  console.log(events);
 
   return (
     <div className="py-2">

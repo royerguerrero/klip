@@ -10,10 +10,10 @@ export enum IdentityDocumentType {
 export class ColombianIdentityDocument implements ValueObject {
   constructor(
     readonly type: IdentityDocumentType,
-    readonly documentNumber: string
+    readonly number: string,
   ) {}
 
   toString(): string {
-    return `${this.type} ${this.documentNumber}`;
+    return `${this.type} ${this.number}`;
   }
 }

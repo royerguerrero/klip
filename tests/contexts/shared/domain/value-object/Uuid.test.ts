@@ -4,16 +4,15 @@ import { describe, expect, it } from "@jest/globals";
 describe("UUID", () => {
   it("should create a valid UUID", () => {
     const uuid = UUID.nextId();
-    console.log(uuid);
     expect(uuid).toBeInstanceOf(UUID);
     expect(uuid.value).toMatch(
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
     );
   });
 
   it("should throw an error for an invalid UUID", () => {
     expect(() => new UUID("invalid-uuid")).toThrowError(
-      "The UUID invalid-uuid is not valid"
+      "The UUID invalid-uuid is not valid",
     );
   });
 

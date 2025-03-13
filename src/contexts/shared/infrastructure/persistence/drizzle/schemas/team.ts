@@ -19,10 +19,10 @@ export const teamsTable = pgTable("teams", {
 
 export const teamMembersTable = pgTable("team_members", {
   id: uuid().primaryKey().defaultRandom(),
-  team: uuid()
+  teamId: uuid("team_id")
     .references(() => teamsTable.id)
     .notNull(),
-  user: uuid()
+  userId: uuid("user_id")
     .references(() => usersTable.id)
     .notNull(),
   permissions: text("permissions").array().notNull().default([]),

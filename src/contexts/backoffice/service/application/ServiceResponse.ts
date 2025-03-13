@@ -6,10 +6,15 @@ export interface ServiceResponseDTO {
   description: string;
 }
 
-export class ServiceResponse {
-  public readonly service: ServiceResponseDTO;
+export class ServicesResponse {
+  public readonly services: Array<ServiceResponseDTO>;
 
-  constructor(service: Service) {
-    this.service = service.toPrimitives();
+  constructor(services: Service[]) {
+    this.services = services.map((service) => {
+      const primitives = service.toPrimitives();
+      return {
+        ...primitives,
+      };
+    });
   }
 }

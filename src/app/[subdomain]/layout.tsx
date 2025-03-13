@@ -2,8 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { retrieveCompany } from "./_lib/data";
 import { notFound } from "next/navigation";
-import { Avatar } from "@heroui/react";
-import { User } from "@phosphor-icons/react/dist/ssr";
+import { Avatar, Button } from "@heroui/react";
+import { Bag, User } from "@phosphor-icons/react/dist/ssr";
 
 type Props = {
   params: Promise<{ subdomain: string }>;
@@ -39,7 +39,7 @@ export default async function Layout({ params, children }: Props) {
         <div
           className="h-[20vh] md:h-[26vh] bg-cover bg-no-repeat flex flex-col justify-between"
           style={{
-            backgroundImage: `url(${company.banner})`,
+            backgroundImage: `url('${company.banner}')`,
           }}
         >
           <div className="p-2 md:w-4/6 6 md:max-w-[600px] md:mx-auto flex justify-end items-center">
@@ -50,12 +50,15 @@ export default async function Layout({ params, children }: Props) {
               className="bg-neutral-50/20 backdrop-blur text-neutral-50"
             />
           </div>
-          <div className="p-2 md:w-4/6 6 md:max-w-[600px] md:mx-auto flex justify-between items-center">
+          <div className="p-2 md:w-4/6 6 md:max-w-[600px] md:mx-auto flex justify-between items-center border border-rose-500">
             <Avatar
-              src="https://github.com/shadcn.png"
+              src={company.avatar}
               className="w-28 h-28 -mb-14 rounded-xl border-4"
               radius="lg"
             />
+            <Button isIconOnly radius="full" variant="flat">
+              <Bag size={24} />
+            </Button>
           </div>
         </div>
         <div className="p-3 md:w-4/6 6 md:max-w-[600px] mx-auto mt-12">
@@ -67,7 +70,7 @@ export default async function Layout({ params, children }: Props) {
           </p>
         </div>
       </header>
-      <main>{children}</main>
+      <div className="min-h-[64vh]">{children}</div>
       <footer className="p-3 md:w-4/6 6 md:max-w-[600px] mx-auto flex gap-3 justify-between">
         <span className="text-sm text-neutral-400">
           © {company.title} ⋅ {new Date().getFullYear()}

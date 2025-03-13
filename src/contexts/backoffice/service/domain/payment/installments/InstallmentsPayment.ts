@@ -3,7 +3,11 @@ import { InstallmentsPaymentId } from "./InstallmentsPaymentId";
 import { Money } from "@/contexts/shared/domain/value-object/Money";
 
 export class InstallmentsPayment extends Entity {
-  constructor(readonly id: InstallmentsPaymentId, readonly totalPrice: Money) {
+  constructor(
+    readonly id: InstallmentsPaymentId,
+    readonly totalPrice: Money,
+    readonly installments: number,
+  ) {
     super();
   }
 

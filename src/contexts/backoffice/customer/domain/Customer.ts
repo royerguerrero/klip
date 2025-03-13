@@ -7,6 +7,7 @@ import {
   ColombianIdentityDocument,
   IdentityDocumentType,
 } from "./ColombianIdentityDocument";
+import { Email } from "@/contexts/shared/domain/value-object/Email";
 
 export class Customer extends AggregateRoot {
   constructor(
@@ -16,7 +17,10 @@ export class Customer extends AggregateRoot {
     readonly dateOfBirth: CustomerDateOfBirth,
     readonly identityDocument: ColombianIdentityDocument,
     readonly phoneNumber: PhoneNumber,
-    readonly companyId: CompanyId
+    readonly email: Email | null,
+    readonly createdAt: Date | null,
+    readonly updatedAt: Date | null,
+    readonly companyId: CompanyId,
   ) {
     super();
   }
@@ -28,7 +32,8 @@ export class Customer extends AggregateRoot {
     dateOfBirth: CustomerDateOfBirth,
     identityDocument: ColombianIdentityDocument,
     phoneNumber: PhoneNumber,
-    companyId: CompanyId
+    email: Email | null,
+    companyId: CompanyId,
   ): Customer {
     return new Customer(
       id,
@@ -37,7 +42,10 @@ export class Customer extends AggregateRoot {
       dateOfBirth,
       identityDocument,
       phoneNumber,
-      companyId
+      email,
+      null,
+      null,
+      companyId,
     );
   }
 
@@ -46,9 +54,15 @@ export class Customer extends AggregateRoot {
       id: this.id.value,
       firstName: this.firstName,
       lastName: this.lastName,
-      dateOfBirth: this.dateOfBirth.value.toISOString(),
-      identityDocument: this.identityDocument.toString(),
+      dateOfBirth: this.dateOfBirth.value,
+      identityDocument: {
+        type: this.identityDocument.type,
+        documentNumber: this.identityDocument.number,
+      },
       phoneNumber: this.phoneNumber.value,
+      email: this.email?.value,
+      createdAt: `${this.createdAt?.toLocaleString()}`,
+      updatedAt: `${this.updatedAt?.toLocaleString()}`,
       companyId: this.companyId.value,
     };
   }
@@ -60,9 +74,12 @@ export class Customer extends AggregateRoot {
     dateOfBirth: Date;
     identityDocument: {
       type: string;
-      documentNumber: string;
+      number: string;
     };
     phoneNumber: string;
+    email: string | null;
+    createdAt: Date;
+    updatedAt: Date;
     companyId: string;
   }) {
     return new Customer(
@@ -72,10 +89,13 @@ export class Customer extends AggregateRoot {
       new CustomerDateOfBirth(primitives.dateOfBirth),
       new ColombianIdentityDocument(
         primitives.identityDocument.type as IdentityDocumentType,
-        primitives.identityDocument.documentNumber
+        primitives.identityDocument.number,
       ),
       new PhoneNumber(primitives.phoneNumber),
-      new CompanyId(primitives.companyId)
+      primitives.email ? new Email(primitives.email) : null,
+      primitives.createdAt,
+      primitives.updatedAt,
+      new CompanyId(primitives.companyId),
     );
   }
 }

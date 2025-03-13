@@ -12,7 +12,6 @@ export default {
     extend: {
       fontFamily: {
         sans: "Inter",
-        serif: "'Bona Nova'",
       },
     },
   },

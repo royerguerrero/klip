@@ -15,6 +15,10 @@ export const authConfig = {
     session({ session, token }) {
       session.user.id = token.id as string;
       session.user.companyId = token.companyId as string;
+      session.user.teams = token.teams as {
+        id: string;
+        name: string;
+      }[];
 
       return session;
     },

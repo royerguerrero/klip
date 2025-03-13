@@ -19,7 +19,7 @@ export default function Page() {
       </section>
       <section className="grid grid-cols-3 gap-2">
         {teams.map((team) => (
-          <div key={team.id} className="border rounded-xl bg-neutral-100 p-3">
+          <div key={team.id} className="border rounded-lg bg-neutral-100 p-3">
             <h2 className="font-semibold tracking-tight">{team.name}</h2>
           </div>
         ))}

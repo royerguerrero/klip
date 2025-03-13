@@ -2,8 +2,15 @@ import { Customer } from "../domain/Customer";
 
 export interface CustomerResponseDTO {
   id: string;
-  name: string;
-  identityDocument: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: Date;
+  identityDocumentType: string;
+  identityDocumentNumber: string;
+  phoneNumber: string;
+  email: string | undefined;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export class CustomersResponse {
@@ -13,9 +20,9 @@ export class CustomersResponse {
     this.customers = customers.map((customer) => {
       const primitives = customer.toPrimitives();
       return {
-        id: primitives.id,
-        name: `${primitives.firstName} ${primitives.lastName}`,
-        identityDocument: primitives.identityDocument,
+        ...primitives,
+        identityDocumentType: customer.identityDocument.type,
+        identityDocumentNumber: customer.identityDocument.number,
       };
     });
   }

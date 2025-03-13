@@ -1,4 +1,4 @@
-import { pgTable, varchar, text, uuid } from "drizzle-orm/pg-core";
+import { pgTable, varchar, text, uuid, integer } from "drizzle-orm/pg-core";
 import { companiesTable } from "./companies";
 import { sql } from "drizzle-orm";
 
@@ -23,7 +23,6 @@ export const servicesTable = pgTable("services", {
     .references(() => categoriesTable.id)
     .notNull(),
   subCategory: varchar("sub_category", { length: 100 }),
-
   companyId: uuid("company_id")
     .references(() => companiesTable.id)
     .notNull(),
@@ -31,5 +30,6 @@ export const servicesTable = pgTable("services", {
 
 export const serviceDetails = pgTable("service_details", {
   id: uuid().primaryKey().defaultRandom(),
+  maxParticipants: integer("max_participants"),
   service: uuid().references(() => servicesTable.id),
 });

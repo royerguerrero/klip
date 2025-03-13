@@ -16,7 +16,7 @@ export default function LoginForm() {
 
   const [errorMessage, formAction, isPending] = useActionState(
     authenticateUser,
-    undefined
+    undefined,
   );
 
   return (
@@ -28,6 +28,7 @@ export default function LoginForm() {
         label="Correo Electrónico"
         name="email"
         type="email"
+        size="sm"
       />
       <Input
         endContent={
@@ -46,14 +47,17 @@ export default function LoginForm() {
         }
         name="password"
         label="Contraseña"
+        size="sm"
         isRequired
         type={isVisible ? "text" : "password"}
       />
       <input type="hidden" name="redirectTo" value={callbackUrl} />
       <Button
         type="submit"
-        className="w-full"
+        className="w-full font-medium text-sm tracking-tight"
+        size="sm"
         color="primary"
+        variant="flat"
         isLoading={isPending}
       >
         Ingresar

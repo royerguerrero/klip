@@ -8,12 +8,10 @@ import {
 } from "drizzle-orm/pg-core";
 import { usersTable } from "./user";
 
-const identifyDocumentNumberEnum = pgEnum("identify_document_type", [
-  "TI",
-  "CC",
-  "PP",
-  "PPT",
-]);
+export const identifyDocumentNumberEnum = pgEnum(
+  "identify_document_type_enum",
+  ["TI", "CC", "PP", "PPT"],
+);
 
 export type IdentifyDocumentType =
   (typeof identifyDocumentNumberEnum.enumValues)[number];
@@ -28,9 +26,9 @@ export const customersTable = pgTable("customers", {
   identifyDocumentType: identifyDocumentNumberEnum("identify_document_type")
     .default("CC")
     .notNull(),
-  identifyDocumentNumber: varchar("identify_document_number", { length: 100 })
-    .default("")
-    .notNull(),
+  identifyDocumentNumber: varchar("identify_document_number", {
+    length: 100,
+  }).notNull(),
   createdAt: timestamp("created_at", { mode: "date", precision: 3 })
     .defaultNow()
     .notNull(),

@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 
-interface Team {
+export interface Team {
   id: string;
   name: string;
 }
@@ -50,7 +50,7 @@ export function useTeamContext() {
   const context = useContext(TeamContext);
   if (!context) {
     throw new Error(
-      "useTeamContext must be used inside of TeamContextProvider"
+      "useTeamContext must be used inside of TeamContextProvider",
     );
   }
 

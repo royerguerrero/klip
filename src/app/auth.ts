@@ -10,6 +10,10 @@ declare module "next-auth" {
   interface Session {
     user: {
       companyId: string;
+      teams: {
+        id: string;
+        name: string;
+      }[];
     } & DefaultSession["user"];
   }
 }
@@ -27,7 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           const query = new AuthenticateUserQuery(
             credentials.email as string,
-            credentials.password as string
+            credentials.password as string,
           );
           const user =
             await bootstrap.queryBus.ask<AuthenticateUserQueryResponse>(query);

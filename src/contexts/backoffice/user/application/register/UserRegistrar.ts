@@ -11,7 +11,7 @@ export class UserRegistrar {
   constructor(
     private repository: UserRepository,
     private companyFinder: CompanyFinder,
-    private passwordHasher: PasswordHasher
+    private passwordHasher: PasswordHasher,
   ) {}
 
   async registrar(params: {
@@ -30,7 +30,7 @@ export class UserRegistrar {
       params.lastName,
       params.email,
       this.passwordHasher.hash(params.password),
-      new Company(company.id, [])
+      new Company(company.id, []),
     );
 
     this.repository.save(user);

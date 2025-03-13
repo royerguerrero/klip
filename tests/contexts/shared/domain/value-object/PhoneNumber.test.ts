@@ -3,28 +3,33 @@ import { describe, it, expect } from "@jest/globals";
 
 describe("PhoneNumber", () => {
   it("should create a valid phone number", () => {
-    const phoneNumber = new PhoneNumber("+1234567890");
-    expect(phoneNumber.value).toBe("+1234567890");
+    const validPhoneNumbers = [{ prefix: "+1", number: "234567890" }];
+
+    validPhoneNumbers.forEach((item) => {
+      const phoneNumber = new PhoneNumber(`${item.prefix} ${item.number}`);
+      expect(phoneNumber.value).toBe(`${item.prefix} ${item.number}`);
+      expect(phoneNumber.prefix).toBe(item.prefix);
+      expect(phoneNumber.number).toBe(item.number);
+    });
   });
 
   it("should throw an error for an invalid phone number", () => {
-    expect(() => new PhoneNumber("12345")).toThrowError(
-      "Invalid phone number: 12345"
-    );
-  });
+    const invalidPhoneNumbers = [
+      "",
+      "12345",
+      "+123-456-7890",
+      "+1 23-456-7890",
+      "123 456 532",
+      "+1 23456789123456789",
+      "+1234 234567890",
+      "+09888 87392179",
+      "+1234567890",
+    ];
 
-  it("should throw an error for an empty phone number", () => {
-    expect(() => new PhoneNumber("")).toThrowError("Invalid phone number: ");
-  });
-
-  it("should throw an error for a phone number with invalid characters", () => {
-    expect(() => new PhoneNumber("+123-456-7890")).toThrowError(
-      "Invalid phone number: +123-456-7890"
-    );
-  });
-
-  it("should create a valid phone number without a plus sign", () => {
-    const phoneNumber = new PhoneNumber("1234567890");
-    expect(phoneNumber.value).toBe("1234567890");
+    invalidPhoneNumbers.forEach((phoneNumber) => {
+      expect(() => new PhoneNumber(phoneNumber)).toThrowError(
+        `Invalid phone number: ${phoneNumber}`,
+      );
+    });
   });
 });

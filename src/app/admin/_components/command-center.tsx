@@ -3,18 +3,17 @@
 import {
   Modal,
   ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Button,
   Kbd,
   useDisclosure,
   Input,
 } from "@heroui/react";
-import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
+import { KeyReturn, MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
+import { commands } from "./commands";
 
 export default function CommandCenter() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  // const { command, setCommand } = useState();
 
   return (
     <>
@@ -29,41 +28,43 @@ export default function CommandCenter() {
           K
         </Kbd>
       </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="transparent">
-        <ModalContent>
-          {(onClose) => (
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        backdrop="transparent"
+        size="xl"
+      >
+        <ModalContent className="p-2 border">
+          {() => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                <Input />
-              </ModalHeader>
-              <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat
-                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                  aliqua enim laboris do dolor eiusmod. Et mollit incididunt
-                  nisi consectetur esse laborum eiusmod pariatur proident Lorem
-                  eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
-                </Button>
-              </ModalFooter>
+              <Input
+                startContent={
+                  <MagnifyingGlass
+                    className="text-neutral-500"
+                    size={18}
+                    weight="bold"
+                  />
+                }
+              />
+              <div className="flex flex-col gap-1 pt-2">
+                {commands.map((cmd, idx) => (
+                  <Button
+                    key={idx}
+                    className="justify-betweEn font-medium px-2"
+                    variant="light"
+                    startContent={cmd.icon}
+                    endContent={
+                      <KeyReturn
+                        className="text-neutral-400"
+                        size={18}
+                        weight="fill"
+                      />
+                    }
+                  >
+                    <span className="mr-auto">{cmd.name}</span>
+                  </Button>
+                ))}
+              </div>
             </>
           )}
         </ModalContent>

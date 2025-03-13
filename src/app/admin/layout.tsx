@@ -2,13 +2,17 @@ import Image from "next/image";
 import Sidebar from "./_components/sidebar";
 import UserDropdown from "./_components/user-dropdown";
 import CommandCenter from "./_components/command-center";
-import { TeamContextProvider } from "./_contexts/team";
+import { Team, TeamContextProvider } from "./_contexts/team";
+import { auth } from "../auth";
 
 type Props = {
   children: React.ReactNode;
 };
 
-export default function Layout({ children }: Props) {
+export default async function Layout({ children }: Props) {
+  const session = await auth();
+  const teams = session?.user.teams as Team[];
+
   return (
     <div>
       <header className="p-3 border-b flex justify-between gap-3">
@@ -17,7 +21,7 @@ export default function Layout({ children }: Props) {
         <UserDropdown />
       </header>
       <TeamContextProvider teamsData={teams}>
-        <div className="flex bg-neutral-50 border border-lime-500 h-full">
+        <div className="flex h-[93vh] bg-neutral-50">
           <Sidebar />
           <main className="w-full">{children}</main>
         </div>

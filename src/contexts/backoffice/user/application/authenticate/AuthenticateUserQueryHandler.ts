@@ -11,7 +11,7 @@ export class AuthenticateUserQueryHandler
   constructor(readonly authenticator: Authenticator) {}
 
   async handle(
-    query: AuthenticateUserQuery
+    query: AuthenticateUserQuery,
   ): Promise<AuthenticateUserQueryResponse> {
     const result = await this.authenticator.authenticate({
       email: new Email(query.email),
@@ -22,6 +22,10 @@ export class AuthenticateUserQueryHandler
       id: result.id.value,
       email: result.email.value,
       companyId: result.company.id.value,
+      teams: result.company.teams.map((team) => ({
+        id: team.id.value,
+        name: "TODO: Get the name",
+      })),
     };
   }
 }

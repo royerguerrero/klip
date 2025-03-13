@@ -12,15 +12,16 @@ export class CustomerRegistry extends Registry {
     [
       RegisterCustomerCommand,
       new RegisterCustomerCommandHandler(
-        new CustomerRegistrar(new DrizzleCustomerRepository())
+        new CustomerRegistrar(new DrizzleCustomerRepository()),
       ),
     ],
   ]);
+
   public queryHandlers = new Map([
     [
       ListCustomerQuery,
       new ListCustomerQueryHandler(
-        new CustomersSearcher(new DrizzleCustomerRepository())
+        new CustomersSearcher(new DrizzleCustomerRepository()),
       ),
     ],
   ]);
