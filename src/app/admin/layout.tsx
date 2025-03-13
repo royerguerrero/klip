@@ -16,13 +16,8 @@ export default function Layout({ children }: Props) {
         <CommandCenter />
         <UserDropdown />
       </header>
-      <TeamContextProvider
-        teamsData={[
-          { id: "898989", name: "Default Team" },
-          { id: "123456", name: "New Team" },
-        ]}
-      >
-        <div className="flex h-[93vh] bg-neutral-50">
+      <TeamContextProvider teamsData={teams}>
+        <div className="flex bg-neutral-50 border border-lime-500 h-full">
           <Sidebar />
           <main className="w-full">{children}</main>
         </div>
