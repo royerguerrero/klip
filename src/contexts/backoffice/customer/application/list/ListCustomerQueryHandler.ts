@@ -3,12 +3,13 @@ import { ListCustomerQuery } from "./ListCustomerQuery";
 import { CustomersResponse } from "../CustomersResponse";
 import { CustomersSearcher } from "./CustomersSearcher";
 
-export class ListCustomerQueryHandler extends QueryHandler<
-  ListCustomerQuery,
-  CustomersResponse
-> {
-  constructor(private searcher: CustomersSearcher) {
-    super();
+export class ListCustomerQueryHandler
+  implements QueryHandler<ListCustomerQuery, CustomersResponse>
+{
+  constructor(private searcher: CustomersSearcher) {}
+
+  subscribedTo() {
+    return ListCustomerQuery;
   }
 
   async handle(): Promise<CustomersResponse> {

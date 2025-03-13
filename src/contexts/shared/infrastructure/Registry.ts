@@ -6,10 +6,6 @@ import { Command } from "../application/Command";
 import { CommandHandler } from "../application/CommandHandler";
 
 export class Registry {
-  public readonly queryHandlers: Map<
-    Query,
-    QueryHandler<Query, QueryResponse>
-  > = new Map();
-  public readonly commandHandlers: Map<Command, CommandHandler<Command>> =
-    new Map();
+  public readonly queryHandlers: Array<QueryHandler<Query, QueryResponse>> = [];
+  public readonly commandHandlers: Array<CommandHandler<Command>> = [];
 }

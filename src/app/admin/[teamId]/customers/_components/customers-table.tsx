@@ -48,7 +48,7 @@ export default function CustomersTable({ customers }: Props) {
         case "identityDocument":
           return (
             <span>
-              {customer.identityDocumentType} {customer.identityDocumentNumber}
+              {`${customer.identityDocument.type} ${customer.identityDocument.documentNumber}`}
             </span>
           );
         case "actions":

@@ -9,8 +9,12 @@ export class FindSalesFrontCompanyQueryHandler
 {
   constructor(readonly finder: SalesFrontCompanyFinder) {}
 
+  subscribedTo() {
+    return FindSalesFrontCompanyQuery;
+  }
+
   async handle(
-    query: FindSalesFrontCompanyQuery
+    query: FindSalesFrontCompanyQuery,
   ): Promise<SalesFontCompanyResponse> {
     const company = await this.finder.search({
       subdomain: new SalesFrontCompanySubdomain(query.subdomain),

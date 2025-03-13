@@ -8,6 +8,10 @@ export class ListServicesQueryHandler
 {
   constructor(private searcher: ServiceSearcher) {}
 
+  subscribedTo() {
+    return ListServicesQuery;
+  }
+
   async handle(query: ListServicesQuery): Promise<ServicesResponse> {
     console.log(query);
     return new ServicesResponse(await this.searcher.search());

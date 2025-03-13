@@ -7,6 +7,10 @@ export class EditCustomerCommandHandler
 {
   constructor(private editor: CustomerEditor) {}
 
+  subscribedTo() {
+    return EditCustomerCommand;
+  }
+
   async handle(command: EditCustomerCommand): Promise<void> {
     this.editor.edit({
       id: command.id,

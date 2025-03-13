@@ -47,12 +47,12 @@ export default function CreateCustomerModal({ trigger, customer }: Props) {
           {(onClose) => (
             <Form onSubmit={onSubmit} validationBehavior="native">
               <ModalHeader className="flex flex-col gap-1 w-full tracking-tight">
-                Edit Customer
+                Editar Cliente
               </ModalHeader>
               <ModalBody className="w-full">
                 <Input
                   isRequired
-                  label="First Name"
+                  label="Nombre"
                   name="firstName"
                   type="text"
                   size="sm"
@@ -60,7 +60,7 @@ export default function CreateCustomerModal({ trigger, customer }: Props) {
                 />
                 <Input
                   isRequired
-                  label="Last Name"
+                  label="Apellidos"
                   name="lastName"
                   type="text"
                   size="sm"
@@ -68,11 +68,11 @@ export default function CreateCustomerModal({ trigger, customer }: Props) {
                 />
                 <Input
                   isRequired
-                  label="Identity Document Number"
+                  label="Documento de identidad"
                   name="identityDocumentNumber"
                   placeholder="xxxxxxxxxxx"
                   type="text"
-                  defaultValue={customer.identityDocumentNumber}
+                  defaultValue={customer.identityDocument.documentNumber}
                   startContent={
                     <div className="flex items-center">
                       <label className="sr-only">Prefix</label>
@@ -80,7 +80,7 @@ export default function CreateCustomerModal({ trigger, customer }: Props) {
                         className="outline-none border-0 bg-transparent text-small"
                         id="identityDocumentType"
                         name="identityDocumentType"
-                        defaultValue={customer.identityDocumentType}
+                        defaultValue={customer.identityDocument.type}
                       >
                         {Object.entries(ColombianDocumentTypes).map(([key]) => (
                           <option key={key} value={key}>
@@ -93,11 +93,11 @@ export default function CreateCustomerModal({ trigger, customer }: Props) {
                 />
                 <Input
                   isRequired
-                  label="Phone Number"
+                  label="Numero Celular"
                   name="phoneNumber"
                   placeholder="(123) 456-789"
                   type="text"
-                  defaultValue={customer.phoneNumber}
+                  defaultValue={customer.phoneNumber.number}
                   startContent={
                     <div className="flex items-center">
                       <label className="sr-only" htmlFor="currency">
@@ -119,7 +119,7 @@ export default function CreateCustomerModal({ trigger, customer }: Props) {
                 />
                 <DatePicker
                   name="dob"
-                  label="Date of Birth"
+                  label="Fecha de nacimiento"
                   isRequired
                   size="sm"
                   defaultValue={parseDate(

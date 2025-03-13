@@ -5,12 +5,9 @@ import { FindSalesFrontCompanyQueryHandler } from "../application/finder/FindSal
 import { DrizzleSalesFrontCompanyRepository } from "./persistence/drizzle/DrizzleSalesFrontCompanyRepository";
 
 export class SalesFrontCompanyRegistry extends Registry {
-  public readonly queryHandlers = new Map([
-    [
-      FindSalesFrontCompanyQuery,
-      new FindSalesFrontCompanyQueryHandler(
-        new SalesFrontCompanyFinder(new DrizzleSalesFrontCompanyRepository())
-      ),
-    ],
-  ]);
+  public queryHandlers = [
+    new FindSalesFrontCompanyQueryHandler(
+      new SalesFrontCompanyFinder(new DrizzleSalesFrontCompanyRepository()),
+    ),
+  ];
 }

@@ -10,6 +10,10 @@ export class AuthenticateUserQueryHandler
 {
   constructor(readonly authenticator: Authenticator) {}
 
+  subscribedTo() {
+    return AuthenticateUserQuery;
+  }
+
   async handle(
     query: AuthenticateUserQuery,
   ): Promise<AuthenticateUserQueryResponse> {

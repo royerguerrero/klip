@@ -7,6 +7,10 @@ export class ServiceCreateCommandHandler
 {
   constructor(private creator: ServiceCreator) {}
 
+  subscribedTo() {
+    return CreateServiceCommand;
+  }
+
   async handle(command: CreateServiceCommand): Promise<void> {
     console.log(command);
     this.creator.create();

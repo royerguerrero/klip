@@ -7,6 +7,10 @@ export class RegisterCustomerCommandHandler
 {
   constructor(private registrar: CustomerRegistrar) {}
 
+  subscribedTo() {
+    return RegisterCustomerCommand;
+  }
+
   async handle(command: RegisterCustomerCommand): Promise<void> {
     this.registrar.registrar({
       id: command.id,

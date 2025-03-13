@@ -8,15 +8,15 @@ export class Bootstrap {
   constructor(
     public readonly registries: Registry[],
     public readonly queryBus: QueryBus = new InMemoryQueryBus(),
-    public readonly commandBus: CommandBus = new InMemoryCommandBus()
+    public readonly commandBus: CommandBus = new InMemoryCommandBus(),
   ) {
     this.registries.forEach((registry) => {
-      for (const [query, handler] of registry.queryHandlers.entries()) {
-        queryBus.registerHandler(query, handler);
-      }
-      for (const [command, handler] of registry.commandHandlers.entries()) {
-        commandBus.registerHandler(command, handler);
-      }
+      registry.queryHandlers.forEach((handler) =>
+        queryBus.registerHandler(handler.subscribedTo(), handler),
+      );
+      registry.commandHandlers.forEach((handler) =>
+        commandBus.registerHandler(handler.subscribedTo(), handler),
+      );
     });
   }
 }

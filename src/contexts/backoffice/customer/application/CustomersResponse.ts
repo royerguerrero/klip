@@ -5,9 +5,14 @@ export interface CustomerResponseDTO {
   firstName: string;
   lastName: string;
   dateOfBirth: Date;
-  identityDocumentType: string;
-  identityDocumentNumber: string;
-  phoneNumber: string;
+  identityDocument: {
+    type: string;
+    documentNumber: string;
+  };
+  phoneNumber: {
+    prefix: string;
+    number: string;
+  };
   email: string | undefined;
   createdAt: string;
   updatedAt: string;
@@ -21,8 +26,6 @@ export class CustomersResponse {
       const primitives = customer.toPrimitives();
       return {
         ...primitives,
-        identityDocumentType: customer.identityDocument.type,
-        identityDocumentNumber: customer.identityDocument.number,
       };
     });
   }

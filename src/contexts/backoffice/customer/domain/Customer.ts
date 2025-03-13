@@ -59,7 +59,10 @@ export class Customer extends AggregateRoot {
         type: this.identityDocument.type,
         documentNumber: this.identityDocument.number,
       },
-      phoneNumber: this.phoneNumber.value,
+      phoneNumber: {
+        prefix: this.phoneNumber.prefix,
+        number: this.phoneNumber.number,
+      },
       email: this.email?.value,
       createdAt: `${this.createdAt?.toLocaleString()}`,
       updatedAt: `${this.updatedAt?.toLocaleString()}`,

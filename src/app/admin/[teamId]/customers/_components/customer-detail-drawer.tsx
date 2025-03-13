@@ -11,7 +11,7 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import {
-  DotsThreeOutline,
+  ArrowsClockwise,
   User as UserIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import EditCustomerModal from "./edit-customer-modal";
@@ -73,7 +73,7 @@ export function CustomerDetailDrawer({ customer }: Props) {
                           size="sm"
                           isIconOnly
                         >
-                          <DotsThreeOutline
+                          <ArrowsClockwise
                             className="text-neutral-500"
                             size={14}
                             weight="fill"
@@ -100,7 +100,7 @@ export function CustomerDetailDrawer({ customer }: Props) {
                           Tipo de Documento
                         </span>
                         <span className="font-medium">
-                          {customer.identityDocumentType}
+                          {customer.identityDocument.type}
                         </span>
                       </div>
                       <div className="flex flex-col">
@@ -108,7 +108,7 @@ export function CustomerDetailDrawer({ customer }: Props) {
                           Numero de Documneto
                         </span>
                         <span className="font-medium">
-                          {customer.identityDocumentNumber}
+                          {customer.identityDocument.documentNumber}
                         </span>
                       </div>
                       <div className="flex flex-col">
@@ -124,7 +124,7 @@ export function CustomerDetailDrawer({ customer }: Props) {
                           Numero Telefonico
                         </span>
                         <span className="font-medium">
-                          {customer.phoneNumber}
+                          {`${customer.phoneNumber.prefix} ${customer.phoneNumber.number}`}
                         </span>
                       </div>
                       <div className="flex flex-col">
