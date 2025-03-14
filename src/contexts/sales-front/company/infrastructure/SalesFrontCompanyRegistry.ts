@@ -1,5 +1,4 @@
 import { Registry } from "@/contexts/shared/infrastructure/Registry";
-import { FindSalesFrontCompanyQuery } from "../application/finder/FindSalesFrontCompanyQuery";
 import { SalesFrontCompanyFinder } from "../application/finder/SalesFrontCompanyFinder";
 import { FindSalesFrontCompanyQueryHandler } from "../application/finder/FindSalesFrontCompanyQueryHandler";
 import { DrizzleSalesFrontCompanyRepository } from "./persistence/drizzle/DrizzleSalesFrontCompanyRepository";

@@ -47,7 +47,7 @@ export default function CustomersTable({ customers }: Props) {
           );
         case "identityDocument":
           return (
-            <span>
+            <span className="line-clamp-1">
               {`${customer.identityDocument.type} ${customer.identityDocument.documentNumber}`}
             </span>
           );

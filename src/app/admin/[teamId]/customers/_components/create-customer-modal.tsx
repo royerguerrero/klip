@@ -8,23 +8,33 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@heroui/modal";
-import { Button, DatePicker, Form, Input } from "@heroui/react";
+import { Button, DatePicker, Input } from "@heroui/react";
+import { Form } from "@heroui/form";
+
 import { useRouter } from "next/navigation";
 import { createCustomer } from "../_lib/actions";
 import {
   ColombianDocumentTypes,
   PhonePrefixes,
 } from "@/app/admin/_lib/constants";
+import { useState } from "react";
 
 export default function CreateCustomerModal() {
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [errors, setErrors] = useState({});
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    createCustomer(data);
-    router.refresh();
+    const errors = await createCustomer(data);
+
+    if (!errors) {
+      router.refresh();
+    } else {
+      setErrors(errors);
+    }
   };
 
   return (
@@ -41,7 +51,11 @@ export default function CreateCustomerModal() {
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur">
         <ModalContent>
           {(onClose) => (
-            <Form onSubmit={onSubmit} validationBehavior="native">
+            <Form
+              onSubmit={onSubmit}
+              validationBehavior="native"
+              validationErrors={errors}
+            >
               <ModalHeader className="flex flex-col gap-1 w-full tracking-tight">
                 Añadir Cliente
               </ModalHeader>
@@ -88,7 +102,7 @@ export default function CreateCustomerModal() {
                   isRequired
                   label="Numero Celular"
                   name="phoneNumber"
-                  placeholder="(123) 456-789"
+                  placeholder="123456789"
                   type="text"
                   startContent={
                     <div className="flex items-center">
@@ -132,7 +146,6 @@ export default function CreateCustomerModal() {
                   size="sm"
                   className="text-sm tracking-tight font-medium"
                   type="submit"
-                  onPress={onClose}
                 >
                   Guardar
                 </Button>

@@ -1,3 +1,4 @@
+import { PhoneNumberIsNotValid } from "../errors/PhoneNumberIsNotValid";
 import { ValueObject } from "./ValueObject";
 
 export class PhoneNumber implements ValueObject {
@@ -17,7 +18,7 @@ export class PhoneNumber implements ValueObject {
   private ensureIsValidPhoneNumber() {
     const phoneNumberRegex = /^\+[1-9]{1,3}\s\d{1,14}$/;
     if (!phoneNumberRegex.test(this.value)) {
-      throw new Error(`Invalid phone number: ${this.value}`);
+      throw new PhoneNumberIsNotValid(this.value);
     }
   }
 }
