@@ -1,7 +1,12 @@
 import { notFound } from "next/navigation";
 import { retrieveCompany } from "./_lib/data";
-import { Button } from "@heroui/react";
+import { Button, Chip } from "@heroui/react";
 import Link from "next/link";
+import {
+  CaretDown,
+  ClockCountdown,
+  Storefront,
+} from "@phosphor-icons/react/dist/ssr";
 
 type Props = {
   params: Promise<{ subdomain: string }>;
@@ -51,8 +56,33 @@ export default async function Page({ params }: Props) {
                 <p className="text-neutral-500 text-sm leading-4 line-clamp-2">
                   {service.description}
                 </p>
-                <div className="p-3 border border-rose-500">
-                  <span>Desde</span>
+                <div className="flex justify-between gap-1">
+                  <div>
+                    <Chip
+                      size="sm"
+                      variant="flat"
+                      radius="md"
+                      startContent={<Storefront size={16} weight="duotone" />}
+                      endContent={<CaretDown size={16} />}
+                    >
+                      Transversal 91
+                    </Chip>
+                  </div>
+                  <div className="flex gap-1">
+                    <Chip size="sm" variant="flat" radius="md">
+                      $30.000 COP
+                    </Chip>
+                    <Chip
+                      size="sm"
+                      variant="flat"
+                      radius="md"
+                      startContent={
+                        <ClockCountdown size={16} weight="duotone" />
+                      }
+                    >
+                      43 min
+                    </Chip>
+                  </div>
                 </div>
               </Link>
             ))}

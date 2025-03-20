@@ -6,8 +6,8 @@ export default function Header() {
   return (
     <header className="w-full border-x border-netural-100 flex p-4 items-center justify-between max-w-[1200px] m-auto">
       <div className="flex gap-8">
-        <Image src="./klip-icon.svg" width={30} height={30} alt="Klip Logo" />
-        <nav className="flex gap-8">
+        <Image src="./klip-icon.svg" width={32} height={32} alt="Klip Logo" />
+        <nav className="flex gap-6">
           <Link
             href="/#features"
             color="foreground"
@@ -41,12 +41,12 @@ export default function Header() {
       <div className="flex gap-3">
         <Link href="/admin/dashboard">
           <Button
-            className="text-sm tracking-tight font-medium"
+            className="text-sm tracking-tight font-medium text-neutral-800"
             size="sm"
             variant="light"
             endContent={<CaretRight size={12} weight="bold" />}
           >
-            Contact sales
+            Contactar con ventas
           </Button>
         </Link>
         <Link href="/admin/dashboard">

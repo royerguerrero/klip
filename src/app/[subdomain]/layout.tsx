@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { retrieveCompany } from "./_lib/data";
 import { notFound } from "next/navigation";
 import { Avatar, Button } from "@heroui/react";
-import { Bag, User } from "@phosphor-icons/react/dist/ssr";
+import { ShoppingBagOpen, User } from "@phosphor-icons/react/dist/ssr";
 
 type Props = {
   params: Promise<{ subdomain: string }>;
@@ -57,7 +57,7 @@ export default async function Layout({ params, children }: Props) {
               radius="lg"
             />
             <Button isIconOnly radius="full" variant="flat">
-              <Bag size={24} />
+              <ShoppingBagOpen size={24} />
             </Button>
           </div>
         </div>

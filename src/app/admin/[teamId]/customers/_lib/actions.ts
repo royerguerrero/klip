@@ -8,7 +8,7 @@ import { CustomerId } from "@/contexts/backoffice/customer/domain/CustomerId";
 import { PhoneNumberIsNotValid } from "@/contexts/shared/domain/errors/PhoneNumberIsNotValid";
 
 export async function createCustomer(formData: FormData) {
-  let errors: { [key: string]: string } = {};
+  const errors: { [key: string]: string } = {};
   const session = await auth();
   if (!session?.user) return { errors };
 

@@ -57,7 +57,7 @@ export default function Sidebar() {
           <Link key={item.href} href={item.href}>
             <Button
               className="w-full font-semibold tracking-tight justify-start p-1"
-              variant={pathname === item.href ? "flat" : "light"}
+              variant={pathname.startsWith(item.href) ? "flat" : "light"}
             >
               <span className={`p-1 rounded-lg ${item.className}`}>
                 {item.icon}

@@ -215,6 +215,7 @@ const createAcademiaPatryRitchyServices = async () => {
         },
         options: {
           installments: 10,
+          paymentPromiseEach: 30,
         },
       },
       company_id: "4d592af9-5f65-4638-9e72-48a51bbba77d",

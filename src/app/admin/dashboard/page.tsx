@@ -11,6 +11,7 @@ export default async function Page() {
   return (
     <div className="py-2">
       <Heading title="Próximos eventos"></Heading>
+      <section className="p-3 w-full border"></section>
     </div>
   );
 }

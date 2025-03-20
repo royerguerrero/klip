@@ -2,9 +2,6 @@ import { AggregateRoot } from "@/contexts/shared/domain/AggregateRoot";
 import { ServiceId } from "./ServiceId";
 import { ServiceTitle } from "./ServiceTitle";
 import { ServiceDescription } from "./ServiceDescription";
-import { OnetimePayment } from "./payment/onetime/OnetimePayment";
-import { SubscriptionPayment } from "./payment/subscription/SubscriptionPayment";
-import { InstallmentsPayment } from "./payment/installments/InstallmentsPayment";
 import { ServiceFingerprint } from "./ServiceFingerprint";
 import { ServiceCategory } from "./ServiceCategory";
 
@@ -16,13 +13,28 @@ export class Service extends AggregateRoot {
     readonly title: ServiceTitle,
     readonly description: ServiceDescription,
     readonly duration: number,
-    readonly availability: any, // Changed from TimeBlocks[] since TimeBlocks is undefined
-    readonly payment:
-      | OnetimePayment
-      | SubscriptionPayment
-      | InstallmentsPayment,
+    readonly availability: unknown, // Changed from TimeBlocks[] since TimeBlocks is undefined
+    readonly payment: unknown,
   ) {
     super();
+  }
+
+  static fromPrimitives(plainData: {
+    id: string;
+    fingerprint: string;
+    title: string;
+    description: string;
+  }): Service {
+    return new Service(
+      new ServiceId(plainData.id),
+      new ServiceFingerprint(plainData.fingerprint),
+      new ServiceCategory(),
+      new ServiceTitle(plainData.title),
+      new ServiceDescription(plainData.description),
+      10,
+      undefined,
+      undefined,
+    );
   }
 
   toPrimitives() {
@@ -35,7 +47,7 @@ export class Service extends AggregateRoot {
       description: this.description.value,
       duration: this.duration,
       availability: this.availability,
-      payment: this.payment.toPrimitives(),
+      payment: this.payment,
     };
   }
 }
