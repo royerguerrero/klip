@@ -13,8 +13,8 @@ export class Service extends AggregateRoot {
     readonly title: ServiceTitle,
     readonly description: ServiceDescription,
     readonly duration: number,
-    readonly availability: unknown, // Changed from TimeBlocks[] since TimeBlocks is undefined
     readonly payment: unknown,
+    readonly availability: unknown, // Changed from TimeBlocks[] since TimeBlocks is undefined
   ) {
     super();
   }

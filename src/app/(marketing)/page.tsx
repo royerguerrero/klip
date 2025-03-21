@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <section className="h-[60vh] lg:h-[42vh] max-w-[1200px] border-x border-netural-100 p-2 flex flex-col gap-6 items-center justify-center mx-auto text-center">
+      <section className="h-[100vh] max-w-[1200px] border-x border-netural-100 p-2 flex flex-col gap-6 items-center justify-center mx-auto text-center">
         <h1 className="text-5xl tracking-tighter font-semibold w-5/6">
           Klip mantiene en orden tus agendamientos, pagos e interaciones con tus
           clientes
@@ -39,14 +39,6 @@ export default function Home() {
                 Contactar con ventas
               </Button>
             </Link>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div className="max-w-[1200px] border-x border-netural-100 m-auto p-4"></div>
-        <div className="border-t bg-gradient-to-t from-sky-100 via-sky-50 to-neutral-100  h-full grid items-center">
-          <div className="w-[1200px] mx-auto aspect-video p-4">
-            <div className="border h-full rounded-xl bg-white"></div>
           </div>
         </div>
       </section>
