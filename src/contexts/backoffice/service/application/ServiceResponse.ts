@@ -2,8 +2,17 @@ import { Service } from "../domain/Service";
 
 export interface ServiceResponseDTO {
   id: string;
+  fingerprint: string;
   title: string;
   description: string;
+  duration: {
+    unit: "minutes" | "hours";
+    value: number;
+  };
+  payment: {
+    type: "onetime" | "subscription" | "installments";
+    options: {};
+  };
 }
 
 export class ServicesResponse {

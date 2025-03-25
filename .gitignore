@@ -40,5 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Playground
+# Playground and Others
 /src/playground.ts
+backup.sql

@@ -15,8 +15,8 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const team = (await params).teamId;
-  console.log(team);
   const services = await listServices();
+  console.log("catalog >>>", services);
 
   return (
     <>
@@ -50,7 +50,7 @@ export default async function Page({ params }: Props) {
                 variant="flat"
                 startContent={<Coin size={16} weight="duotone" />}
               >
-                Suscripcion
+                {service.payment.type}
               </Chip>
               <Chip
                 size="sm"

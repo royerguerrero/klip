@@ -1,9 +1,12 @@
 import { AggregateRoot } from "@/contexts/shared/domain/AggregateRoot";
-import { ServiceId } from "./ServiceId";
-import { ServiceTitle } from "./ServiceTitle";
+import { ServiceCategory } from "./ServiceCategory";
 import { ServiceDescription } from "./ServiceDescription";
 import { ServiceFingerprint } from "./ServiceFingerprint";
-import { ServiceCategory } from "./ServiceCategory";
+import { ServiceId } from "./ServiceId";
+import { ServiceTitle } from "./ServiceTitle";
+import { ServiceDuration } from "./ServiceDuration";
+
+type paymentTypes = "onetime" | "subscription" | "installments";
 
 export class Service extends AggregateRoot {
   constructor(
@@ -12,9 +15,9 @@ export class Service extends AggregateRoot {
     readonly category: ServiceCategory,
     readonly title: ServiceTitle,
     readonly description: ServiceDescription,
-    readonly duration: number,
-    readonly payment: unknown,
-    readonly availability: unknown, // Changed from TimeBlocks[] since TimeBlocks is undefined
+    readonly duration: ServiceDuration,
+    // readonly payment: OnetimePayment,
+    readonly availability: unknown,
   ) {
     super();
   }
@@ -24,16 +27,40 @@ export class Service extends AggregateRoot {
     fingerprint: string;
     title: string;
     description: string;
+    duration: {
+      unit: "minutes" | "hours";
+      value: number;
+    };
+    // payment: {
+    //   type: paymentTypes;
+    //   options: {
+    //     price: {
+    //       currency: "COP" | "USD";
+    //       amount: number;
+    //     };
+    //   };
+    // };
   }): Service {
+    // let payment: OnetimePayment;
+    // if (plainData.payment.type === "onetime") {
+    //   payment = new OnetimePayment(
+    //     new Money(
+    //       plainData.payment.options.price.amount,
+    //       plainData.payment.options.price.currency,
+    //     ),
+    //   );
+    // } else {
+    //   throw new Error("Fail");
+    // }
+
     return new Service(
       new ServiceId(plainData.id),
       new ServiceFingerprint(plainData.fingerprint),
       new ServiceCategory(),
       new ServiceTitle(plainData.title),
       new ServiceDescription(plainData.description),
-      10,
-      undefined,
-      undefined,
+      new ServiceDuration(plainData.duration.unit, plainData.duration.value),
+      null,
     );
   }
 
@@ -45,9 +72,15 @@ export class Service extends AggregateRoot {
       category: {},
       title: this.title.value,
       description: this.description.value,
-      duration: this.duration,
+      duration: {
+        unit: this.duration.unit,
+        value: this.duration.value,
+      },
+      payment: {
+        type: "onetime" as paymentTypes,
+        options: {},
+      },
       availability: this.availability,
-      payment: this.payment,
     };
   }
 }

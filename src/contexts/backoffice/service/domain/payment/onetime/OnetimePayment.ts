@@ -1,19 +1,6 @@
-import { Entity } from "@/contexts/shared/domain/Entity";
 import { Money } from "@/contexts/shared/domain/value-object/Money";
-import { OnetimePaymentId } from "./OnetimePaymentId";
+import { ValueObject } from "@/contexts/shared/domain/value-object/ValueObject";
 
-export class OnetimePayment extends Entity {
-  constructor(readonly id: OnetimePaymentId, readonly price: Money) {
-    super();
-  }
-
-  toPrimitives(): object {
-    return {
-      id: this.id.value,
-      price: {
-        currency: this.price.currency,
-        amount: this.price.amount,
-      },
-    };
-  }
+export class OnetimePayment implements ValueObject {
+  constructor(readonly price: Money) {}
 }

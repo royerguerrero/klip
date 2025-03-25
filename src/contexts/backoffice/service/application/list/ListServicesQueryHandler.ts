@@ -13,7 +13,6 @@ export class ListServicesQueryHandler
   }
 
   async handle(query: ListServicesQuery): Promise<ServicesResponse> {
-    console.log(query);
     return new ServicesResponse(await this.searcher.search());
   }
 }

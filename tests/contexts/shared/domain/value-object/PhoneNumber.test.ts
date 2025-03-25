@@ -28,7 +28,7 @@ describe("PhoneNumber", () => {
 
     invalidPhoneNumbers.forEach((phoneNumber) => {
       expect(() => new PhoneNumber(phoneNumber)).toThrowError(
-        `Invalid phone number: ${phoneNumber}`,
+        `The phone number ${phoneNumber} is not valid`,
       );
     });
   });

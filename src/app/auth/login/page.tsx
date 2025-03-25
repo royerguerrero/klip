@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default async function Page() {
   return (
-    <div className="h-dvh grid items-center border">
+    <div className="h-dvh grid items-center">
       <section className="border bg-neutral-100 rounded-xl p-1 w-96 m-auto">
         <div className="bg-white rounded-xl border p-3 flex flex-col gap-3">
           <div className="flex flex-col items-center gap-1">

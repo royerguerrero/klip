@@ -1,5 +1,5 @@
-import { EmailIsNotValid } from "./EmailIsNotValid";
 import { ValueObject } from "./ValueObject";
+import { EmailIsNotValid } from "../errors/EmailIsNotValid";
 
 export class Email implements ValueObject {
   constructor(readonly value: string) {

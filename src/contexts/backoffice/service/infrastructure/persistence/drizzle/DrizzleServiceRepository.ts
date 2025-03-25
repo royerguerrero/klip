@@ -27,6 +27,10 @@ export class DrizzleServiceRepository implements ServiceRepository {
         fingerprint: service.fingerprint,
         title: service.title,
         description: service.description,
+        duration: {
+          unit: "minutes",
+          value: service.duration,
+        },
       }),
     );
   }
