@@ -4,9 +4,9 @@ import { nextEvents } from "./_lib/data";
 
 export default async function Page() {
   const session = await auth();
-  console.log(session);
+  console.log("session >>>", session);
   const events = await nextEvents(session?.user?.id || "");
-  console.log(events);
+  console.log("events >>>", events);
 
   return (
     <div className="py-2">

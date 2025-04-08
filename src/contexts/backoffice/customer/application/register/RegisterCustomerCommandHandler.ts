@@ -12,7 +12,7 @@ export class RegisterCustomerCommandHandler
   }
 
   async handle(command: RegisterCustomerCommand): Promise<void> {
-    this.registrar.registrar({
+    await this.registrar.registrar({
       id: command.id,
       firstName: command.firstName,
       lastName: command.lastName,

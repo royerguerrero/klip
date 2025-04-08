@@ -12,7 +12,7 @@ import {
 export class CustomerRegistrar {
   constructor(public repository: CustomerRepository) {}
 
-  registrar(params: {
+  async registrar(params: {
     id: string;
     firstName: string;
     lastName: string;
@@ -35,6 +35,6 @@ export class CustomerRegistrar {
       null,
       new CompanyId(params.companyId),
     );
-    this.repository.save(customer);
+    await this.repository.save(customer);
   }
 }

@@ -11,7 +11,7 @@ export interface ServiceResponseDTO {
   };
   payment: {
     type: "onetime" | "subscription" | "installments";
-    options: {};
+    options: object;
   };
 }
 

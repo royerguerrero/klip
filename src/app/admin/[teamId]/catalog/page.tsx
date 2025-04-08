@@ -17,6 +17,7 @@ export default async function Page({ params }: Props) {
   const team = (await params).teamId;
   const services = await listServices();
   console.log("catalog >>>", services);
+  console.log(team);
 
   return (
     <>
@@ -50,14 +51,14 @@ export default async function Page({ params }: Props) {
                 variant="flat"
                 startContent={<Coin size={16} weight="duotone" />}
               >
-                {service.payment.type}
+                {service.payment.type == "onetime" && "Pago Unico"}
               </Chip>
               <Chip
                 size="sm"
                 variant="flat"
                 startContent={<ClockCountdown size={16} weight="duotone" />}
               >
-                1000 hrs
+                {service.duration.value}
               </Chip>
             </div>
           </Link>

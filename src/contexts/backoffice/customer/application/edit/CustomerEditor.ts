@@ -23,7 +23,7 @@ export class CustomerEditor {
     phoneNumber: string;
     companyId: string;
   }) {
-    const customer = await this.repository.search(params.id);
+    const customer = await this.repository.search(new CustomerId(params.id));
 
     if (customer === null) {
       throw new CustomerDoesNotExits(params.id);

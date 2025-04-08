@@ -7,29 +7,44 @@ import { CustomerRepository } from "../../../domain/CustomerRepository";
 import { db } from "@/contexts/shared/infrastructure/persistence/drizzle";
 import { eq, desc } from "drizzle-orm";
 import { usersTable } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/user";
+import { CustomerId } from "../../../domain/CustomerId";
+import { CompanyId } from "@/contexts/backoffice/shared/domain/value-object/CompanyId";
+import { PhoneNumberAlreadyInUse } from "@/contexts/shared/domain/errors/PhoneNumberAlreadyInUse";
 
 export class DrizzleCustomerRepository extends CustomerRepository {
   async save(customer: Customer) {
-    await db.transaction(async (tx) => {
-      const user = await tx
-        .insert(usersTable)
-        .values({
-          firstName: customer.firstName,
-          lastName: customer.lastName,
-          phoneNumber: customer.phoneNumber.value,
-          companyId: customer.companyId.value,
-        })
-        .returning({ id: usersTable.id });
+    try {
+      await db.transaction(async (tx) => {
+        const user = await tx
+          .insert(usersTable)
+          .values({
+            firstName: customer.firstName,
+            lastName: customer.lastName,
+            phoneNumber: customer.phoneNumber.value,
+            companyId: customer.companyId.value,
+          })
+          .returning({ id: usersTable.id });
 
-      await tx.insert(customersTable).values({
-        id: customer.id.value,
-        userId: user[0].id,
-        dateOfBirth: customer.dateOfBirth.value.toISOString(),
-        identifyDocumentType: customer.identityDocument
-          .type as string as IdentifyDocumentType,
-        identifyDocumentNumber: customer.identityDocument.number,
+        await tx.insert(customersTable).values({
+          id: customer.id.value,
+          userId: user[0].id,
+          dateOfBirth: customer.dateOfBirth.value.toISOString(),
+          identifyDocumentType: customer.identityDocument
+            .type as string as IdentifyDocumentType,
+          identifyDocumentNumber: customer.identityDocument.number,
+        });
       });
-    });
+    } catch (error) {
+      if (
+        error instanceof Error &&
+        error.message ==
+          'duplicate key value violates unique constraint "users_phone_number_unique"'
+      ) {
+        throw new PhoneNumberAlreadyInUse(customer.phoneNumber.value);
+      }
+
+      throw error;
+    }
   }
 
   async remove(customer: Customer) {
@@ -41,13 +56,13 @@ export class DrizzleCustomerRepository extends CustomerRepository {
     });
   }
 
-  async search(id: string): Promise<Customer | null> {
+  async search(id: CustomerId): Promise<Customer | null> {
     const query = await db
       .select()
       .from(customersTable)
       .innerJoin(usersTable, eq(usersTable.id, customersTable.userId))
       .orderBy(desc(customersTable.updatedAt))
-      .where(eq(customersTable.id, id));
+      .where(eq(customersTable.id, id.value));
 
     if (query.length === 0) {
       return null;
@@ -77,11 +92,12 @@ export class DrizzleCustomerRepository extends CustomerRepository {
     });
   }
 
-  async searchAll(): Promise<Customer[]> {
+  async searchAll(companyId: CompanyId): Promise<Customer[]> {
     const query = await db
       .select()
       .from(customersTable)
       .innerJoin(usersTable, eq(usersTable.id, customersTable.userId))
+      .where(eq(usersTable.companyId, companyId.value))
       .orderBy(desc(customersTable.updatedAt));
 
     return query.map(({ customers: customer, users: user }) =>

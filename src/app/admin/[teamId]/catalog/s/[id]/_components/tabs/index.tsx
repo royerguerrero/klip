@@ -1,8 +1,8 @@
 "use client";
 
-import { Tab, Tabs } from "@heroui/react";
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Tab, Tabs } from "@heroui/react";
 import InformationTab from "./information";
 import AvailabilityTab from "./availability";
 import PaymentsTab from "./payments";

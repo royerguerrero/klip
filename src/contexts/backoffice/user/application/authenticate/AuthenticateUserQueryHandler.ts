@@ -28,7 +28,7 @@ export class AuthenticateUserQueryHandler
       companyId: result.company.id.value,
       teams: result.company.teams.map((team) => ({
         id: team.id.value,
-        name: "TODO: Get the name",
+        permissions: team.permissions,
       })),
     };
   }

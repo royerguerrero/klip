@@ -94,7 +94,7 @@ export default function CustomersTable({ customers }: Props) {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody items={customers} emptyContent={"Not customers"}>
+      <TableBody items={customers} emptyContent={"Aun no tienes clientes"}>
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (

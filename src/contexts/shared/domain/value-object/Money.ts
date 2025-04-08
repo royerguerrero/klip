@@ -1,12 +1,6 @@
 import { MoneyIsNotValid } from "../errors/MoneyIsNotValid";
 import { ValueObject } from "./ValueObject";
 
-export enum Currencies {
-  COP = "$",
-  USD = "$",
-  EUR = "€",
-}
-
 export class Money implements ValueObject {
   constructor(
     readonly amount: number,

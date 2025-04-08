@@ -5,6 +5,7 @@ import { auth } from "@/app/auth";
 import { EditCustomerCommand } from "@/contexts/backoffice/customer/application/edit/EditCustomerCommand";
 import { RegisterCustomerCommand } from "@/contexts/backoffice/customer/application/register/RegisterCustomerCommand";
 import { CustomerId } from "@/contexts/backoffice/customer/domain/CustomerId";
+import { PhoneNumberAlreadyInUse } from "@/contexts/shared/domain/errors/PhoneNumberAlreadyInUse";
 import { PhoneNumberIsNotValid } from "@/contexts/shared/domain/errors/PhoneNumberIsNotValid";
 
 export async function createCustomer(formData: FormData) {
@@ -27,7 +28,9 @@ export async function createCustomer(formData: FormData) {
   } catch (error) {
     switch (true) {
       case error instanceof PhoneNumberIsNotValid:
-        errors.phoneNumber = "Phone number is not valid";
+        errors.phoneNumber = "El numero de telefono no es valido";
+      case error instanceof PhoneNumberAlreadyInUse:
+        errors.phoneNumber = "El numero de telefono ya esta en uso";
     }
   }
 
