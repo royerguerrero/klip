@@ -2,18 +2,20 @@ import {
   customersTable,
   IdentifyDocumentType,
 } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/customers";
-import { Customer } from "../../../domain/Customer";
-import { CustomerRepository } from "../../../domain/CustomerRepository";
 import { db } from "@/contexts/shared/infrastructure/persistence/drizzle";
 import { eq, desc } from "drizzle-orm";
 import { usersTable } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/user";
-import { CustomerId } from "../../../domain/CustomerId";
 import { CompanyId } from "@/contexts/backoffice/shared/domain/value-object/CompanyId";
 import { PhoneNumberAlreadyInUse } from "@/contexts/shared/domain/errors/PhoneNumberAlreadyInUse";
+import { Customer } from "../../domain/Customer";
+import { CustomerRepository } from "../../domain/CustomerRepository";
+import { CustomerId } from "../../domain/CustomerId";
+import { PhoneNumber } from "@/contexts/shared/domain/value-object/PhoneNumber";
+import { ColombianIdentityDocument } from "../../domain/ColombianIdentityDocument";
 
 export class DrizzleCustomerRepository extends CustomerRepository {
-  async save(customer: Customer) {
-    try {
+
+  async save(customer: Customer): Promise<void> {
       await db.transaction(async (tx) => {
         const user = await tx
           .insert(usersTable)
@@ -34,25 +36,14 @@ export class DrizzleCustomerRepository extends CustomerRepository {
           identifyDocumentNumber: customer.identityDocument.number,
         });
       });
-    } catch (error) {
-      if (
-        error instanceof Error &&
-        error.message ==
-          'duplicate key value violates unique constraint "users_phone_number_unique"'
-      ) {
-        throw new PhoneNumberAlreadyInUse(customer.phoneNumber.value);
-      }
-
-      throw error;
-    }
   }
 
   async remove(customer: Customer) {
     await db.transaction(async (tx) => {
-      await tx.delete(usersTable).where(eq(usersTable.id, customer.id.value));
       await tx
         .delete(customersTable)
         .where(eq(customersTable.id, customer.id.value));
+      await tx.delete(usersTable).where(eq(usersTable.id, customer.id.value));
     });
   }
 
@@ -123,5 +114,32 @@ export class DrizzleCustomerRepository extends CustomerRepository {
             : customer.updatedAt,
       }),
     );
+  }
+
+  async existingUser(
+    id: CustomerId,
+    phoneNumber: PhoneNumber,
+    identityDocument: ColombianIdentityDocument,
+  ): Promise<{ id: boolean; phoneNumber: boolean; identityDocument: boolean }> {
+    const existingCustomerId = await db.query.customersTable.findFirst({
+      where: eq(customersTable.id, id.value),
+    });
+
+    const existingPhoneNumber = await db.query.usersTable.findFirst({
+      where: eq(usersTable.phoneNumber, phoneNumber.value),
+    });
+
+    const existingIdentityDocument = await db.query.customersTable.findFirst({
+      where: and(
+        eq(customersTable.identifyDocumentType, identityDocument.type),
+        eq(customersTable.identifyDocumentNumber, identityDocument.number),
+      ),
+    });
+
+    return {
+      id: !!existingCustomerId,
+      phoneNumber: !!existingPhoneNumber,
+      identityDocument: !!existingIdentityDocument,
+    };
   }
 }

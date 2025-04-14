@@ -14,9 +14,9 @@ import {
   useDisclosure,
 } from "@heroui/modal";
 import { Button, DatePicker, Form, Input } from "@heroui/react";
-import { parseDate } from "@internationalized/date";
+import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { editCustomer } from "../_lib/actions";
 
 type Props = {
@@ -26,17 +26,27 @@ type Props = {
 
 export default function CreateCustomerModal({ trigger, customer }: Props) {
   const router = useRouter();
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
+
+  const [errors, setErrors] = useState({});
 
   const triggerWithHandler = React.cloneElement(trigger, {
     onPress: onOpen,
   });
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    editCustomer(customer.id, data);
-    router.refresh();
+    const errors = await editCustomer(customer.id, data);
+
+    console.log("edit errors >>>", errors);
+
+    if (Object.keys(errors).length === 0) {
+      onClose();
+      router.refresh();
+    } else {
+      setErrors(errors);
+    }
   };
 
   return (
@@ -45,7 +55,11 @@ export default function CreateCustomerModal({ trigger, customer }: Props) {
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur">
         <ModalContent>
           {(onClose) => (
-            <Form onSubmit={onSubmit} validationBehavior="native">
+            <Form
+              onSubmit={onSubmit}
+              validationBehavior="native"
+              validationErrors={errors}
+            >
               <ModalHeader className="flex flex-col gap-1 w-full tracking-tight">
                 Editar Cliente
               </ModalHeader>
@@ -125,6 +139,7 @@ export default function CreateCustomerModal({ trigger, customer }: Props) {
                   defaultValue={parseDate(
                     customer.dateOfBirth.toISOString().split("T")[0],
                   )}
+                  maxValue={today(getLocalTimeZone()).subtract({years: 13})}
                 />
               </ModalBody>
               <ModalFooter className="w-full">
@@ -135,7 +150,7 @@ export default function CreateCustomerModal({ trigger, customer }: Props) {
                   className="text-sm tracking-tight font-medium"
                   onPress={onClose}
                 >
-                  Close
+                  Cerrar
                 </Button>
                 <Button
                   color="primary"
@@ -143,9 +158,8 @@ export default function CreateCustomerModal({ trigger, customer }: Props) {
                   size="sm"
                   className="text-sm tracking-tight font-medium"
                   type="submit"
-                  onPress={onClose}
                 >
-                  Save
+                  Guardar
                 </Button>
               </ModalFooter>
             </Form>

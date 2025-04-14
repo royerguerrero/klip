@@ -4,7 +4,7 @@ import { CaretRight } from "@phosphor-icons/react/dist/ssr";
 
 export default function Header() {
   return (
-    <header className="w-full border-x border-netural-100 flex p-4 items-center justify-between max-w-[1200px] m-auto">
+    <header className="w-full flex p-4 items-center justify-between max-w-[1240px] m-auto">
       <div className="flex gap-8">
         <Image src="./klip-icon.svg" width={32} height={32} alt="Klip Logo" />
         <nav className="flex gap-6">

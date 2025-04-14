@@ -10,7 +10,6 @@ import {
 } from "@heroui/modal";
 import { Button, DatePicker, Input } from "@heroui/react";
 import { Form } from "@heroui/form";
-
 import { useRouter } from "next/navigation";
 import { createCustomer } from "../_lib/actions";
 import {
@@ -18,10 +17,11 @@ import {
   PhonePrefixes,
 } from "@/app/admin/_lib/constants";
 import { useState } from "react";
+import { getLocalTimeZone, today } from "@internationalized/date";
 
 export default function CreateCustomerModal() {
   const router = useRouter();
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
 
   const [errors, setErrors] = useState({});
 
@@ -30,7 +30,8 @@ export default function CreateCustomerModal() {
     const data = new FormData(e.currentTarget);
     const errors = await createCustomer(data);
 
-    if (!errors) {
+    if (Object.keys(errors).length === 0) {
+      onClose();
       router.refresh();
     } else {
       setErrors(errors);
@@ -56,7 +57,7 @@ export default function CreateCustomerModal() {
               validationBehavior="native"
               validationErrors={errors}
             >
-              <ModalHeader className="flex flex-col gap-1 w-full tracking-tight">
+              <ModalHeader className="tracking-tight">
                 Añadir Cliente
               </ModalHeader>
               <ModalBody className="w-full">
@@ -128,6 +129,7 @@ export default function CreateCustomerModal() {
                   label="Fecha de Nacimiento"
                   isRequired
                   size="sm"
+                  maxValue={today(getLocalTimeZone()).subtract({years: 13})}
                 />
               </ModalBody>
               <ModalFooter className="w-full">

@@ -12,7 +12,7 @@ export class EditCustomerCommandHandler
   }
 
   async handle(command: EditCustomerCommand): Promise<void> {
-    this.editor.edit({
+    await this.editor.edit({
       id: command.id,
       firstName: command.firstName,
       lastName: command.lastName,

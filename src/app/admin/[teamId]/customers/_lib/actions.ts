@@ -38,18 +38,32 @@ export async function createCustomer(formData: FormData) {
 }
 
 export async function editCustomer(customerId: string, formData: FormData) {
+  const errors: { [key: string]: string } = {};
   const session = await auth();
-  if (!session?.user) return null;
+  if (!session?.user) return { errors };
 
-  const command = new EditCustomerCommand(
-    customerId,
-    formData.get("firstName") as string,
-    formData.get("lastName") as string,
-    formData.get("dob") as string,
-    formData.get("identityDocumentType") as string,
-    formData.get("identityDocumentNumber") as string,
-    `${formData.get("prefix")} ${formData.get("phoneNumber")}`,
-    session.user.companyId,
-  );
-  await bootstrap.commandBus.dispatch(command);
+  try {
+    const command = new EditCustomerCommand(
+      customerId,
+      formData.get("firstName") as string,
+      formData.get("lastName") as string,
+      formData.get("dob") as string,
+      formData.get("identityDocumentType") as string,
+      formData.get("identityDocumentNumber") as string,
+      `${formData.get("prefix")} ${formData.get("phoneNumber")}`,
+      session.user.companyId,
+    );
+    await bootstrap.commandBus.dispatch(command);
+  } catch (error) {
+    switch (true) {
+      case error instanceof PhoneNumberIsNotValid:
+        errors.phoneNumber = "El numero de telefono no es valido";
+      case error instanceof PhoneNumberAlreadyInUse:
+        errors.phoneNumber = "El numero de telefono ya esta en uso";
+    }
+  }
+
+  console.log("editCustomer errors >>>>", errors);
+
+  return errors;
 }
