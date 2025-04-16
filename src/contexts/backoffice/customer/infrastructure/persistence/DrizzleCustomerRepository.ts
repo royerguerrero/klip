@@ -3,10 +3,9 @@ import {
   IdentifyDocumentType,
 } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/customers";
 import { db } from "@/contexts/shared/infrastructure/persistence/drizzle";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, or } from "drizzle-orm";
 import { usersTable } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/user";
 import { CompanyId } from "@/contexts/backoffice/shared/domain/value-object/CompanyId";
-import { PhoneNumberAlreadyInUse } from "@/contexts/shared/domain/errors/PhoneNumberAlreadyInUse";
 import { Customer } from "../../domain/Customer";
 import { CustomerRepository } from "../../domain/CustomerRepository";
 import { CustomerId } from "../../domain/CustomerId";
@@ -14,36 +13,35 @@ import { PhoneNumber } from "@/contexts/shared/domain/value-object/PhoneNumber";
 import { ColombianIdentityDocument } from "../../domain/ColombianIdentityDocument";
 
 export class DrizzleCustomerRepository extends CustomerRepository {
-
   async save(customer: Customer): Promise<void> {
-      await db.transaction(async (tx) => {
-        const user = await tx
-          .insert(usersTable)
-          .values({
-            firstName: customer.firstName,
-            lastName: customer.lastName,
-            phoneNumber: customer.phoneNumber.value,
-            companyId: customer.companyId.value,
-          })
-          .returning({ id: usersTable.id });
+    await db.transaction(async (tx) => {
+      const user = await tx
+        .insert(usersTable)
+        .values({
+          firstName: customer.firstName,
+          lastName: customer.lastName,
+          phoneNumber: customer.phoneNumber.value,
+          companyId: customer.companyId.value,
+        })
+        .returning({ id: usersTable.id });
 
-        await tx.insert(customersTable).values({
-          id: customer.id.value,
-          userId: user[0].id,
-          dateOfBirth: customer.dateOfBirth.value.toISOString(),
-          identifyDocumentType: customer.identityDocument
-            .type as string as IdentifyDocumentType,
-          identifyDocumentNumber: customer.identityDocument.number,
-        });
+      await tx.insert(customersTable).values({
+        id: customer.id.value,
+        userId: user[0].id,
+        dateOfBirth: customer.dateOfBirth.value.toISOString(),
+        identifyDocumentType: customer.identityDocument
+          .type as string as IdentifyDocumentType,
+        identifyDocumentNumber: customer.identityDocument.number,
       });
+    });
   }
 
   async remove(customer: Customer) {
     await db.transaction(async (tx) => {
-      await tx
+      const deletedCustomer = await tx
         .delete(customersTable)
-        .where(eq(customersTable.id, customer.id.value));
-      await tx.delete(usersTable).where(eq(usersTable.id, customer.id.value));
+        .where(eq(customersTable.id, customer.id.value)).returning();
+      await tx.delete(usersTable).where(eq(usersTable.id, deletedCustomer[0].userId));
     });
   }
 
@@ -112,34 +110,34 @@ export class DrizzleCustomerRepository extends CustomerRepository {
           user.updatedAt > customer.updatedAt
             ? user.updatedAt
             : customer.updatedAt,
-      }),
+      })
     );
   }
 
-  async existingUser(
+  async exists(
     id: CustomerId,
     phoneNumber: PhoneNumber,
-    identityDocument: ColombianIdentityDocument,
+    identityDocument: ColombianIdentityDocument
   ): Promise<{ id: boolean; phoneNumber: boolean; identityDocument: boolean }> {
-    const existingCustomerId = await db.query.customersTable.findFirst({
-      where: eq(customersTable.id, id.value),
-    });
-
-    const existingPhoneNumber = await db.query.usersTable.findFirst({
-      where: eq(usersTable.phoneNumber, phoneNumber.value),
-    });
-
-    const existingIdentityDocument = await db.query.customersTable.findFirst({
-      where: and(
-        eq(customersTable.identifyDocumentType, identityDocument.type),
-        eq(customersTable.identifyDocumentNumber, identityDocument.number),
-      ),
-    });
+    const query = await db
+      .select()
+      .from(customersTable)
+      .innerJoin(usersTable, eq(usersTable.id, customersTable.userId))
+      .where(
+        or(
+          eq(customersTable.id, id.value),
+          eq(usersTable.phoneNumber, phoneNumber.value),
+          eq(customersTable.identifyDocumentType, identityDocument.type as string as IdentifyDocumentType)
+        )
+      );
 
     return {
-      id: !!existingCustomerId,
-      phoneNumber: !!existingPhoneNumber,
-      identityDocument: !!existingIdentityDocument,
+      id: query.some(row => row.customers.id === id.value),
+      phoneNumber: query.some(row => row.users.phoneNumber === phoneNumber.value),
+      identityDocument: query.some(row =>
+        row.customers.identifyDocumentType === identityDocument.type as string as IdentifyDocumentType &&
+        row.customers.identifyDocumentNumber === identityDocument.number
+      )
     };
   }
 }

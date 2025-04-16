@@ -10,7 +10,7 @@ export abstract class CustomerRepository extends Repository {
   abstract remove(customer: Customer): void;
   abstract search(id: CustomerId): Promise<Customer | null>;
   abstract searchAll(companyId: CompanyId): Promise<Customer[]>;
-  abstract existingUser(
+  abstract exists(
     id: CustomerId,
     phoneNumber: PhoneNumber,
     identityDocument: ColombianIdentityDocument,

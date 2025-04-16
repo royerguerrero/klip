@@ -13,6 +13,14 @@ export class ColombianIdentityDocument implements ValueObject {
     readonly number: string,
   ) {}
 
+  equals(identityDocument: ColombianIdentityDocument): boolean {
+    return this.type === identityDocument.type && this.number === identityDocument.number;
+  }
+
+  notEquals(identityDocument: ColombianIdentityDocument): boolean {
+    return !this.equals(identityDocument);
+  }
+
   toString(): string {
     return `${this.type} ${this.number}`;
   }

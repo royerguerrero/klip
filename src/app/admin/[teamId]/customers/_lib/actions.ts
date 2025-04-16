@@ -7,6 +7,7 @@ import { RegisterCustomerCommand } from "@/contexts/backoffice/customer/applicat
 import { CustomerId } from "@/contexts/backoffice/customer/domain/CustomerId";
 import { PhoneNumberAlreadyInUse } from "@/contexts/shared/domain/errors/PhoneNumberAlreadyInUse";
 import { PhoneNumberIsNotValid } from "@/contexts/shared/domain/errors/PhoneNumberIsNotValid";
+import { CustomerIdentityDocumentAlreadyExists } from "@/contexts/backoffice/customer/domain/errors/CustomerIdentityDocumentAlreadyExists";
 
 export async function createCustomer(formData: FormData) {
   const errors: { [key: string]: string } = {};
@@ -28,9 +29,16 @@ export async function createCustomer(formData: FormData) {
   } catch (error) {
     switch (true) {
       case error instanceof PhoneNumberIsNotValid:
-        errors.phoneNumber = "El numero de telefono no es valido";
+        errors.phoneNumber = "El numero de teléfono no es valido";
+        break;
       case error instanceof PhoneNumberAlreadyInUse:
-        errors.phoneNumber = "El numero de telefono ya esta en uso";
+        errors.phoneNumber = "El numero de teléfono ya esta en uso";
+        break;
+      case error instanceof CustomerIdentityDocumentAlreadyExists:
+        errors.identityDocumentNumber = "El numero de documento ya esta en uso";
+        break;
+      default:
+        throw error;
     }
   }
 
@@ -57,9 +65,16 @@ export async function editCustomer(customerId: string, formData: FormData) {
   } catch (error) {
     switch (true) {
       case error instanceof PhoneNumberIsNotValid:
-        errors.phoneNumber = "El numero de telefono no es valido";
+        errors.phoneNumber = "El numero de teléfono no es valido";
+        break;
       case error instanceof PhoneNumberAlreadyInUse:
-        errors.phoneNumber = "El numero de telefono ya esta en uso";
+        errors.phoneNumber = "El numero de teléfono ya esta en uso";
+        break;
+      case error instanceof CustomerIdentityDocumentAlreadyExists:
+        errors.identityDocumentNumber = "El numero de documento ya esta en uso";
+        break;
+      default:
+        throw error;
     }
   }
 

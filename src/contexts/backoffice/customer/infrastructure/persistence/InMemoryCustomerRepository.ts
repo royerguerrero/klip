@@ -26,7 +26,7 @@ export class InMemoryCustomerRepository extends CustomerRepository {
     );
   }
 
-  async existingUser(
+  async exists(
     id: CustomerId,
     phoneNumber: PhoneNumber,
     identityDocument: ColombianIdentityDocument,

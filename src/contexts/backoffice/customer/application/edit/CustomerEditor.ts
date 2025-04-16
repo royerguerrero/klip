@@ -9,6 +9,9 @@ import { CustomerRepository } from "../../domain/CustomerRepository";
 import { CustomerId } from "../../domain/CustomerId";
 import { CompanyId } from "@/contexts/backoffice/company/domain/CompanyId";
 import { CustomerDoesNotExits } from "../../domain/errors/CustomerDoesNotExists";
+import { CustomerIdAlreadyExists } from "../../domain/errors/CustomerIdAlreadyExists";
+import { CustomerIdentityDocumentAlreadyExists } from "../../domain/errors/CustomerIdentityDocumentAlreadyExists";
+import { PhoneNumberAlreadyInUse } from "@/contexts/shared/domain/errors/PhoneNumberAlreadyInUse";
 
 export class CustomerEditor {
   constructor(private repository: CustomerRepository) {}
@@ -43,7 +46,25 @@ export class CustomerEditor {
       new CompanyId(params.companyId),
     );
 
-    this.repository.remove(customer);
-    this.repository.save(newCustomer);
+    const exist = await this.repository.exists(
+      newCustomer.id,
+      newCustomer.phoneNumber,
+      newCustomer.identityDocument,
+    );
+
+    if (exist.id && customer.id.notEquals(newCustomer.id)) {
+      throw new CustomerIdAlreadyExists(params.id);
+    }
+
+    if (exist.identityDocument && customer.identityDocument.notEquals(newCustomer.identityDocument)) {
+      throw new CustomerIdentityDocumentAlreadyExists(params.identityDocumentNumber);
+    }
+
+    if (exist.phoneNumber && customer.phoneNumber.notEquals(newCustomer.phoneNumber)) {
+      throw new PhoneNumberAlreadyInUse(params.phoneNumber);
+    }
+
+    await this.repository.remove(customer);
+    await this.repository.save(newCustomer);
   }
 }

@@ -15,6 +15,14 @@ export class PhoneNumber implements ValueObject {
     return this.value.split(" ")[1];
   }
 
+  equals(phoneNumber: PhoneNumber): boolean {
+    return this.value === phoneNumber.value;
+  }
+
+  notEquals(phoneNumber: PhoneNumber): boolean {
+    return !this.equals(phoneNumber);
+  }
+
   private ensureIsValidPhoneNumber() {
     const phoneNumberRegex = /^\+[1-9]{1,3}\s\d{1,14}$/;
     if (!phoneNumberRegex.test(this.value)) {

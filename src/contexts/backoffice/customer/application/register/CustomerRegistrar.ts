@@ -39,21 +39,23 @@ export class CustomerRegistrar {
       new CompanyId(params.companyId),
     );
 
-    const existingUser = await this.repository.existingUser(
+    const exists = await this.repository.exists(
       customer.id,
       customer.phoneNumber,
       customer.identityDocument,
     );
 
-    if (existingUser.id) {
+    console.log(exists);
+
+    if (exists.id) {
       throw new CustomerIdAlreadyExists(customer.id.value);
     }
 
-    if (existingUser.identityDocument) {
+    if (exists.identityDocument) {
       throw new CustomerIdentityDocumentAlreadyExists(customer.identityDocument.number);
     }
 
-    if (existingUser.phoneNumber) {
+    if (exists.phoneNumber) {
       throw new PhoneNumberAlreadyInUse(customer.phoneNumber.value);
     }
 

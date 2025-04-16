@@ -39,8 +39,6 @@ export default function CreateCustomerModal({ trigger, customer }: Props) {
     const data = new FormData(e.currentTarget);
     const errors = await editCustomer(customer.id, data);
 
-    console.log("edit errors >>>", errors);
-
     if (Object.keys(errors).length === 0) {
       onClose();
       router.refresh();
