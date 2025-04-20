@@ -10,6 +10,7 @@ export class RegisterUserCommand implements Command {
     readonly company: {
       id: string;
       teams: {
+        name: string;
         id: string;
         permissions: string[];
       }[];

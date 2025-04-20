@@ -25,6 +25,7 @@ export class User extends AggregateRoot {
       id: string;
       teams: {
         id: string;
+        name: string;
         permissions: string[];
       }[];
     };

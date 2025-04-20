@@ -45,8 +45,6 @@ export class CustomerRegistrar {
       customer.identityDocument,
     );
 
-    console.log(exists);
-
     if (exists.id) {
       throw new CustomerIdAlreadyExists(customer.id.value);
     }

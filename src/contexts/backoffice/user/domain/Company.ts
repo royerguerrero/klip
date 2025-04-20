@@ -19,7 +19,7 @@ export class Company extends Entity {
 
   static fromPrimitives(primitives: {
     id: string;
-    teams: { id: string; permissions: string[] }[];
+    teams: { id: string; name: string; permissions: string[] }[];
   }) {
     return new Company(
       new CompanyId(primitives.id),

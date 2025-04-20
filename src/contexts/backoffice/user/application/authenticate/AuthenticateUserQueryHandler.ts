@@ -26,10 +26,7 @@ export class AuthenticateUserQueryHandler
       id: result.id.value,
       email: result.email.value,
       companyId: result.company.id.value,
-      teams: result.company.teams.map((team) => ({
-        id: team.id.value,
-        permissions: team.permissions,
-      })),
+      teams: result.company.teams.map((team) => (team.toPrimitives())),
     };
   }
 }

@@ -4,6 +4,7 @@ export interface AuthenticateUserQueryResponse {
   companyId: string;
   teams: {
     id: string;
+    name: string;
     permissions: string[];
   }[];
 }

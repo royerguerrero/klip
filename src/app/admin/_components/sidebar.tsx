@@ -4,6 +4,7 @@ import { Button } from "@heroui/react";
 import {
   CalendarDots,
   CardsThree,
+  CaretUpDown,
   GearSix,
   HouseLine,
   UsersThree,
@@ -68,19 +69,12 @@ export default function Sidebar() {
         ))}
       </nav>
       <div>
-        {/* <div className="border rounded-xl mb-2 p-2 bg-neutral-50 flex gap-2 items-center relative">
-          <Avatar
-            classNames={{
-              base: "bg-neutral-200 rounded-xl w-9 h-9",
-              icon: "text-neutral-400",
-            }}
-            icon={<Buildings size={18} weight="fill" />}
-          />
-          <div className="font-semibold tracking-tight text-sm flex flex-col">
-            <span>Transversal 91</span>
-            <span className="text-neutral-400 leading-none">10 Miembros</span>
-          </div>
-        </div> */}
+        <div className="border rounded-xl mb-2 p-2 bg-neutral-50 flex gap-2 items-center justify-between relative">
+          <span className="font-semibold tracking-tight text-sm">
+            {activeTeam.name}
+          </span>
+          <CaretUpDown size={16} className="text-neutral-400" />
+        </div>
         <Link href="/admin/settings/company">
           <Button
             className="w-full font-semibold tracking-tight justify-start p-1"

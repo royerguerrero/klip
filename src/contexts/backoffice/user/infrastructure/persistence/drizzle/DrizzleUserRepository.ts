@@ -37,7 +37,7 @@ export class DrizzleUserRepository implements UserRepository {
       .innerJoin(teamsTable, eq(teamMembersTable.teamId, teamsTable.id))
       .where(eq(teamMembersTable.userId, user.id));
 
-    console.log(teams);
+    console.log("teams >>>>", teams);
 
     return User.fromPrimitives({
       id: user.id.toString(),

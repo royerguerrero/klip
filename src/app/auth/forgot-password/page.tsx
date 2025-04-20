@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Image from "next/image";
-import LoginForm from "./_components/forms/login";
 import Link from "next/link";
+import ResetPasswordForm from "./_components/forms/reset-password";
 
 export default async function Page() {
   return (
@@ -16,17 +16,17 @@ export default async function Page() {
               alt="Klip Logo"
             />
             <h1 className="text-xl font-semibold tracking-tight">
-              Ingresa a Klip
+              Olvidaste tu contraseña
             </h1>
             <p className="text-neutral-400 text-center text-sm">
-              Bienvenido a Klip. Inicia session para continuar
+              Ingresa tu correo electrónico para recibir un enlace de restablecimiento de contraseña.
             </p>
           </div>
           <Suspense>
-            <LoginForm />
+            <ResetPasswordForm />
           </Suspense>
           <div className="text-xs text-neutral-400 text-center font-medium flex justify-between">
-            <Link href="/auth/forgot-password">¿Olvidaste tu contraseña?</Link>
+            <Link href="/auth/login">Iniciar sesión</Link>
             <Link href="">Soporte</Link>
           </div>
         </div>

@@ -25,3 +25,7 @@ export async function authenticateUser(
 export async function deauthenticate() {
   await signOut({ redirectTo: "/" });
 }
+
+export async function resetPasswordWithEmailCode(formData: FormData) {
+  return formData;
+}

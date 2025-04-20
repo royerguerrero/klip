@@ -59,7 +59,7 @@ export default function CustomersTable({ customers }: Props) {
           );
       }
     },
-    [],
+    []
   );
 
   return (
@@ -69,6 +69,7 @@ export default function CustomersTable({ customers }: Props) {
       shadow="none"
       classNames={{
         wrapper: "bg-neutral-100 p-2",
+        th: "h-6",
         td: [
           // changing the rows border radius
           "bg-white",

@@ -23,7 +23,7 @@ export default async function Layout({ children }: Props) {
       <TeamContextProvider teamsData={teams}>
         <div className="flex h-[93vh] bg-neutral-50">
           <Sidebar />
-          <main className="w-full">{children}</main>
+          <main className="w-full overflow-y-auto relative">{children}</main>
         </div>
       </TeamContextProvider>
     </div>

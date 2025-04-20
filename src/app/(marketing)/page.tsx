@@ -11,9 +11,11 @@ import {
 
 export default function Home() {
   return (
-    <div className="bg-sky-50">
+    <div className="bg-sky-50/50">
       <span className="fixed w-full max-w-[1240px] left-1/2 -translate-x-1/2 h-full border-x border-neutral-200"></span>
-      <Header />
+      <div className="border-b">
+        <Header />
+      </div>
       <div className="max-w-[1200px] mx-auto">
         <section className="mt-40 mb-20 flex flex-col gap-6 items-center justify-center text-center">
           <h1 className="text-5xl tracking-tighter font-semibold w-5/6">

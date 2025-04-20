@@ -18,25 +18,25 @@ console.log("Klip Playground - Type Typescript commands here");
 
 const bootstrap = new Bootstrap([new UserRegistry(), new ServiceRegistry()]);
 
-const createUser = async () => {
-  const cmd = new RegisterUserCommand(
-    UserId.nextId().value,
-    "Royer",
-    "Guerrero",
-    "royer.guerrero@klip.is",
-    "password123",
-    {
-      id: "4d592af9-5f65-4638-9e72-48a51bbba77d",
-      teams: [
-        {
-          id: "4d592af9-5f65-4638-9e72-48a51bbba77d",
-          permissions: [],
-        },
-      ],
-    },
-  );
-  await bootstrap.commandBus.dispatch(cmd);
-};
+// const createUser = async () => {
+//   const cmd = new RegisterUserCommand(
+//     UserId.nextId().value,
+//     "Royer",
+//     "Guerrero",
+//     "royer.guerrero@klip.is",
+//     "password123",
+//     {
+//       id: "4d592af9-5f65-4638-9e72-48a51bbba77d",
+//       teams: [
+//         {
+//           id: "4d592af9-5f65-4638-9e72-48a51bbba77d",
+//           permissions: [],
+//         },
+//       ],
+//     },
+//   );
+//   await bootstrap.commandBus.dispatch(cmd);
+// };
 
 const createAcademiaPatryRitchyOnboarding = async () => {
   const onboarding = {
@@ -354,11 +354,11 @@ const createAcademiaPatryRitchyServices = async () => {
 
 // createUser();
 
-(async () => {
-  const repo = new DrizzleUserRepository();
-  const user = await repo.getByEmail(new Email("royer.guerrero@klip.is"));
-  console.log(user);
-})();
+// (async () => {
+//   const repo = new DrizzleUserRepository();
+//   const user = await repo.getByEmail(new Email("royer.guerrero@klip.is"));
+//   console.log(user);
+// })();
 
 rl.prompt();
 rl.on("line", async (line) => {
