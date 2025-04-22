@@ -5,7 +5,7 @@ import Link from "next/link";
 import env from "@/contexts/shared/infrastructure/persistence/drizzle/env";
 
 export default async function Page() {
-  console.log(env);
+  throw new Error(env.DATABASE_URL);
   return (
     <div className="h-dvh grid items-center">
       <section className="border bg-neutral-100 rounded-xl p-1 w-96 m-auto">
