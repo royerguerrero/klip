@@ -19,7 +19,7 @@ export default async function Page() {
               Olvidaste tu contraseña
             </h1>
             <p className="text-neutral-400 text-center text-sm">
-              Ingresa tu correo electrónico para recibir un enlace de restablecimiento de contraseña.
+              Restablece el acceso a tu cuenta con un código enviado a tu correo electrónico
             </p>
           </div>
           <Suspense>
@@ -32,7 +32,10 @@ export default async function Page() {
         </div>
         <p className="text-xs text-neutral-400 text-center font-medium py-1 leading-none pt-2">
           ¿Aun no tienes una cuenta?
-          <Link href="/auth/onboarding" className="mx-1 text-neutral-600 font-semibold">
+          <Link
+            href="/auth/onboarding"
+            className="mx-1 text-neutral-600 font-semibold"
+          >
             Registrase
           </Link>
         </p>

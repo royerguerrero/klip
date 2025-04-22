@@ -8,9 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Klip | Organiza tus agendamientos, finanzas y clientes",
-  description:
-    "Klip es una plataforma para organizar tus agendamientos, pagos y clientes de manera sencilla y eficiente.",
+  title: "Klip",
 };
 
 export default function RootLayout({

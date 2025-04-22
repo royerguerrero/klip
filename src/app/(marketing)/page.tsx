@@ -8,6 +8,13 @@ import {
   UsersThree,
   Wallet,
 } from "@phosphor-icons/react/dist/ssr";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Klip | Organiza tus agendamientos, finanzas y clientes",
+  description:
+    "Klip es una plataforma para organizar tus agendamientos, pagos y clientes de manera sencilla y eficiente.",
+};
 
 export default function Home() {
   return (

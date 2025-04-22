@@ -50,7 +50,9 @@ export default function AgendaResume({ events }: AgendaResumeProps) {
                     ? `${Math.floor(
                         (events[0].date.getTime() - Date.now()) /
                           (60 * 60 * 1000)
-                      )} horas`
+                      )} horas y ${Math.floor(
+                        ((events[0].date.getTime() - Date.now()) % (60 * 60 * 1000)) / 60000
+                      )} minutos`
                     : `${Math.floor(
                         (events[0].date.getTime() - Date.now()) / 60000
                       )} minutos`}
