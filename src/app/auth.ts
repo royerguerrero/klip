@@ -31,7 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           const query = new AuthenticateUserQuery(
             credentials.email as string,
-            credentials.password as string,
+            credentials.password as string
           );
           const user =
             await bootstrap.queryBus.ask<AuthenticateUserQueryResponse>(query);
@@ -40,6 +40,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (error instanceof InvalidCredentials) {
             return null;
           }
+
+          throw error;
         }
 
         return null;
