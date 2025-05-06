@@ -2,8 +2,10 @@ import { Suspense } from "react";
 import Image from "next/image";
 import LoginForm from "./_components/forms/login";
 import Link from "next/link";
+import env from "@/contexts/shared/infrastructure/persistence/drizzle/env";
 
 export default async function Page() {
+  throw new Error(env.DATABASE_URL);
   return (
     <div className="h-dvh grid items-center">
       <section className="border bg-neutral-100 rounded-xl p-1 w-96 m-auto">
@@ -32,7 +34,10 @@ export default async function Page() {
         </div>
         <p className="text-xs text-neutral-400 text-center font-medium py-1 leading-none pt-2">
           ¿Aun no tienes una cuenta?
-          <Link href="/auth/onboarding" className="mx-1 text-neutral-600 font-semibold">
+          <Link
+            href="/auth/onboarding"
+            className="mx-1 text-neutral-600 font-semibold"
+          >
             Registrase
           </Link>
         </p>

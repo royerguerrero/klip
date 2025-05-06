@@ -20,6 +20,13 @@ export class Authenticator {
       throw new InvalidCredentials();
     }
 
+    console.log("user >>>", user);
+    console.log("params.password >>>", params.password);
+    console.log(
+      "this.passwordHasher >>>",
+      this.passwordHasher.compare(params.password, user.password)
+    );
+
     if (!this.passwordHasher.compare(params.password, user.password)) {
       throw new InvalidCredentials();
     }
