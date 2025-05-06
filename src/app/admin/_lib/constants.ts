@@ -3,8 +3,8 @@ export const PhonePrefixes = {
 };
 
 export const ColombianDocumentTypes = {
-  TI: "TI",
-  CC: "CC",
-  PP: "PP",
-  PPT: "PPT",
+  TI: "Tarjeta de Identidad",
+  CC: "Cédula de Ciudadanía",
+  CE: "Cédula de Extranjería",
+  PPT: "Pasaporte",
 };

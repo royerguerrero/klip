@@ -1,66 +1,61 @@
 "use client";
 
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useTeamContext } from "@/app/admin/_contexts/team";
 import { Tab, Tabs } from "@heroui/react";
-import InformationTab from "./information";
-import AvailabilityTab from "./availability";
-import PaymentsTab from "./payments";
-import OnboardingTab from "./onboarding";
-import ProvidersTab from "./providers";
+import { usePathname } from "next/navigation";
 
-export default function ServiceDetailTabs() {
+type Props = {
+  serviceId: string;
+};
+
+export default function ServiceDetailTabs({ serviceId }: Props) {
+  const pathname = usePathname();
+  const { activeTeam } = useTeamContext();
+
   const items = [
     {
-      key: "information",
       title: "Información",
-      content: <InformationTab />,
+      href: `/admin/${activeTeam.id}/catalog/s/${serviceId}`,
     },
     {
-      key: "availability",
       title: "Disponibilidad",
-      content: <AvailabilityTab />,
+      href: `/admin/${activeTeam.id}/catalog/s/${serviceId}/availability`,
     },
     {
-      key: "payments",
       title: "Pagos",
-      content: <PaymentsTab />,
+      href: `/admin/${activeTeam.id}/catalog/s/${serviceId}/payments`,
     },
     {
-      key: "onboarding",
       title: "Preguntas",
-      content: <OnboardingTab />,
+      href: `/admin/${activeTeam.id}/catalog/s/${serviceId}/onboarding`,
     },
     {
-      key: "providers",
       title: "Proveedores",
-      content: <ProvidersTab />,
+      href: `/admin/${activeTeam.id}/catalog/s/${serviceId}/providers`,
     },
   ];
-
-  const searchParams = useSearchParams();
-  const [selected, setSelected] = useState(
-    searchParams.get("tab") || (items[0].key as string),
-  );
 
   return (
     <Tabs
       aria-label="Tabs Service Detail"
       variant="underlined"
-      className="w-full"
       classNames={{
-        tab: "w-fit",
-        tabList: "border-b pb-0 w-full gap-0",
+        base: "w-full fixed bg-white/70 backdrop-blur",
+        tab: "w-fit font-semibold tracking-tight py-5",
+        tabList:
+          "w-full relative rounded-none p-0 border-b h-fit overflow-y-hidden gap-0",
+        panel: "px-4",
+        cursor: "bg-primary/70",
+        tabContent:
+          "group-data-[selected=true]:text-primary/70 text-neutral-400 py-4",
       }}
       color="primary"
-      selectedKey={selected}
-      onSelectionChange={(key) => setSelected(key as string)}
+      selectedKey={pathname}
     >
       {items.map((item) => (
-        <Tab key={item.key} title={item.title}>
-          {item.content}
-        </Tab>
+        <Tab key={item.href} title={item.title} href={item.href} />
       ))}
+      {pathname}
     </Tabs>
   );
 }

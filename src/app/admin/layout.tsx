@@ -14,14 +14,14 @@ export default async function Layout({ children }: Props) {
   const teams = session?.user.teams as Team[];
 
   return (
-    <div>
+    <div className="h-dvh min-h-dvh flex flex-col relative">
       <header className="p-3 border-b flex justify-between gap-3">
-        <Image src="/klip-icon.svg" width={40} height={40} alt="Klip Logo" />
+        <Image src="/klip-icon.svg" width={36} height={36} alt="Klip Logo" />
         <CommandCenter />
         <UserDropdown />
       </header>
       <TeamContextProvider teamsData={teams}>
-        <div className="flex h-[93vh] bg-neutral-50">
+        <div className="flex h-full bg-neutral-50">
           <Sidebar />
           <main className="w-full overflow-y-auto relative">{children}</main>
         </div>

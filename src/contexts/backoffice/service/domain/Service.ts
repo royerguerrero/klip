@@ -17,7 +17,7 @@ export class Service extends AggregateRoot {
     readonly description: ServiceDescription,
     readonly duration: ServiceDuration,
     // readonly payment: OnetimePayment,
-    readonly availability: unknown,
+    readonly availability: unknown
   ) {
     super();
   }
@@ -60,7 +60,7 @@ export class Service extends AggregateRoot {
       new ServiceTitle(plainData.title),
       new ServiceDescription(plainData.description),
       new ServiceDuration(plainData.duration.unit, plainData.duration.value),
-      null,
+      null
     );
   }
 

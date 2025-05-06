@@ -52,7 +52,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-80 border-r p-3 hidden md:flex flex-col gap-3 justify-between bg-neutral-100">
+    <aside className="w-80 z-40 border-r p-3 hidden md:flex flex-col gap-3 justify-between bg-neutral-100">
       <nav className="flex flex-col gap-0.5">
         {items.map((item) => (
           <Link key={item.href} href={item.href}>

@@ -13,18 +13,36 @@ type Props = {
   params: Promise<{ teamId: string }>;
 };
 
+// Helper function to format duration
+const formatDuration = (duration: { unit: string; value: number }): string => {
+  if (duration.unit === "hours") {
+    return `${duration.value} hr${duration.value !== 1 ? "s" : ""}`;
+  }
+
+  if (duration.unit === "minutes" && duration.value >= 60) {
+    const hours = Math.floor(duration.value / 60);
+    const minutes = duration.value % 60;
+
+    if (minutes === 0) {
+      return `${hours} hr${hours !== 1 ? "s" : ""}`;
+    }
+
+    return `${hours} hr${hours !== 1 ? "s" : ""} ${minutes} min`;
+  }
+
+  return `${duration.value} min`;
+};
+
 export default async function Page({ params }: Props) {
   const team = (await params).teamId;
   const services = await listServices();
-  console.log("catalog >>>", services);
-  console.log(team);
 
   return (
     <>
       <Heading title="Catalogo">
         <ServiceForm />
       </Heading>
-      <div className="flex flex-col md:grid md:grid-cols-3 gap-3 px-3 pt-4">
+      <div className="flex flex-col md:grid md:grid-cols-3 gap-3 px-3">
         {services.map((service) => (
           <Link
             key={service.id}
@@ -58,7 +76,7 @@ export default async function Page({ params }: Props) {
                 variant="flat"
                 startContent={<ClockCountdown size={16} weight="duotone" />}
               >
-                {service.duration.value}
+                {formatDuration(service.duration)}
               </Chip>
             </div>
           </Link>

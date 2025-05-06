@@ -14,10 +14,12 @@ export default function ActivityTabs() {
       classNames={{
         base: "w-full",
         tab: "w-fit font-semibold tracking-tight py-5",
-        tabList: "w-full relative rounded-none p-0 border-b border-divider",
+        tabList:
+          "w-full relative rounded-none p-0 border-b border-divider h-fit overflow-y-hidden gap-0",
         panel: "px-3",
         cursor: "bg-primary/70",
-        tabContent: "group-data-[selected=true]:text-primary/70 text-neutral-400 py-4"
+        tabContent:
+          "group-data-[selected=true]:text-primary/70 text-neutral-400 py-4",
       }}
     >
       <Tab key="transactions" title={"Transacciones"}>

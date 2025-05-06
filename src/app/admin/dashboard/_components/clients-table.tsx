@@ -112,7 +112,10 @@ export default function ClientsTable() {
         {(item) => (
           <TableRow key={item.id}>
             {columns.map((column) => (
-              <TableCell key={column.uid} className="font-medium text-neutral-400">
+              <TableCell
+                key={column.uid}
+                className="font-medium text-neutral-400"
+              >
                 {renderCell(item, column.uid)}
               </TableCell>
             ))}

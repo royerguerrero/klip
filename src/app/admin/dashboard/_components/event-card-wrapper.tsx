@@ -20,7 +20,7 @@ interface EventCardWrapperProps {
 
 export default function EventCardWrapper({ event }: EventCardWrapperProps) {
   return (
-    <div className="flex flex-col gap-1 bg-white p-2 rounded-xl w-[280px] overflow-x-auto pb-2">
+    <div className="flex flex-col gap-1 bg-white p-2 rounded-xl w-[280px] min-w-[280px] overflow-x-auto pb-2">
       <EventCard event={event} />
       <div className="flex justify-between items-center text-xs px-1 text-neutral-400 gap-6 uppercase">
         <p className="text-lime-500 font-semibold">

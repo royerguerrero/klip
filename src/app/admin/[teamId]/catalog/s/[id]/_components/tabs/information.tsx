@@ -137,7 +137,7 @@ export default function InformationTab() {
   };
 
   return (
-    <Form onSubmit={onSubmit} validationBehavior="native" className="p-3">
+    <Form onSubmit={onSubmit} validationBehavior="native">
       <section className="w-full border p-2 flex flex-col gap-2 rounded-xl">
         <div className="grid grid-cols-2 gap-2 w-full">
           <Select
@@ -146,12 +146,18 @@ export default function InformationTab() {
             isRequired
             size="sm"
             defaultSelectedKeys={[service.category.id]}
-            isDisabled
           >
             <SelectSection>
-              {categories.map((category) => (
-                <SelectItem key={category.id}>{category.title}</SelectItem>
-              ))}
+              <>
+                <SelectItem className="p-0" isReadOnly>
+                  <Button variant="flat" color="primary" className="w-full">
+                    Añadir categoría
+                  </Button>
+                </SelectItem>
+                {categories.map((category) => (
+                  <SelectItem key={category.id}>{category.title}</SelectItem>
+                ))}
+              </>
             </SelectSection>
           </Select>
           <Select
@@ -161,7 +167,6 @@ export default function InformationTab() {
             defaultSelectedKeys={
               service.subcategory.id ? [service.subcategory.id] : []
             }
-            isDisabled
           >
             {categories.map((category) => (
               <SelectSection title={category.title} key={category.id}>
@@ -182,7 +187,6 @@ export default function InformationTab() {
           defaultValue={service.title}
           isRequired
           size="sm"
-          isDisabled
         />
         <Textarea
           name="description"
@@ -190,7 +194,6 @@ export default function InformationTab() {
           defaultValue={service.description}
           isRequired
           size="sm"
-          isDisabled
         />
         <NumberInput
           name="duration"
@@ -198,7 +201,6 @@ export default function InformationTab() {
           defaultValue={service.duration}
           min={0}
           isRequired
-          isDisabled
           size="sm"
           endContent={
             <div className="flex items-center">
@@ -230,7 +232,6 @@ export default function InformationTab() {
           size="sm"
           className="gap-0"
           defaultValue={service.fingerprint}
-          isDisabled
           startContent={
             <div className="pointer-events-none flex items-center">
               <span className="text-default-400 text-small whitespace-nowrap">
@@ -255,7 +256,6 @@ export default function InformationTab() {
         >
           <Tab key="one-time" title="Pago unico">
             <NumberInput
-              isDisabled
               name="price"
               label="Precio"
               isRequired
@@ -284,7 +284,6 @@ export default function InformationTab() {
           <Tab key="installments" title="Pago en cuotas">
             <div className="flex flex-col gap-4">
               <NumberInput
-                isDisabled
                 name="installmentPrice"
                 label="Precio total"
                 isRequired
@@ -320,7 +319,6 @@ export default function InformationTab() {
                 getValue={(days) => `${days} Dias`}
                 minValue={1}
                 maxValue={180}
-                isDisabled
                 marks={[
                   { value: 14, label: "Quincenal" },
                   { value: 30, label: "Mensual" },
@@ -338,7 +336,6 @@ export default function InformationTab() {
                 getValue={(installment) => `${installment} Cuotas`}
                 minValue={2}
                 maxValue={48}
-                isDisabled
               />
             </div>
           </Tab>
@@ -350,7 +347,6 @@ export default function InformationTab() {
           variant="flat"
           size="sm"
           startContent={<Storefront size={18} weight="duotone" />}
-          isDisabled
         >
           Transversal 91
         </Button>
@@ -360,7 +356,6 @@ export default function InformationTab() {
           variant="flat"
           size="sm"
           startContent={<MapPinPlus size={18} weight="duotone" />}
-          isDisabled
         >
           Añadir ubicación
         </Button>
