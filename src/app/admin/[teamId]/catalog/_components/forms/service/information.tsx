@@ -9,12 +9,7 @@ import {
   SelectItem,
   Textarea,
   SelectSection,
-  Tabs,
-  Tab,
-  Slider,
 } from "@heroui/react";
-import { CardDetail } from "@/app/admin/_components/card-detail";
-import { ArrowsClockwise } from "@phosphor-icons/react/dist/ssr";
 
 interface Category {
   id: string;

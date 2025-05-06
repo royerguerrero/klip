@@ -34,8 +34,8 @@ const formatDuration = (duration: { unit: string; value: number }): string => {
 };
 
 export default async function Page({ params }: Props) {
-  const team = (await params).teamId;
   const services = await listServices();
+  console.log(params)
 
   return (
     <>

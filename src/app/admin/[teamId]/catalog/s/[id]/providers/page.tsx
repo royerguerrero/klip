@@ -1,6 +1,6 @@
 "use client";
 
-import { Select, SelectItem, Switch, User } from "@heroui/react";
+import { Switch, User } from "@heroui/react";
 import { User as UserIcon } from "@phosphor-icons/react/dist/ssr";
 import Heading from "../_components/heading";
 
@@ -21,10 +21,6 @@ export default function Page() {
       phone: "+54 9 11 3333-4444",
       isEnabled: false,
     },
-  ];
-
-  const permissions = [
-    { key: "can_be_selected", label: "Puede ser seleccionado" },
   ];
 
   return (

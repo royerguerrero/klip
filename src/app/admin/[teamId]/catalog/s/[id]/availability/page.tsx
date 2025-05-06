@@ -1,4 +1,3 @@
-import { Switch } from "@heroui/react";
 import Heading from "../_components/heading";
 import LocationDropdown from "./_component/LocationDropdown";
 
