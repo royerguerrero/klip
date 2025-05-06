@@ -2,10 +2,8 @@ import { Suspense } from "react";
 import Image from "next/image";
 import LoginForm from "./_components/forms/login";
 import Link from "next/link";
-import env from "@/contexts/shared/infrastructure/persistence/drizzle/env";
 
 export default async function Page() {
-  throw new Error(env.DATABASE_URL);
   return (
     <div className="h-dvh grid items-center">
       <section className="border bg-neutral-100 rounded-xl p-1 w-96 m-auto">
