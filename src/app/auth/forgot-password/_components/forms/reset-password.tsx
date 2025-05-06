@@ -12,7 +12,7 @@ import {
 
 export default function ResetPasswordForm() {
   const [errors, setErrors] = useState({});
-  const [successfulGeneratedCode, setSuccessfulGeneratedCode] = useState(true);
+  const [successfulGeneratedCode, setSuccessfulGeneratedCode] = useState(false);
 
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -80,20 +80,12 @@ export default function ResetPasswordForm() {
             isRequired
             type={isVisible ? "text" : "password"}
           />
-          <InputOtp
-            name="code"
-            isRequired
-            size="sm"
-            length={6}
-            description="Ingrese el código de verificación que le enviamos a su correo electrónico"
-            classNames={{
-              wrapper: "rounded-lg bg-default-100 justify-center",
-              segment: "bg-white",
-              description: "text-neutral-500",
-            }}
-          />
           <div className="flex gap-2 items-center justify-center">
-            <InputOtp name="code" isRequired length={6} />
+            <InputOtp
+              name="code"
+              isRequired
+              length={6}
+            />
             <Button variant="flat" radius="sm">
               <ArrowCounterClockwise className="text-xl text-default-400" />
             </Button>
