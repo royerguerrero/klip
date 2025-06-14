@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import Image from "next/image";
 import LoginForm from "./_components/forms/login";
 import Link from "next/link";
-
 export default async function Page() {
   return (
     <div className="h-dvh grid items-center">

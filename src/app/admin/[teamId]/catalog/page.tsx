@@ -1,4 +1,4 @@
-import { Chip } from "@heroui/react";
+import { Button, Chip } from "@heroui/react";
 import Heading from "../../_components/heading";
 import ServiceForm from "./_components/service-form";
 import { listServices } from "./_lib/data";
@@ -35,7 +35,7 @@ const formatDuration = (duration: { unit: string; value: number }): string => {
 
 export default async function Page({ params }: Props) {
   const services = await listServices();
-  console.log(params)
+  console.log(params);
 
   return (
     <>

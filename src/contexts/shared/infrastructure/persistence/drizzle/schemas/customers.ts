@@ -10,7 +10,7 @@ import { usersTable } from "./user";
 
 export const identifyDocumentNumberEnum = pgEnum(
   "identify_document_type_enum",
-  ["TI", "CC", "PP", "PPT"],
+  ["TI", "CC", "PP", "PPT"]
 );
 
 export type IdentifyDocumentType =

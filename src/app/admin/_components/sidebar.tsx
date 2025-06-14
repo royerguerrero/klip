@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
 import {
   CalendarDots,
   CardsThree,
@@ -70,9 +70,17 @@ export default function Sidebar() {
       </nav>
       <div>
         <div className="border rounded-xl mb-2 p-2 bg-neutral-50 flex gap-2 items-center justify-between relative">
-          <span className="font-semibold tracking-tight text-sm">
-            {activeTeam.name}
-          </span>
+          <div className="flex items-center gap-2">
+            <Avatar src="https://github.com/shadcn.png" className="size-9" radius="sm" />
+            <div className="flex flex-col">
+              <span className="font-semibold tracking-tight text-sm">
+                {activeTeam.name}
+              </span>
+              <span className="text-xs text-neutral-500 line-clamp-1 leading-none">
+                Academia Patry Ritchy
+              </span>
+            </div>
+          </div>
           <CaretUpDown size={16} className="text-neutral-400" />
         </div>
         <Link href="/admin/settings/company">

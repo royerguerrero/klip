@@ -81,11 +81,7 @@ export default function ResetPasswordForm() {
             type={isVisible ? "text" : "password"}
           />
           <div className="flex gap-2 items-center justify-center">
-            <InputOtp
-              name="code"
-              isRequired
-              length={6}
-            />
+            <InputOtp name="code" isRequired length={6} />
             <Button variant="flat" radius="sm">
               <ArrowCounterClockwise className="text-xl text-default-400" />
             </Button>
