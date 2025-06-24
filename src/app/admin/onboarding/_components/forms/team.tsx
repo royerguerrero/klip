@@ -13,7 +13,7 @@ import {
 } from "@/app/_components/ui/form";
 import { Input } from "@/app/_components/ui/input";
 import { Button } from "@/app/_components/ui/button";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify-icon/react";
 import { Avatar, AvatarFallback } from "@/app/_components/ui/avatar";
 import { ScrollArea } from "@/app/_components/ui/scroll-area";
 import { useState } from "react";
@@ -170,7 +170,8 @@ export default function TeamForm({ onNext, defaultValues }: TeamFormProps) {
                 >
                   <Icon
                     icon="ph:trash-simple-bold"
-                    className="size-4 text-muted-foreground"
+                    height={16}
+                    className="text-muted-foreground"
                   />
                 </Button>
               </div>

@@ -1,4 +1,4 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify-icon/react";
 import { Button } from "../../_components/ui/button";
 import { Input } from "../../_components/ui/input";
 import Link from "next/link";
@@ -14,11 +14,11 @@ export default function HeroSection() {
         <div className="flex gap-2 max-w-[460px] pt-3">
           <Input placeholder="Correo electrónico" />
           <Button size="lg" variant="primary">
-            Empezar ahora <Icon icon="ph:caret-right-bold" className="size-3" />
+            Empezar ahora <Icon icon="ph:caret-right-bold" height={12} />
           </Button>
         </div>
         <Link href="#pricing" className="flex items-center gap-2">
-          <Icon icon="ph:sparkle-fill" className="size-4 text-amber-500" />
+          <Icon icon="ph:sparkle-fill" height={16} className="text-amber-500" />
           <p className="text-sm text-muted-foreground/80 block">
             Adquiere el plan anual y recibe 2 meses gratis
           </p>

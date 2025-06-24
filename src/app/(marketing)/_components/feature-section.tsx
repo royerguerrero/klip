@@ -1,4 +1,4 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify-icon/react";
 
 interface FeatureSectionProps {
   id: string;
@@ -21,7 +21,7 @@ export default function FeatureSection({
       className="scroll-mt-24 max-w-[1200px] m-auto px-4 w-full"
     >
       <span className={`flex items-center gap-2 font-semibold ${iconColor} uppercase tracking-wide text-sm leading-none`}>
-        <Icon icon={icon} className="size-4" />
+        <Icon icon={icon} height={16} />
         {id.charAt(0).toUpperCase() + id.slice(1)}
       </span>
       <h2 className="text-4xl font-semibold tracking-tight pt-2 text-balance w-5/6">

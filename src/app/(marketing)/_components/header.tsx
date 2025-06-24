@@ -34,7 +34,8 @@ function ListItem({
           {icon && (
             <Icon
               icon={icon}
-              className={`size-4 flex-shrink-0 ${
+              height={16}
+              className={`flex-shrink-0 ${
                 iconClassName || "text-muted-foreground"
               }`}
             />
@@ -189,7 +190,7 @@ export default function Header() {
             <Button variant="ghost" asChild>
               <Link href="/admin/sales">
                 Contactar con ventas{" "}
-                <Icon icon="ph:caret-right" className="size-3" />
+                <Icon icon="ph:caret-right" height={12} />
               </Link>
             </Button>
             <Button variant="secondary" className="font-bold" asChild>

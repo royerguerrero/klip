@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/app/_components/ui/button";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify-icon/react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -59,7 +59,7 @@ function OnboardingContent() {
                 onClick={prevStep}
                 disabled={isFirstStep}
               >
-                <Icon icon="ph:arrow-left-bold" className="size-3" />
+                <Icon icon="ph:arrow-left-bold" height={12} />
               </Button>
               <Link href="/" className="flex items-center gap-2">
                 <Image
@@ -74,7 +74,7 @@ function OnboardingContent() {
               </Link>
               <Button size="icon" className="rounded-full">
                 <Link href="/">
-                  <Icon icon="ph:x-bold" className="size-3" />
+                  <Icon icon="ph:x-bold" height={12} />
                 </Link>
               </Button>
             </div>
@@ -119,7 +119,8 @@ function OnboardingContent() {
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
                   <Icon
                     icon="ph:check-bold"
-                    className="size-8 text-green-600"
+                    height={32}
+                    className="text-green-600"
                   />
                 </div>
                 <div>

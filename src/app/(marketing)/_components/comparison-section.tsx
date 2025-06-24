@@ -1,181 +1,211 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify-icon/react";
 import { Button } from "../../_components/ui/button";
 import Link from "next/link";
 
+// Data constants for better maintainability
+const PAIN_POINTS = [
+  {
+    id: "lost-revenue",
+    text: "Pierdes hasta 40% de citas por no poder agendar fuera de horario. Dinero que se va directo a la competencia",
+  },
+  {
+    id: "customer-frustration",
+    text: "Clientes frustrados cancelan por errores de horario - tu reputación se daña y pierdes referidos valiosos",
+  },
+  {
+    id: "time-waste",
+    text: "3-4 horas diarias perdidas en llamadas y WhatsApp - tiempo que podrías usar para hacer crecer tu negocio",
+  },
+  {
+    id: "double-bookings",
+    text: "Dobles reservas y cancelaciones de última hora te dejan con espacios vacíos y clientes enojados",
+  },
+  {
+    id: "no-insights",
+    text: "Sin datos de clientes no sabes quién repite, qué servicios venden más, ni cuándo volverán - decisiones a ciegas",
+  },
+  {
+    id: "cash-flow-problems",
+    text: "Pagos perdidos y facturas sin cobrar - tu flujo de caja se convierte en un desastre imposible de rastrear",
+  },
+  {
+    id: "team-confusion",
+    text: "Tu equipo trabaja con información desactualizada - errores, confusiones y clientes mal atendidos",
+  },
+  {
+    id: "no-delegation",
+    text: "No puedes delegar porque no tienes visibilidad - tienes que estar presente para todo o arriesgar el caos",
+  },
+] as const;
+
+const BENEFITS = [
+  {
+    id: "delegate-with-control",
+    text: "Delega tareas a tu equipo pero mantén control total - ves cada nueva cita, cliente y pago en tiempo real",
+  },
+  {
+    id: "revenue-visibility",
+    text: "Vista clara del dinero esperado - sabes exactamente cuánto vas a cobrar hoy, esta semana y este mes",
+  },
+  {
+    id: "operational-overview",
+    text: "Resumen completo de operaciones - desde tu celular ves el estado de todo tu negocio de un vistazo",
+  },
+  {
+    id: "team-coordination",
+    text: "Tu equipo trabaja de forma coordinada - todos ven la misma información y evitan conflictos de horario",
+  },
+  {
+    id: "customer-insights",
+    text: "Conoce a cada cliente nuevo al instante - historial, preferencias y valor potencial sin preguntar",
+  },
+  {
+    id: "financial-control",
+    text: "Control financiero sin complicaciones - pagos, facturas y reportes organizados automáticamente",
+  },
+  {
+    id: "growth-focus",
+    text: "Enfócate en hacer crecer tu negocio - las tareas operativas se manejan solas mientras tú vendes más",
+  },
+] as const;
+
+const NAVIGATION_SECTIONS = [
+  {
+    id: "scheduling",
+    href: "#scheduling",
+    title: "Agendamiento",
+    icon: "ph:calendar-blank-fill",
+    color: "text-sky-500",
+    description:
+      "Organiza todos los agendamietos de tu equipo en un solo lugar",
+  },
+  {
+    id: "catalog",
+    href: "#catalog",
+    title: "Catálogo",
+    icon: "ph:cards-three-fill",
+    color: "text-fuchsia-500",
+    description:
+      "Incrementa tus ventas y clientes con un canal de ventas online",
+  },
+  {
+    id: "customers",
+    href: "#customers",
+    title: "Clientes",
+    icon: "ph:users-three-fill",
+    color: "text-rose-500",
+    description:
+      "Obten la informacion de futuros agendamientos y proximos pagos",
+  },
+  {
+    id: "finances",
+    href: "#finances",
+    title: "Finanzas",
+    icon: "ph:wallet-fill",
+    color: "text-lime-500",
+    description:
+      "Las cuentas claras y el chocolate espeso. Recibe pagos y cobra",
+  },
+] as const;
+
+interface ComparisonItemProps {
+  icon: string;
+  text: string;
+  iconColor: string;
+}
+
+function ComparisonItem({ icon, text, iconColor }: ComparisonItemProps) {
+  return (
+    <li className="flex items-start gap-2">
+      <Icon
+        icon={icon}
+        height={16}
+        className={`${iconColor} flex-shrink-0 mt-0.5`}
+        aria-hidden="true"
+      />
+      <span className="leading-tight">{text}</span>
+    </li>
+  );
+}
+
+interface NavigationSectionProps {
+  href: string;
+  title: string;
+  icon: string;
+  color: string;
+  description: string;
+}
+
+function NavigationSection({
+  href,
+  title,
+  icon,
+  color,
+  description,
+}: NavigationSectionProps) {
+  return (
+    <Link
+      href={href}
+      className="flex flex-col gap-1 items-center tracking-tight hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary rounded-lg p-2"
+      aria-label={`Ir a sección de ${title.toLowerCase()}`}
+    >
+      <Icon icon={icon} height={24} className={color} />
+      <h2 className="font-semibold">{title}</h2>
+      <p className="font-medium text-neutral-500 text-sm leading-snug text-center text-balance">
+        {description}
+      </p>
+    </Link>
+  );
+}
+
 export default function ComparisonSection() {
   return (
-    <section className="scroll-mt-24 max-w-[1200px] m-auto px-4 w-full space-y-10">
-      <div className="flex flex-col gap-1 text-center">
-        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-primary">
+    <section
+      className="scroll-mt-24 max-w-[1200px] m-auto px-4 w-full space-y-10"
+      aria-labelledby="comparison-heading"
+    >
+      <header className="flex flex-col gap-1 text-center">
+        <h2
+          id="comparison-heading"
+          className="text-2xl md:text-3xl font-semibold tracking-tight text-primary"
+        >
           Del caos al orden
         </h2>
         <h3 className="text-5xl font-semibold tracking-tight text-balance">
           Transformando tus operaciones
         </h3>
-      </div>
+      </header>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="flex flex-col gap-4 bg-muted/60 p-4 border rounded-xl">
+        <article className="flex flex-col gap-4 bg-muted/60 p-4 border rounded-xl">
           <h3 className="text-xl font-semibold tracking-tight">
             El dolor de la gestión tradicional sin Klip
           </h3>
-          <ul className="flex flex-col gap-3 text-muted-foreground">
-            <li className="flex items-start gap-2">
-              <Icon
+          <ul className="flex flex-col gap-3 text-muted-foreground" role="list">
+            {PAIN_POINTS.map((point) => (
+              <ComparisonItem
+                key={point.id}
                 icon="ph:x-circle-fill"
-                className="size-4 text-neutral-500 flex-shrink-0 mt-0.5"
+                text={point.text}
+                iconColor="text-neutral-500"
               />
-              <span className="leading-tight">
-                Todo en papel o Excel citas y pagos apuntados a mano con
-                alto riesgo de extravío
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Icon
-                icon="ph:x-circle-fill"
-                className="size-4 text-neutral-500 flex-shrink-0 mt-0.5"
-              />
-              <span className="leading-tight">
-                Agendamientos por llamada o WhatsApp provoca errores, dobles
-                reservas y cancelaciones de última hora
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Icon
-                icon="ph:x-circle-fill"
-                className="size-4 text-neutral-500 flex-shrink-0 mt-0.5"
-              />
-              <span className="leading-tight">
-                Catálogo disperso guardado en PDFs, fotos o fichas impresas
-                que quedan obsoletas al instante
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Icon
-                icon="ph:x-circle-fill"
-                className="size-4 text-neutral-500 flex-shrink-0 mt-0.5"
-              />
-              <span className="leading-tight">
-                Gestión manual de pagos facturas impresas y recibos perdidos
-                en montones de papeles
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Icon
-                icon="ph:x-circle-fill"
-                className="size-4 text-neutral-500 flex-shrink-0 mt-0.5"
-              />
-              <span className="leading-tight">
-                Sin historial de clientes imposible saber quién repite, qué
-                servicios prefiere o cuándo volverá
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Icon
-                icon="ph:x-circle-fill"
-                className="size-4 text-neutral-500 flex-shrink-0 mt-0.5"
-              />
-              <span className="leading-tight">
-                Solo en horario de oficina no recibes citas fuera de tus
-                horas de trabajo ni fines de semana
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Icon
-                icon="ph:x-circle-fill"
-                className="size-4 text-neutral-500 flex-shrink-0 mt-0.5"
-              />
-              <span className="leading-tight">
-                Solo en horario de oficina no recibes citas fuera de tus
-                horas de trabajo ni fines de semana
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Icon
-                icon="ph:x-circle-fill"
-                className="size-4 text-neutral-500 flex-shrink-0 mt-0.5"
-              />
-              <span className="leading-tight">
-                Solo en horario de oficina no recibes citas fuera de tus
-                horas de trabajo ni fines de semana
-              </span>
-            </li>
+            ))}
           </ul>
-        </div>
-        <div className="flex flex-col gap-4 bg-muted/60 p-4 border rounded-xl">
+        </article>
+
+        <article className="flex flex-col gap-4 bg-muted/60 p-4 border rounded-xl">
           <h3 className="text-xl font-semibold tracking-tight">
             Todo lo que Klip ofrece a tu negocio
           </h3>
-          <ul className="flex flex-col gap-3 text-muted-foreground">
-            <li className="flex items-start gap-2">
-              <Icon
+          <ul className="flex flex-col gap-3 text-muted-foreground" role="list">
+            {BENEFITS.map((benefit) => (
+              <ComparisonItem
+                key={benefit.id}
                 icon="ph:seal-check-fill"
-                className="size-4 text-green-500 flex-shrink-0 mt-0.5"
+                text={benefit.text}
+                iconColor="text-green-500"
               />
-              <span className="leading-tight">
-                Acceso 24/7 desde donde quieras tu negocio disponible en web
-                y móvil sin interrupciones
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Icon
-                icon="ph:seal-check-fill"
-                className="size-4 text-green-500 flex-shrink-0 mt-0.5"
-              />
-              <span className="leading-tight">
-                Reservas online automáticas los clientes agendan solos y
-                evitas choques de horario
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Icon
-                icon="ph:seal-check-fill"
-                className="size-4 text-green-500 flex-shrink-0 mt-0.5"
-              />
-              <span className="leading-tight">
-                Catálogo siempre actualizado gestiona y muestra tus
-                servicios al instante
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <Icon
-                icon="ph:seal-check-fill"
-                className="size-4 text-green-500 flex-shrink-0 mt-0.5"
-              />
-              <span className="leading-tight">
-                Control de pagos pendientes vincula facturas y recibos sin
-                usar papel
-              </span>
-            </li>
-            <li className="flex items-start gap-3">
-              <Icon
-                icon="ph:seal-check-fill"
-                className="size-4 text-green-500 flex-shrink-0 mt-0.5"
-              />
-              <span className="leading-tight">
-                Perfil completo de cada cliente historial de citas,
-                preferencias y pagos al alcance
-              </span>
-            </li>
-            <li className="flex items-start gap-3">
-              <Icon
-                icon="ph:seal-check-fill"
-                className="size-4 text-green-500 flex-shrink-0 mt-0.5"
-              />
-              <span className="leading-tight">
-                Ahorra tiempo elimina tareas repetitivas y enfócate en hacer
-                crecer tu negocio
-              </span>
-            </li>
-            <li className="flex items-start gap-3">
-              <Icon
-                icon="ph:seal-check-fill"
-                className="size-4 text-green-500 flex-shrink-0 mt-0.5"
-              />
-              <span className="leading-tight">
-                Visibilidad financiera instantánea reportes en tiempo real
-                para tomar mejores decisiones
-              </span>
-            </li>
+            ))}
           </ul>
           <Button
             className="font-semibold text-base mt-3 rounded-lg"
@@ -185,49 +215,29 @@ export default function ComparisonSection() {
           >
             <Link href="admin/signup">
               Empezar ahora
-              <Icon icon="ph:caret-right-bold" className="size-4" />
+              <Icon icon="ph:caret-right-bold" height={16} aria-hidden="true" />
             </Link>
           </Button>
-        </div>
+        </article>
       </div>
-      <nav className="flex justify-center items-center gap-4 mx-auto">
-        <Link
-          href="#scheduling"
-          className="flex flex-col gap-2 bg-sky-50 py-2 px-4 rounded-lg"
-        >
-          <h2 className="flex items-center gap-2 font-semibold text-sky-500 uppercase tracking-wide text-sm leading-none">
-            <Icon icon="ph:calendar-blank-fill" className="size-4" />
-            Agendamiento
-          </h2>
-        </Link>
-        <Link
-          href="#catalog"
-          className="flex flex-col gap-2 bg-fuchsia-50 py-2 px-4 rounded-lg"
-        >
-          <h2 className="flex items-center gap-2 font-semibold text-fuchsia-500 uppercase tracking-wide text-sm leading-none">
-            <Icon icon="ph:cards-three-fill" className="size-4" />
-            Catalogo
-          </h2>
-        </Link>
-        <Link
-          href="#customers"
-          className="flex flex-col gap-2 bg-rose-50 py-2 px-4 rounded-lg"
-        >
-          <h2 className="flex items-center gap-2 font-semibold text-rose-500 uppercase tracking-wide text-sm leading-none">
-            <Icon icon="ph:users-three-fill" className="size-4" />
-            Clientes
-          </h2>
-        </Link>
-        <Link
-          href="#finances"
-          className="flex flex-col gap-2 bg-lime-50 py-2 px-4 rounded-lg"
-        >
-          <h2 className="flex items-center gap-2 font-semibold text-lime-500 uppercase tracking-wide text-sm leading-none">
-            <Icon icon="ph:wallet-fill" className="size-4" />
-            Finanzas
-          </h2>
-        </Link>
+
+      <nav
+        className="flex justify-center items-center gap-4 mx-auto"
+        aria-label="Navegación a secciones principales"
+      >
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
+          {NAVIGATION_SECTIONS.map((section) => (
+            <NavigationSection
+              key={section.id}
+              href={section.href}
+              title={section.title}
+              icon={section.icon}
+              color={section.color}
+              description={section.description}
+            />
+          ))}
+        </div>
       </nav>
     </section>
   );
-} 
+}

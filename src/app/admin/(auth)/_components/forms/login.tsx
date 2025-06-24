@@ -79,13 +79,15 @@ export default function LoginForm() {
                   {passwordVisible ? (
                     <Icon
                       icon="ph:eye"
-                      className="size-5 text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2"
+                      height={20}
+                      className="text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2"
                       onClick={() => setPasswordVisible(!passwordVisible)}
                     />
                   ) : (
                     <Icon
                       icon="ph:eye-closed"
-                      className="size-5 text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2"
+                      height={20}
+                      className="text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2"
                       onClick={() => setPasswordVisible(!passwordVisible)}
                     />
                   )}

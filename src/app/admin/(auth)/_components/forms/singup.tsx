@@ -14,7 +14,7 @@ import {
 import { Input } from "@/app/_components/ui/input";
 import { Button } from "@/app/_components/ui/button";
 import { z } from "zod";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify-icon/react";
 import { useState } from "react";
 
 export default function SignupForm() {
@@ -87,13 +87,15 @@ export default function SignupForm() {
                   {passwordVisible ? (
                     <Icon
                       icon="ph:eye"
-                      className="size-5 text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2"
+                      height={20}
+                      className="text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2"
                       onClick={() => setPasswordVisible(!passwordVisible)}
                     />
                   ) : (
                     <Icon
                       icon="ph:eye-closed"
-                      className="size-5 text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2"
+                      height={20}
+                      className="text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2"
                       onClick={() => setPasswordVisible(!passwordVisible)}
                     />
                   )}

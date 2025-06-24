@@ -1,27 +1,16 @@
 "use client";
 
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify-icon/react";
 import { Button } from "../../_components/ui/button";
 import Link from "next/link";
 import { useState } from "react";
+import { formatPrice } from "@/app/_lib/utils";
 
 export default function PricingSection() {
   const [isAnnual, setIsAnnual] = useState(true);
 
   const monthlyPrice = 199999;
   const annualPrice = 166666;
-  const monthlyTotal = monthlyPrice * 12; // 2,399,988
-  const annualTotal = annualPrice * 12; // 1,999,992
-  const savings = monthlyTotal - annualTotal; // ~400,000
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
 
   return (
     <section
@@ -116,7 +105,12 @@ export default function PricingSection() {
             </div>
           </div>
         </div>
-        <Button className="font-semibold text-base" size="lg" variant="primary" asChild>
+        <Button
+          className="font-semibold text-base"
+          size="lg"
+          variant="primary"
+          asChild
+        >
           <Link href="/admin/signup">
             Empezar ahora ― {formatPrice(isAnnual ? annualPrice : monthlyPrice)}
           </Link>
@@ -129,7 +123,8 @@ export default function PricingSection() {
             <li className="flex items-start gap-2">
               <Icon
                 icon="ph:seal-check-fill"
-                className="size-5 flex-shrink-0 text-primary"
+                height={20}
+                className="flex-shrink-0 text-primary"
               />
               <span className="leading-tight">
                 Tu operación unificada - agendamiento, tus clientes, pagos
@@ -139,7 +134,8 @@ export default function PricingSection() {
             <li className="flex items-start gap-2">
               <Icon
                 icon="ph:seal-check-fill"
-                className="size-5 flex-shrink-0 text-primary"
+                height={20}
+                className="flex-shrink-0 text-primary"
               />
               <span className="leading-tight">
                 Automatiza reservas, evita dobles citas, envía recordatorios y
@@ -149,7 +145,8 @@ export default function PricingSection() {
             <li className="flex items-start gap-2">
               <Icon
                 icon="ph:seal-check-fill"
-                className="size-5 flex-shrink-0 text-primary"
+                height={20}
+                className="flex-shrink-0 text-primary"
               />
               <span className="leading-tight">
                 Define roles, asigna accesos granulares y gestiona múltiples
@@ -159,7 +156,8 @@ export default function PricingSection() {
             <li className="flex items-start gap-2">
               <Icon
                 icon="ph:seal-check-fill"
-                className="size-5 flex-shrink-0 text-primary"
+                height={20}
+                className="flex-shrink-0 text-primary"
               />
               <span className="leading-tight">
                 Controla pagos pendientes, vincula facturas y recibos, sigue las
@@ -170,7 +168,8 @@ export default function PricingSection() {
             <li className="flex items-start gap-2">
               <Icon
                 icon="ph:seal-check-fill"
-                className="size-5 flex-shrink-0 text-primary"
+                height={20}
+                className="flex-shrink-0 text-primary"
               />
               <span className="leading-tight">
                 Soporte para resolver cualquier duda o problema

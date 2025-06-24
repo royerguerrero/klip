@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from "lucide-react";
+import { Icon } from "@iconify-icon/react";
 
 import {
   Avatar,
@@ -29,7 +22,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/app/_components/ui/sidebar";
-import { Icon } from "@iconify/react/dist/iconify.js";
 
 export function NavUser({
   user,
@@ -49,12 +41,12 @@ export function NavUser({
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground p-0 h-fit w-fit rounded-lg"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground p-0 h-fit w-fit rounded-md"
             >
-              <Avatar className="size-9 rounded-lg">
+              <Avatar className="size-9 rounded-md">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg text-neutral-400 bg-neutral-200">
-                  <Icon icon="ph:user-fill" className="size-5" />
+                <AvatarFallback className="rounded-md text-neutral-400 bg-neutral-100">
+                  <Icon icon="ph:user-fill" height={20} />
                 </AvatarFallback>
               </Avatar>
             </SidebarMenuButton>
@@ -80,28 +72,28 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Sparkles />
+                <Icon icon="ph:sparkles-fill" height={20} />
                 Upgrade to Pro
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <BadgeCheck />
+                <Icon icon="ph:user-fill" height={20} />
                 Account
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <CreditCard />
+                <Icon icon="ph:credit-card-fill" height={20} />
                 Billing
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Bell />
+                <Icon icon="ph:bell-fill" height={20} />
                 Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <LogOut />
+              <Icon icon="ph:sign-out-fill" height={20} />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
