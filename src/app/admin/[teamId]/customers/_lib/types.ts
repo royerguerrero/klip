@@ -11,4 +11,5 @@ export type Customer = {
     prefix: string;
     number: string;
   };
+  teamId: string;
 };

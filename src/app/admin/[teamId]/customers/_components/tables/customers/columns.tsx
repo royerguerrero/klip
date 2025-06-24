@@ -5,7 +5,7 @@ import { Customer } from "@/app/admin/[teamId]/customers/_lib/types";
 import { Button } from "@/app/_components/ui/button";
 import Link from "next/link";
 
-export const createColumns = (teamId: string): ColumnDef<Customer>[] => [
+export const columns: ColumnDef<Customer>[] = [
   {
     accessorKey: "name",
     header: "Nombre",
@@ -43,7 +43,7 @@ export const createColumns = (teamId: string): ColumnDef<Customer>[] => [
         <div className="flex justify-end">
           <Button variant="secondary" asChild>
             <Link
-              href={`/admin/${teamId}/customers/${row.original.id}`}
+              href={`/admin/${row.original.teamId}/customers/${row.original.id}`}
             >
               Detalle
             </Link>

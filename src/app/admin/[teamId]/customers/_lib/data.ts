@@ -15,6 +15,7 @@ export async function listCustomers(): Promise<Customer[]> {
         prefix: "+51",
         number: "999 999 999",
       },
+      teamId: "1",
     },
     {
       id: "2",
@@ -29,6 +30,7 @@ export async function listCustomers(): Promise<Customer[]> {
         prefix: "+51",
         number: "999 999 999",
       },
+      teamId: "1",
     },
     {
       id: "3",
@@ -43,6 +45,7 @@ export async function listCustomers(): Promise<Customer[]> {
         prefix: "+51",
         number: "999 999 999",
       },
+      teamId: "1",
     },
   ];
 }
