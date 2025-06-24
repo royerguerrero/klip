@@ -39,6 +39,7 @@ import { useCurrentSession } from "@/app/admin/_contexts/current-session";
 import { countries } from "@/app/admin/_lib/countries";
 import { es } from "date-fns/locale";
 import { Icon } from "@iconify-icon/react";
+import { Heading } from "../../../_components/heading";
 
 type CustomerData = z.infer<typeof customerSchema>;
 
@@ -64,7 +65,6 @@ export default function CustomerForm({
         initialData?.phonePrefix || session.organization.country.code,
       phone: initialData?.phone || "",
       dob: initialData?.dob || undefined,
-      ...initialData,
     },
   });
 
@@ -83,14 +83,11 @@ export default function CustomerForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
-        <div className="flex items-center justify-between pb-2">
-          <h1 className="text-xl font-semibold tracking-tight">
-            {mode === "create" ? "Añadir cliente" : "Editar cliente"}
-          </h1>
+        <Heading title={mode === "create" ? "Añadir cliente" : "Editar cliente"}>
           <Button type="submit" variant="secondary">
             {mode === "create" ? "Guardar" : "Actualizar"}
           </Button>
-        </div>
+        </Heading>
         <div className="grid grid-cols-2 gap-2">
           <FormField
             control={form.control}
@@ -143,7 +140,6 @@ export default function CustomerForm({
                       ))}
                   </SelectContent>
                 </Select>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -156,11 +152,17 @@ export default function CustomerForm({
                 <FormControl>
                   <Input {...field} placeholder="Número de documento" />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
         </div>
+        {(form.formState.errors.documentType ||
+          form.formState.errors.documentNumber) && (
+          <FormMessage>
+            {form.formState.errors.documentType?.message ||
+              form.formState.errors.documentNumber?.message}
+          </FormMessage>
+        )}
 
         <FormField
           control={form.control}
@@ -286,10 +288,10 @@ export default function CustomerForm({
             )}
           />
         </div>
-        {(form.formState.errors.phone || form.formState.errors.phonePrefix) && (
+        {(form.formState.errors.phonePrefix || form.formState.errors.phone) && (
           <FormMessage>
-            {form.formState.errors.phone?.message ||
-              form.formState.errors.phonePrefix?.message}
+            {form.formState.errors.phonePrefix?.message ||
+              form.formState.errors.phone?.message}
           </FormMessage>
         )}
       </form>

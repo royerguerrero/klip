@@ -3,6 +3,9 @@ import { PageWrapper } from "@/app/admin/_components/page-wrapper";
 import { Icon } from "@iconify-icon/react";
 import Link from "next/link";
 import { listCustomers } from "./_lib/data";
+import { createColumns } from "./_components/tables/customers/columns";
+import { DataTable } from "./_components/tables/customers/data-table";
+import { Heading } from "../_components/heading";
 
 type Props = {
   params: Promise<{
@@ -13,20 +16,35 @@ type Props = {
 export default async function Page({ params }: Props) {
   const { teamId } = await params;
   const customers = await listCustomers();
+  const columns = createColumns(teamId);
 
   return (
     <PageWrapper
       title="Clientes"
       actions={
-        <Button size="icon" asChild>
+        <Button className="font-medium gap-3 w-[180px]" asChild>
           <Link href={`/admin/${teamId}/customers/add`}>
-            <Icon icon="ph:plus-bold" height={14} />
+            <Icon icon="ph:magnifying-glass-bold" height={16} />
+            Buscar clientes...
           </Link>
         </Button>
       }
     >
       <main className="space-y-3">
-        {JSON.stringify(customers)}
+        <Heading
+          title="Clientes"
+          className="p-4 pb-0"
+        >
+          <Button variant="primary" asChild>
+            <Link href={`/admin/${teamId}/customers/add`}>
+              <Icon icon="ph:plus-bold" height={12} />
+              Añadir cliente
+            </Link>
+          </Button>
+        </Heading>
+        <section className="px-3">
+          <DataTable columns={columns} data={customers} />
+        </section>
       </main>
     </PageWrapper>
   );

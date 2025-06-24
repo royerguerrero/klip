@@ -9,7 +9,7 @@ type SessionContextType = {
   updateUser: (user: User) => void;
   updateOrganization: (organization: Organization) => void;
   updateTeams: (teams: Team[]) => void;
-  updateCurrentTeam: (team: Team | null) => void;
+  updateCurrentTeam: (team: Team) => void;
   clearSession: () => void;
 };
 
@@ -36,7 +36,7 @@ export function CurrentSessionProvider({
     setSession((prev) => ({ ...prev, teams }));
   };
 
-  const updateCurrentTeam = (team: Team | null) => {
+  const updateCurrentTeam = (team: Team) => {
     setSession((prev) => ({ ...prev, currentTeam: team }));
   };
 

@@ -1,7 +1,13 @@
 import { SidebarInset, SidebarProvider } from "@/app/_components/ui/sidebar";
-import { AppSidebar } from "@/app/admin/_components/sidebar";
+import { AppSidebar } from "@/app/admin/_components/sidebar-app";
 import { getCurrentSession } from "@/app/admin/_lib/session";
 import { CurrentSessionProvider } from "@/app/admin/_contexts/current-session";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Klip",
+  description: "Administra tu equipo, clientes, agendamientos y finanzas con Klip.",
+};
 
 export default async function Layout({
   children,

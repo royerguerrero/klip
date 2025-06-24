@@ -49,7 +49,7 @@ export function NavMain({
                     item.iconClassName
                   )}
                 >
-                  {item.icon && <Icon icon={item.icon} height={18} />}
+                  {item.icon && <Icon icon={item.icon} height={20} />}
                 </span>
                 <span>{item.title}</span>
               </Link>

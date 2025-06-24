@@ -38,7 +38,7 @@ export function TeamSwitcher() {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground p-1 h-fit rounded-lg bg-background border"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground p-1 h-fit"
             >
               <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                 <Icon
@@ -59,9 +59,9 @@ export function TeamSwitcher() {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-            align="end"
+            align="start"
             side={isMobile ? "bottom" : "right"}
-            sideOffset={6}
+            sideOffset={10}
           >
             <DropdownMenuLabel className="text-muted-foreground text-xs">
               Equipos

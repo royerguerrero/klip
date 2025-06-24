@@ -1,4 +1,3 @@
-import { PageWrapper } from "@/app/admin/_components/page-wrapper";
 import { retrieveCustomer } from "../_lib/data";
 
 type Props = {
@@ -9,23 +8,29 @@ type Props = {
 };
 
 export default async function Page({ params }: Props) {
-  const { id, teamId } = await params;
-  const customer = await retrieveCustomer(id);
+  const { id } = await params;
+  await retrieveCustomer(id);
 
   return (
-    <PageWrapper
-      title="Clientes"
-      href={`/admin/${teamId}/customers`}
-      breadcrumb={[
-        {
-          label: customer.firstName + " " + customer.lastName,
-          href: `/admin/customers/${id}`,
-        },
-      ]}
-    >
-      <main className="p-3">
-        <h1 className="text-xl font-semibold">Detalle de cliente</h1>
-      </main>
-    </PageWrapper>
+    <>
+      <section className="px-4 grid grid-cols-5 gap-3">
+        <article className="border rounded-lg p-3 col-span-2">
+          Data Card
+        </article>
+        <article className="border rounded-lg p-3 ">CLV</article>
+        <article className="border rounded-lg p-3">Frecuencia de agendamiento</article>
+        <article className="border rounded-lg p-3">Health Score</article>
+      </section>
+      <section className="px-4 flex flex-col gap-4">
+        <h2 className="font-semibold text-secondary-foreground">
+          Agendamientos
+        </h2>
+        Table
+      </section>
+      <section className="px-4 flex flex-col gap-4">
+        <h2 className="font-semibold text-secondary-foreground">Pagos</h2>
+        Table
+      </section>
+    </>
   );
 }

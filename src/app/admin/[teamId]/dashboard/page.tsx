@@ -1,4 +1,4 @@
-import { formatPrice } from "@/app/_lib/utils";
+import { Stat } from "@/app/_components/ui/stat";
 
 export default function Page() {
   const stats = [
@@ -6,55 +6,42 @@ export default function Page() {
       title: "Ingresos Semanales",
       percentage: -10,
       value: 2600000,
-      format: "price",
+      format: "price" as const,
     },
     {
       title: "Ingresos Diarios",
       percentage: 200,
       value: 112900,
-      format: "price",
+      format: "price" as const,
     },
     {
       title: "Agendamientos Nuevos",
       percentage: -2,
       value: 64,
-      format: "number",
+      format: "number" as const,
     },
     {
       title: "Clientes Nuevos",
       percentage: 3,
       value: 12,
-      format: "number",
+      format: "number" as const,
     },
   ];
 
   return (
     <section className="px-4">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-        {stats.map((stat) => (
-          <div
+        {stats.map((stat, index) => (
+          <Stat
             key={stat.title}
-            className="p-1 text-sm border-r last:border-r-0 space-y-1"
-          >
-            <span className="text-xs uppercase font-semibold tracking-wide text-neutral-400">
-              {stat.title}
-            </span>
-            <div className="flex items-end gap-1.5 font-semibold text-xs leading-none">
-              <h3 className="text-2xl font-bold tracking-tight">
-                {stat.format === "price"
-                  ? formatPrice(stat.value)
-                  : `+${stat.value}`}
-              </h3>
-              <span
-                className={`text-sm leading-6 font-semibold ${
-                  stat.percentage >= 0 ? "text-green-600" : "text-rose-500"
-                }`}
-              >
-                {stat.percentage >= 0 ? `+${stat.percentage}` : stat.percentage}
-                %
-              </span>
-            </div>
-          </div>
+            title={stat.title}
+            value={stat.value}
+            percentage={stat.percentage}
+            format={stat.format}
+            className={`border-r ${
+              index === stats.length - 1 ? "" : "last:border-r-0"
+            }`}
+          />
         ))}
       </div>
     </section>

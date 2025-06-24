@@ -46,7 +46,7 @@ export function NavUser({
               <Avatar className="size-9 rounded-md">
                 <AvatarImage src={user.avatar} alt={user.name} />
                 <AvatarFallback className="rounded-md text-neutral-400 bg-neutral-100">
-                  <Icon icon="ph:user-fill" height={20} />
+                  <Icon icon="ph:dots-three-vertical-bold" height={24} />
                 </AvatarFallback>
               </Avatar>
             </SidebarMenuButton>
@@ -54,7 +54,7 @@ export function NavUser({
           <DropdownMenuContent
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
             side={isMobile ? "bottom" : "right"}
-            align="start"
+            align="end"
             sideOffset={4}
           >
             <DropdownMenuLabel className="p-0 font-normal">
@@ -72,23 +72,12 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Icon icon="ph:sparkles-fill" height={20} />
-                Upgrade to Pro
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Icon icon="ph:user-fill" height={20} />
-                Account
+                <Icon icon="ph:user-circle" height={20} />
+                Cuenta
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Icon icon="ph:credit-card-fill" height={20} />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Icon icon="ph:bell-fill" height={20} />
-                Notifications
+                <Icon icon="ph:receipt" height={20} />
+                Facturacion
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

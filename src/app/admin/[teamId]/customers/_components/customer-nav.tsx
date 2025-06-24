@@ -3,24 +3,28 @@
 import { Button } from "@/app/_components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCurrentSession } from "../../_contexts/current-session";
+import { useCurrentSession } from "../../../_contexts/current-session";
 
-export function DashboardNav() {
+type Props = {
+  customerId: string;
+};
+
+export function CustomerNav({ customerId }: Props) {
   const pathname = usePathname();
   const { session } = useCurrentSession();
 
   const items = [
     {
-      label: "Resumen",
-      href: `/admin/${session.currentTeam?.id}/dashboard`,
+      label: "General",
+      href: `/admin/${session.currentTeam.id}/customers/${customerId}`,
     },
     {
-      label: "Transaciones",
-      href: `/admin/${session.currentTeam?.id}/dashboard/transactions`,
+      label: "Agendamientos",
+      href: `/admin/${session.currentTeam.id}/customers/${customerId}/agenda`,
     },
     {
-      label: "Clientes",
-      href: `/admin/${session.currentTeam?.id}/dashboard/customers`,
+      label: "Pagos",
+      href: `/admin/${session.currentTeam?.id}/customers/${customerId}/payments`,
     },
   ];
 

@@ -66,7 +66,7 @@ export function AppHeader({ title, breadcrumb, actions, href = "" }: Props) {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        {actions && <div className="ml-auto">{actions}</div>}
+        <div className="flex items-center gap-1">{actions}</div>
       </div>
     </header>
   );

@@ -21,5 +21,5 @@ export type Session = {
   user: User;
   organization: Organization;
   teams: Team[];
-  currentTeam: Team | null;
+  currentTeam: Team;
 };

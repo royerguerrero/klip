@@ -59,7 +59,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   };
 
   return (
-    <Sidebar collapsible="offcanvas" variant="inset" {...props}>
+    <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader className="p-1 flex flex-row justify-between items-center">
         <Image src="/klip-icon.svg" alt="Logo" width={36} height={36} />
         <NavUser user={user} />
