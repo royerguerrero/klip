@@ -5,9 +5,9 @@ import { Icon } from "@iconify-icon/react";
 import Link from "next/link";
 
 type Props = {
-  params: {
+  params: Promise<{
     teamId: string;
-  };
+  }>;
 };
 
 export default async function Page({ params }: Props) {

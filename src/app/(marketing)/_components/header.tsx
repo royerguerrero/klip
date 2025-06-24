@@ -9,7 +9,7 @@ import {
   NavigationMenuLink,
   navigationMenuTriggerStyle,
 } from "@/app/_components/ui/navigation-menu";
-import { Icon } from "@iconify/react/";
+import { Icon } from "@iconify/react";
 
 import { Button } from "@/app/_components/ui/button";
 import Image from "next/image";

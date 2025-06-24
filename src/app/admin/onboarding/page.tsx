@@ -22,7 +22,6 @@ function OnboardingContent() {
     nextStep,
     prevStep,
     isFirstStep,
-    isLastStep,
     totalSteps,
     data,
     saveCompanyData,

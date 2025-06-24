@@ -4,9 +4,9 @@ export default function TestimonialSection() {
   return (
     <div className="space-y-6 py-12 bg-muted/60 m-auto px-4">
       <h2 className="text-2xl font-semibold text-center tracking-tight w-4/6 mx-auto">
-        "Partnering with creators through Passionfroot has been a
-        game-changer for Intercom's Startup program. By collaborating with
-        top newsletters, we've reached thousands of founders."
+        &ldquo;Partnering with creators through Passionfroot has been a
+        game-changer for Intercom&rsquo;s Startup program. By collaborating with
+        top newsletters, we&rsquo;ve reached thousands of founders.&rdquo;
       </h2>
       <div className="flex gap-3 items-center justify-center">
         <Avatar className="size-11">

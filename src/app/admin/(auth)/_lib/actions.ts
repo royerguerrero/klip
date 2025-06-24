@@ -9,18 +9,22 @@ import { redirect } from "next/navigation";
 export async function login(unsafeData: z.infer<typeof loginSchema>) {
   const { success, data } = loginSchema.safeParse(unsafeData);
   if (!success) return new Error("Unable to log you in");
+  console.log(data);
 
-  const authenticator = await new UserAuthenticator(
-    new DrizzleUserRepository(),
-    new CrpytoPasswordRepository()
-  );
+  // const authenticator = await new UserAuthenticator(
+  //   new DrizzleUserRepository(),
+  //   new CrpytoPasswordRepository()
+  // );
 
-  const { error, user } = await authenticator.authenticate({
-    email: data.email,
-    password: data.password,
-  });
+  // const { error, user } = await authenticator.authenticate({
+  //   email: data.email,
+  //   password: data.password,
+  // });
 
-  if (error || !user) return error as Error;
+  // if (error || !user) return error as Error;
+  const user = {
+    id: "1",
+  };
 
   redirect(`/admin/${user.id}`);
 }

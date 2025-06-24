@@ -5,9 +5,9 @@ import Link from "next/link";
 import { listCustomers } from "./_lib/data";
 
 type Props = {
-  params: {
+  params: Promise<{
     teamId: string;
-  };
+  }>;
 };
 
 export default async function Page({ params }: Props) {
@@ -26,7 +26,7 @@ export default async function Page({ params }: Props) {
       }
     >
       <main className="space-y-3">
-
+        {JSON.stringify(customers)}
       </main>
     </PageWrapper>
   );

@@ -2,10 +2,10 @@ import { PageWrapper } from "@/app/admin/_components/page-wrapper";
 import { retrieveCustomer } from "../_lib/data";
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
     teamId: string;
-  };
+  }>;
 };
 
 export default async function Page({ params }: Props) {

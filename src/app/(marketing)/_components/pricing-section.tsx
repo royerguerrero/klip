@@ -33,13 +33,13 @@ export default function PricingSection() {
         </div>
         <div className="p-3 bg-muted/60 rounded-xl space-y-3 border">
           <p className="text-muted-foreground tracking-tight leading-tight font-semibold text-balance">
-            "Usando Klip hemos logrado digitalizar por completo nuestras
+            &ldquo;Usando Klip hemos logrado digitalizar por completo nuestras
             matrículas y el registro de pagos, dejando atrás el papeleo manual.
             Ahora vemos al instante los pagos pendientes, tenemos un control
             total sobre los abonos de cada estudiante y podemos hacer crecer
             nuestras operaciones sin aumentar el personal. Klip nos ha
             proporcionado la organización y transparencia necesarias para poder
-            crecer"
+            crecer&rdquo;
           </p>
           <p className="text-muted-foreground/60 tracking-tight leading-tight font-semibold text-balance pt-12">
             Oliva Pinilla - Directora en la Academia de Belleza Patry Ritchy

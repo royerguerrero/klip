@@ -6,10 +6,10 @@ import CustomerForm from "@/app/admin/[teamId]/customers/_components/forms/custo
 import { retrieveCustomer } from "@/app/admin/[teamId]/customers/_lib/data";
 
 type Props = {
-  params: {
+  params: Promise<{
     teamId: string;
     id: string;
-  };
+  }>;
 };
 
 export default async function Page({ params }: Props) {

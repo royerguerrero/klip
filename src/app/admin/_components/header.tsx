@@ -3,10 +3,8 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/app/_components/ui/breadcrumb";
-import { Button } from "@/app/_components/ui/button";
 import { Separator } from "@/app/_components/ui/separator";
 import { SidebarTrigger } from "@/app/_components/ui/sidebar";
 import { cn } from "@/app/_lib/utils";
@@ -49,9 +47,12 @@ export function AppHeader({ title, breadcrumb, actions, href = "" }: Props) {
                     <React.Fragment key={item.label}>
                       <BreadcrumbItem>
                         <BreadcrumbLink asChild>
-                          <Link 
+                          <Link
                             href={item.href}
-                            className={cn(index === breadcrumb.length - 1 && "font-semibold text-foreground")}
+                            className={cn(
+                              index === breadcrumb.length - 1 &&
+                                "font-semibold text-foreground"
+                            )}
                           >
                             {item.label}
                           </Link>

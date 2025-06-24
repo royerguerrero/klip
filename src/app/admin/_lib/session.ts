@@ -11,7 +11,7 @@ export async function getCurrentSession(): Promise<Session> {
       id: "1",
       name: "Acme Inc.",
       logo: null,
-      country: countries.get("CO"),
+      country: countries.get("CO")!,
     },
     teams: [
       {

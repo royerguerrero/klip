@@ -16,7 +16,6 @@ import { Button } from "@/app/_components/ui/button";
 
 import { login } from "@/app/admin/(auth)/_lib/actions";
 import { useState } from "react";
-import { EyeIcon } from "lucide-react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 export default function LoginForm() {
