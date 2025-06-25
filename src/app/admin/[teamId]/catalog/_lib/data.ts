@@ -37,8 +37,8 @@ export async function listServices(): Promise<Service[]> {
       name: "Corte de cabello",
       description: "Corte de cabello profesional con lavado incluido",
       price: {
-        amount: 25.00,
-        currency: "PEN",
+        amount: 25000,
+        currency: "CO",
       },
       teamId: "1",
     },

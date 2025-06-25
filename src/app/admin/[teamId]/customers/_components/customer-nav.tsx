@@ -19,6 +19,10 @@ export function CustomerNav({ customerId }: Props) {
       href: `/admin/${session.currentTeam.id}/customers/${customerId}`,
     },
     {
+      label: "Ordenes",
+      href: `/admin/${session.currentTeam.id}/customers/${customerId}/orders`,
+    },
+    {
       label: "Agendamientos",
       href: `/admin/${session.currentTeam.id}/customers/${customerId}/agenda`,
     },

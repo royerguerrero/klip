@@ -5,15 +5,23 @@ import { Service } from "@/app/admin/[teamId]/catalog/_lib/types";
 import { Button } from "@/app/_components/ui/button";
 import Link from "next/link";
 import { formatPrice } from "@/app/_lib/utils";
+import { Badge } from "@/app/_components/ui/badge";
 
 export const columns: ColumnDef<Service>[] = [
   {
     accessorKey: "name",
-    header: "Nombre",
+    header: "Servicio",
     cell: ({ row }) => {
       return (
         <span className="capitalize text-foreground">{row.original.name}</span>
       );
+    },
+  },
+  {
+    accessorKey: "status",
+    header: "Estado",
+    cell: ({ row }) => {
+      return <Badge variant="secondary">Borrador</Badge>;
     },
   },
   {

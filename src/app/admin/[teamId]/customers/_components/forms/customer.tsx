@@ -184,7 +184,7 @@ export default function CustomerForm({
                       ) : (
                         <span>Seleccionar fecha</span>
                       )}
-                      <Icon icon="ph-cake" className="ml-auto" height={16} />
+                      <Icon icon="ph-calendar-blank-duotone" className="ml-auto" height={16} />
                     </Button>
                   </FormControl>
                 </PopoverTrigger>

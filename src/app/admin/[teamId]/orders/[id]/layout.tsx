@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/app/_components/ui/dropdown-menu";
 import { Heading } from "../../_components/heading";
+import { formatOrderId } from "@/app/_lib/utils";
 
 type Props = {
   params: Promise<{
@@ -35,7 +36,7 @@ export default async function OrderLayout({ params, children }: Props) {
       href={`/admin/${teamId}/orders`}
       breadcrumb={[
         {
-          label: `Orden ${order.id}`,
+          label: `#${formatOrderId(order.id)}`,
           href: `/admin/${teamId}/orders/${id}`,
         },
       ]}
@@ -46,7 +47,7 @@ export default async function OrderLayout({ params, children }: Props) {
       }
     >
       <main className="space-y-4 py-4">
-        <Heading title={`Orden ${order.id}`} className="px-4">
+        <Heading title={`#${formatOrderId(order.id)}`} className="px-4">
           <>
             <Button variant="secondary" asChild>
               <Link href={`/admin/${teamId}/orders/add`}>
@@ -74,13 +75,13 @@ export default async function OrderLayout({ params, children }: Props) {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href={`/admin/${teamId}/customers/${order.customerId}`}>
+                  <Link href={`/admin/${teamId}/customers/${order.customer.id}`}>
                     <Icon icon="ph:user-circle-bold" height={16} />
                     Ver cliente
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href={`/admin/${teamId}/catalog/${order.serviceId}`}>
+                  <Link href={`/admin/${teamId}/catalog/${order.services[0].id}`}>
                     <Icon icon="ph:package-bold" height={16} />
                     Ver servicio
                   </Link>

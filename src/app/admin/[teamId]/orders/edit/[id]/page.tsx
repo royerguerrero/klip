@@ -5,6 +5,7 @@ import Link from "next/link";
 import OrderForm from "../../_components/forms/order";
 import { retrieveOrder } from "../../_lib/data";
 import { notFound } from "next/navigation";
+import { formatOrderId } from "@/app/_lib/utils";
 
 type Props = {
   params: Promise<{
@@ -27,7 +28,7 @@ export default async function Page({ params }: Props) {
       href={`/admin/${teamId}/orders`}
       breadcrumb={[
         {
-          label: `Orden ${order.id}`,
+          label: `# ${formatOrderId(order.id)}`,
           href: `/admin/${teamId}/orders/${id}`,
         },
         {
@@ -44,12 +45,8 @@ export default async function Page({ params }: Props) {
       }
     >
       <main className="p-3 max-w-[800px] mx-auto py-6">
-        <OrderForm 
-          mode="edit" 
-          initialData={order} 
-          teamId={teamId} 
-        />
+        <OrderForm mode="edit" initialData={order} teamId={teamId} />
       </main>
     </PageWrapper>
   );
-} 
+}

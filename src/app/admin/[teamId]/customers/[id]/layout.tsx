@@ -42,8 +42,10 @@ export default async function CustomerLayout({ params, children }: Props) {
         },
       ]}
       actions={
-        <Button asChild>
-          <Link href={`/admin/${teamId}/customers/edit/${id}`}>Editar</Link>
+        <Button size="icon" asChild>
+          <Link href={`/admin/${teamId}/customers/`}>
+            <Icon icon="ph:x-bold" height={14} />
+          </Link>
         </Button>
       }
     >
@@ -58,20 +60,20 @@ export default async function CustomerLayout({ params, children }: Props) {
               email={customer.email}
               customerName={`${customer.firstName} ${customer.lastName}`}
             >
-              <Button variant="outline" className="text-muted-foreground">
-                <Icon icon="ph:address-book-bold" height={16} />
+              <Button>
                 Contactar
               </Button>
             </ContactDrawer>
             <Button variant="secondary" asChild>
               <Link href={`/admin/${teamId}/orders/add?customer=${id}`}>
+                <Icon icon="ph:plus" height={14} />
                 Crear orden
               </Link>
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" className="size-8">
-                  <Icon icon="ph:dots-three-vertical-bold" height={16} />
+                <Button size="icon" className="size-8">
+                  <Icon icon="ph:caret-down-bold" height={14} />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" sideOffset={8} className="w-56">

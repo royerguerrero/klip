@@ -16,7 +16,6 @@ import { Input } from "@/app/_components/ui/input";
 import { Button } from "@/app/_components/ui/button";
 import { addOrder, editOrder } from "@/app/admin/[teamId]/orders/_lib/actions";
 import { useRouter } from "next/navigation";
-import { Order } from "@/app/admin/[teamId]/orders/_lib/types";
 import { Heading } from "../../../_components/heading";
 
 type OrderData = z.infer<typeof orderSchema>;

@@ -9,7 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-muted text-muted-foreground hover:bg-muted/50",
+        default: "bg-muted text-foreground/70 hover:bg-muted/50",
         destructive:
           "bg-rose-200 text-rose-500 hover:bg-rose-200/90 focus-visible:ring-rose-200/20 dark:focus-visible:ring-rose-200/40 dark:bg-rose-200/60",
         outline:

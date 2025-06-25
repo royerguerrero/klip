@@ -13,3 +13,9 @@ export const formatPrice = (price: number) => {
     maximumFractionDigits: 0,
   }).format(price);
 };
+
+// Helper function to format order ID with leading zeros
+export const formatOrderId = (id: string) => {
+  const numId = parseInt(id);
+  return numId < 100 ? numId.toString().padStart(3, "0") : id;
+};

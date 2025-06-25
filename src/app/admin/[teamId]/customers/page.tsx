@@ -20,17 +20,10 @@ export default async function Page({ params }: Props) {
   return (
     <PageWrapper
       title="Clientes"
-      actions={
-        <Button className="font-medium gap-3 w-[180px]" asChild>
-          <Link href={`/admin/${teamId}/customers/#search`}>
-            <Icon icon="ph:magnifying-glass-bold" height={16} />
-            Buscar clientes...
-          </Link>
-        </Button>
-      }
     >
-      <main className="space-y-3">
+      <main className="space-y-4">
         <Heading title="Clientes" className="p-4 pb-0">
+          <Button>Importar</Button>
           <Button variant="primary" asChild>
             <Link href={`/admin/${teamId}/customers/add`}>
               <Icon icon="ph:plus-bold" height={12} />
@@ -38,7 +31,7 @@ export default async function Page({ params }: Props) {
             </Link>
           </Button>
         </Heading>
-        <section className="px-3">
+        <section className="px-4">
           <DataTable columns={columns} data={customers} />
         </section>
       </main>
