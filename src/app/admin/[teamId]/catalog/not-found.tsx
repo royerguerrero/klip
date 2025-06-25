@@ -29,18 +29,18 @@ export default function NotFound() {
         <section className="px-4 space-y-1 flex flex-col items-center justify-center text-center">
           <Icon
             className="text-muted-foreground/50"
-            icon="ph:user-circle-dashed-duotone"
+            icon="ph:magnifying-glass-duotone"
             height={48}
           />
-          <h1 className="text-lg font-semibold">Cliente no encontrado</h1>
+          <h1 className="text-lg font-semibold">Servicio no encontrado</h1>
           <p className="text-muted-foreground text-sm text-balance">
-            El cliente con ID &ldquo;{id}&rdquo; no existe o ha sido eliminado.
-            Verifica que el ID sea correcto o regresa a la lista de clientes.
+            El servicio no ha sido encontrado. Revisa que no hayas escrito
+            incorrectamente el ID o regresa a la lista de servicios.
           </p>
           <Button variant="primary" className="mt-3" asChild>
-            <Link href={`/admin/${teamId}/customers/add`}>
+            <Link href={`/admin/${teamId}/catalog/add`}>
               <Icon icon="ph:plus-bold" height={12} />
-              Añadir cliente
+              Añadir servicio
             </Link>
           </Button>
         </section>

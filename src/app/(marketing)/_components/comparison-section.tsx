@@ -98,10 +98,10 @@ const NAVIGATION_SECTIONS = [
       "Obten la informacion de futuros agendamientos y proximos pagos",
   },
   {
-    id: "finances",
-    href: "#finances",
-    title: "Finanzas",
-    icon: "ph:wallet-fill",
+    id: "payments",
+    href: "#payments",
+    title: "Pagos",
+    icon: "ph:cash-register-fill",
     color: "text-lime-500",
     description:
       "Las cuentas claras y el chocolate espeso. Recibe pagos y cobra",

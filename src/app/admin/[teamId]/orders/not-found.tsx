@@ -11,16 +11,16 @@ export default function NotFound() {
 
   return (
     <PageWrapper
-      title="Clientes"
-      href={`/admin/${teamId}/customers`}
+      title="Ordenes"
+      href={`/admin/${teamId}/orders`}
       breadcrumb={[
-        { label: "No encontrado", href: `/admin/${teamId}/customers` },
+        { label: "No encontrado", href: `/admin/${teamId}/orders` },
       ]}
       actions={
         <Button asChild>
-          <Link href={`/admin/${teamId}/customers`}>
+          <Link href={`/admin/${teamId}/orders/add`}>
             <Icon icon="ph:plus-bold" height={12} />
-            Añadir cliente
+            Añadir orden
           </Link>
         </Button>
       }
@@ -29,22 +29,22 @@ export default function NotFound() {
         <section className="px-4 space-y-1 flex flex-col items-center justify-center text-center">
           <Icon
             className="text-muted-foreground/50"
-            icon="ph:user-circle-dashed-duotone"
+            icon="ph:package-dashed-duotone"
             height={48}
           />
-          <h1 className="text-lg font-semibold">Cliente no encontrado</h1>
+          <h1 className="text-lg font-semibold">Orden no encontrada</h1>
           <p className="text-muted-foreground text-sm text-balance">
-            El cliente con ID &ldquo;{id}&rdquo; no existe o ha sido eliminado.
-            Verifica que el ID sea correcto o regresa a la lista de clientes.
+            La orden con ID &ldquo;{id}&rdquo; no existe o ha sido eliminada.
+            Verifica que el ID sea correcto o regresa a la lista de órdenes.
           </p>
           <Button variant="primary" className="mt-3" asChild>
-            <Link href={`/admin/${teamId}/customers/add`}>
+            <Link href={`/admin/${teamId}/orders/add`}>
               <Icon icon="ph:plus-bold" height={12} />
-              Añadir cliente
+              Añadir orden
             </Link>
           </Button>
         </section>
       </main>
     </PageWrapper>
   );
-}
+} 

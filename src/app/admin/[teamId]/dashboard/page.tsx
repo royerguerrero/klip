@@ -6,25 +6,25 @@ export default function Page() {
       title: "Ingresos Semanales",
       percentage: -10,
       value: 2600000,
-      format: "price" as const,
+      format: "price",
     },
     {
       title: "Ingresos Diarios",
       percentage: 200,
       value: 112900,
-      format: "price" as const,
+      format: "price",
     },
     {
-      title: "Agendamientos Nuevos",
+      title: "Ordenes Nuevas",
       percentage: -2,
       value: 64,
-      format: "number" as const,
+      format: "number",
     },
     {
       title: "Clientes Nuevos",
       percentage: 3,
       value: 12,
-      format: "number" as const,
+      format: "number",
     },
   ];
 
@@ -37,12 +37,15 @@ export default function Page() {
             title={stat.title}
             value={stat.value}
             percentage={stat.percentage}
-            format={stat.format}
+            format={stat.format as "price" | "number" | "currency"}
             className={`border-r ${
               index === stats.length - 1 ? "" : "last:border-r-0"
             }`}
           />
         ))}
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+
       </div>
     </section>
   );

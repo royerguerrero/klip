@@ -2,9 +2,9 @@ import { Button } from "@/app/_components/ui/button";
 import { PageWrapper } from "@/app/admin/_components/page-wrapper";
 import { Icon } from "@iconify-icon/react";
 import Link from "next/link";
-import { listCustomers } from "./_lib/data";
-import { columns } from "./_components/tables/customers/columns";
-import { DataTable } from "./_components/tables/customers/data-table";
+import { listOrders } from "./_lib/data";
+import { columns } from "./_components/tables/orders/columns";
+import { DataTable } from "./_components/tables/orders/data-table";
 import { Heading } from "../_components/heading";
 
 type Props = {
@@ -15,31 +15,31 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const { teamId } = await params;
-  const customers = await listCustomers();
+  const orders = await listOrders();
 
   return (
     <PageWrapper
-      title="Clientes"
+      title="Ordenes"
       actions={
         <Button className="font-medium gap-3 w-[180px]" asChild>
-          <Link href={`/admin/${teamId}/customers/#search`}>
+          <Link href={`/admin/${teamId}/orders/#search`}>
             <Icon icon="ph:magnifying-glass-bold" height={16} />
-            Buscar clientes...
+            Buscar Ordenes...
           </Link>
         </Button>
       }
     >
       <main className="space-y-3">
-        <Heading title="Clientes" className="p-4 pb-0">
+        <Heading title="Ordenes" className="p-4 pb-0">
           <Button variant="primary" asChild>
-            <Link href={`/admin/${teamId}/customers/add`}>
+            <Link href={`/admin/${teamId}/orders/add`}>
               <Icon icon="ph:plus-bold" height={12} />
-              Añadir cliente
+              Crear orden
             </Link>
           </Button>
         </Heading>
         <section className="px-3">
-          <DataTable columns={columns} data={customers} />
+          <DataTable columns={columns} data={orders} />
         </section>
       </main>
     </PageWrapper>

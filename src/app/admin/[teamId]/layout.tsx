@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Dashboard | Klip",
-  description: "Administra tu equipo, clientes, agendamientos y finanzas con Klip.",
+  description: "Administra tu equipo, clientes, agendamientos y Pagos con Klip.",
 };
 
 export default async function Layout({

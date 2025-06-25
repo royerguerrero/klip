@@ -24,88 +24,6 @@ const data = {
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  navClouds: [
-    {
-      title: "Capture",
-      icon: "ph:camera-bold",
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: "ph:file-description-bold",
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: "ph:file-ai-bold",
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: "ph:settings-bold",
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: "ph:question-bold",
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: "ph:search-bold",
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: "ph:database-bold",
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: "ph:report-bold",
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: "ph:file-word-bold",
-    },
-  ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -116,6 +34,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       title: "Dashboard",
       url: `/admin/${session.currentTeam.id}/dashboard`,
       icon: "ph:house-line-fill",
+      iconClassName: "bg-background text-foreground",
+      isActive: true,
+    },
+    {
+      title: "Ordenes",
+      url: `/admin/${session.currentTeam.id}/orders`,
+      icon: "ph:book-open-fill",
       iconClassName: "bg-background text-foreground",
       isActive: true,
     },
@@ -140,7 +65,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     {
       title: "Finanzas",
       url: `/admin/${session.currentTeam.id}/finances`,
-      icon: "ph:wallet-fill",
+      icon: "ph:bank-fill",
       iconClassName: "bg-lime-200 text-lime-600",
     },
   ];

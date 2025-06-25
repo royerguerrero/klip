@@ -34,8 +34,8 @@ export default function Home() {
         "Nunca más te preocupes por la organización de tu negocio. Klip te ayuda a centralizar tus agendamientos, interacciones con tus clientes y pagos.",
     },
     {
-      id: "finances",
-      icon: "ph:wallet-fill",
+      id: "payments",
+      icon: "ph:cash-register-fill",
       iconColor: "text-lime-500",
       title: "Las cuentas claras y el chocolate espeso. Recibe pagos y cobra",
       description:

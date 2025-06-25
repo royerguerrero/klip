@@ -3,6 +3,7 @@ export type Country = {
   name: string;
   flag: string;
   prefix: string;
+  currency: string;
   documentTypes: {
     value: string;
     label: string;
@@ -17,6 +18,7 @@ export const countries = new Map<string, Country>([
       name: "Argentina",
       flag: "https://flagcdn.com/ar.svg",
       prefix: "+54",
+      currency: "ARS",
       documentTypes: [
         { value: "dni", label: "DNI" },
         { value: "passport", label: "Pasaporte" },
@@ -32,6 +34,7 @@ export const countries = new Map<string, Country>([
       name: "Bolivia",
       flag: "https://flagcdn.com/bo.svg",
       prefix: "+591",
+      currency: "BOB",
       documentTypes: [
         { value: "ci", label: "Cédula de Identidad" },
         { value: "passport", label: "Pasaporte" },
@@ -46,6 +49,7 @@ export const countries = new Map<string, Country>([
       name: "Chile",
       flag: "https://flagcdn.com/cl.svg",
       prefix: "+56",
+      currency: "CLP",
       documentTypes: [
         { value: "rut", label: "RUT" },
         { value: "passport", label: "Pasaporte" },
@@ -60,6 +64,7 @@ export const countries = new Map<string, Country>([
       name: "Colombia",
       flag: "https://flagcdn.com/co.svg",
       prefix: "+57",
+      currency: "COP",
       documentTypes: [
         { value: "cc", label: "Cédula de Ciudadanía" },
         { value: "ce", label: "Cédula de Extranjería" },
@@ -75,6 +80,7 @@ export const countries = new Map<string, Country>([
       name: "Costa Rica",
       flag: "https://flagcdn.com/cr.svg",
       prefix: "+506",
+      currency: "CRC",
       documentTypes: [
         { value: "dni", label: "Cédula de Identidad" },
         { value: "passport", label: "Pasaporte" },
@@ -89,6 +95,7 @@ export const countries = new Map<string, Country>([
       name: "Cuba",
       flag: "https://flagcdn.com/cu.svg",
       prefix: "+53",
+      currency: "CUP",
       documentTypes: [
         { value: "ci", label: "Carné de Identidad" },
         { value: "passport", label: "Pasaporte" },
@@ -102,6 +109,7 @@ export const countries = new Map<string, Country>([
       name: "República Dominicana",
       flag: "https://flagcdn.com/do.svg",
       prefix: "+1",
+      currency: "DOP",
       documentTypes: [
         { value: "cedula", label: "Cédula de Identidad" },
         { value: "passport", label: "Pasaporte" },
@@ -116,6 +124,7 @@ export const countries = new Map<string, Country>([
       name: "Ecuador",
       flag: "https://flagcdn.com/ec.svg",
       prefix: "+593",
+      currency: "USD",
       documentTypes: [
         { value: "cedula", label: "Cédula de Identidad" },
         { value: "passport", label: "Pasaporte" },
@@ -130,6 +139,7 @@ export const countries = new Map<string, Country>([
       name: "El Salvador",
       flag: "https://flagcdn.com/sv.svg",
       prefix: "+503",
+      currency: "USD",
       documentTypes: [
         { value: "dui", label: "DUI" },
         { value: "passport", label: "Pasaporte" },
@@ -144,6 +154,7 @@ export const countries = new Map<string, Country>([
       name: "España",
       flag: "https://flagcdn.com/es.svg",
       prefix: "+34",
+      currency: "EUR",
       documentTypes: [
         { value: "dni", label: "DNI" },
         { value: "nie", label: "NIE" },
@@ -158,6 +169,7 @@ export const countries = new Map<string, Country>([
       name: "Guatemala",
       flag: "https://flagcdn.com/gt.svg",
       prefix: "+502",
+      currency: "GTQ",
       documentTypes: [
         { value: "dpi", label: "DPI" },
         { value: "passport", label: "Pasaporte" },
@@ -172,6 +184,7 @@ export const countries = new Map<string, Country>([
       name: "Honduras",
       flag: "https://flagcdn.com/hn.svg",
       prefix: "+504",
+      currency: "HNL",
       documentTypes: [
         { value: "dni", label: "DNI" },
         { value: "passport", label: "Pasaporte" },
@@ -186,6 +199,7 @@ export const countries = new Map<string, Country>([
       name: "México",
       flag: "https://flagcdn.com/mx.svg",
       prefix: "+52",
+      currency: "MXN",
       documentTypes: [
         { value: "ine", label: "INE/IFE" },
         { value: "passport", label: "Pasaporte" },
@@ -201,8 +215,9 @@ export const countries = new Map<string, Country>([
       name: "Nicaragua",
       flag: "https://flagcdn.com/ni.svg",
       prefix: "+505",
+      currency: "NIO",
       documentTypes: [
-        { value: "cedula", label: "Cédula de Identidad" },
+        { value: "dni", label: "DNI" },
         { value: "passport", label: "Pasaporte" },
         { value: "ce", label: "Carné de Extranjería" },
       ],
@@ -215,6 +230,7 @@ export const countries = new Map<string, Country>([
       name: "Panamá",
       flag: "https://flagcdn.com/pa.svg",
       prefix: "+507",
+      currency: "PAB",
       documentTypes: [
         { value: "cedula", label: "Cédula de Identidad" },
         { value: "passport", label: "Pasaporte" },
@@ -229,6 +245,7 @@ export const countries = new Map<string, Country>([
       name: "Paraguay",
       flag: "https://flagcdn.com/py.svg",
       prefix: "+595",
+      currency: "PYG",
       documentTypes: [
         { value: "ci", label: "Cédula de Identidad" },
         { value: "passport", label: "Pasaporte" },
@@ -243,6 +260,7 @@ export const countries = new Map<string, Country>([
       name: "Perú",
       flag: "https://flagcdn.com/pe.svg",
       prefix: "+51",
+      currency: "PEN",
       documentTypes: [
         { value: "dni", label: "DNI" },
         { value: "ce", label: "Carné de Extranjería" },
@@ -258,10 +276,11 @@ export const countries = new Map<string, Country>([
       name: "Puerto Rico",
       flag: "https://flagcdn.com/pr.svg",
       prefix: "+1",
+      currency: "USD",
       documentTypes: [
-        { value: "ssn", label: "Social Security Number" },
+        { value: "ssn", label: "SSN" },
         { value: "passport", label: "Pasaporte" },
-        { value: "drivers_license", label: "Licencia de Conducir" },
+        { value: "dl", label: "Licencia de Conducir" },
       ],
     },
   ],
@@ -272,6 +291,7 @@ export const countries = new Map<string, Country>([
       name: "Uruguay",
       flag: "https://flagcdn.com/uy.svg",
       prefix: "+598",
+      currency: "UYU",
       documentTypes: [
         { value: "ci", label: "Cédula de Identidad" },
         { value: "passport", label: "Pasaporte" },
@@ -286,6 +306,7 @@ export const countries = new Map<string, Country>([
       name: "Venezuela",
       flag: "https://flagcdn.com/ve.svg",
       prefix: "+58",
+      currency: "VES",
       documentTypes: [
         { value: "cedula", label: "Cédula de Identidad" },
         { value: "passport", label: "Pasaporte" },
@@ -300,6 +321,7 @@ export const countries = new Map<string, Country>([
       name: "Estados Unidos",
       flag: "https://flagcdn.com/us.svg",
       prefix: "+1",
+      currency: "USD",
       documentTypes: [
         { value: "ssn", label: "Social Security Number" },
         { value: "passport", label: "Pasaporte" },

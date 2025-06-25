@@ -111,10 +111,10 @@ export default function Header() {
       iconClassName: "text-rose-500",
     },
     {
-      title: "Finanzas",
-      href: "/#finances",
+      title: "Pagos",
+      href: "/#payments",
       description: "Controla ingresos, gastos y reportes.",
-      icon: "ph:wallet-fill",
+      icon: "ph:cash-register-fill",
       iconClassName: "text-lime-500",
     },
   ];

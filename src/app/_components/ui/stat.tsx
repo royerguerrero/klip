@@ -4,11 +4,17 @@ interface StatProps {
   title: string;
   value: number;
   percentage: number;
-  format?: "price" | "number";
+  format?: "price" | "number" | "currency";
   className?: string;
 }
 
-export function Stat({ title, value, percentage, format = "number", className = "" }: StatProps) {
+export function Stat({
+  title,
+  value,
+  percentage,
+  format = "number",
+  className = "",
+}: StatProps) {
   return (
     <article className={`p-1 text-sm space-y-1 ${className}`}>
       <span className="text-xs uppercase font-semibold tracking-wide text-neutral-400">
@@ -28,4 +34,4 @@ export function Stat({ title, value, percentage, format = "number", className = 
       </div>
     </article>
   );
-} 
+}

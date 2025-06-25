@@ -63,7 +63,11 @@ export default async function CustomerLayout({ params, children }: Props) {
                 Contactar
               </Button>
             </ContactDrawer>
-            <Button variant="secondary">Nuevo agendamiento</Button>
+            <Button variant="secondary" asChild>
+              <Link href={`/admin/${teamId}/orders/add?customer=${id}`}>
+                Crear orden
+              </Link>
+            </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon" className="size-8">
