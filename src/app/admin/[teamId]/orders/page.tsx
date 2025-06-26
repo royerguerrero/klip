@@ -18,17 +18,7 @@ export default async function Page({ params }: Props) {
   const orders = await listOrders();
 
   return (
-    <PageWrapper
-      title="Ordenes"
-      actions={
-        <Button className="font-medium gap-3 w-[180px]" asChild>
-          <Link href={`/admin/${teamId}/orders/#search`}>
-            <Icon icon="ph:magnifying-glass-bold" height={16} />
-            Buscar Ordenes...
-          </Link>
-        </Button>
-      }
-    >
+    <PageWrapper title="Ordenes">
       <main className="space-y-3">
         <Heading title="Ordenes" className="p-4 pb-0">
           <Button variant="primary" asChild>

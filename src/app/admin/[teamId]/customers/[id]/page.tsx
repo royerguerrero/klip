@@ -29,7 +29,7 @@ export default async function Page({ params }: Props) {
         <article className="h-52 md:col-span-4">
           <div className="flex items-center justify-between">
             <h2 className="font-semibold text-secondary-foreground leading-none">
-              Timeline
+              Linea temporal
             </h2>
             <Button variant="outline">
               Hoy

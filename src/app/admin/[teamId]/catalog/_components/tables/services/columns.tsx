@@ -25,6 +25,13 @@ export const columns: ColumnDef<Service>[] = [
     },
   },
   {
+    accessorKey: "sessions",
+    header: "Sessiones",
+    cell: ({ row }) => {
+      return <span>2 sessiones</span>;
+    },
+  },
+  {
     accessorKey: "price",
     header: "Precio",
     cell: ({ row }) => {

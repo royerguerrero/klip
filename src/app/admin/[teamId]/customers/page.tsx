@@ -18,10 +18,8 @@ export default async function Page({ params }: Props) {
   const customers = await listCustomers();
 
   return (
-    <PageWrapper
-      title="Clientes"
-    >
-      <main className="space-y-4">
+    <PageWrapper title="Clientes">
+      <main className="space-y-3">
         <Heading title="Clientes" className="p-4 pb-0">
           <Button>Importar</Button>
           <Button variant="primary" asChild>

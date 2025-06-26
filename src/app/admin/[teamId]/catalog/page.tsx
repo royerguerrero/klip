@@ -20,14 +20,6 @@ export default async function Page({ params }: Props) {
   return (
     <PageWrapper
       title="Catálogo"
-      actions={
-        <Button className="font-medium gap-3" asChild>
-          <Link href={`/admin/${teamId}/catalog/#search`}>
-            <Icon icon="ph:magnifying-glass-bold" height={16} />
-            Buscar en el catálogo...
-          </Link>
-        </Button>
-      }
     >
       <main className="space-y-3">
         <Heading title="Catálogo" className="p-4 pb-0">
