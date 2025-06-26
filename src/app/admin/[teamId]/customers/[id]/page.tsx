@@ -1,6 +1,5 @@
 import { Button } from "@/app/_components/ui/button";
 import { retrieveCustomer } from "../_lib/data";
-import { Stat } from "@/app/_components/ui/stat";
 import Link from "next/link";
 import { Icon } from "@iconify-icon/react";
 

@@ -17,17 +17,11 @@ export const columns: ColumnDef<Service>[] = [
       );
     },
   },
-  {
-    accessorKey: "status",
-    header: "Estado",
-    cell: () => {
-      return <Badge variant="secondary">Borrador</Badge>;
-    },
-  },
+
   {
     accessorKey: "sessions",
     header: "Sessiones",
-    cell: ({ row }) => {
+    cell: () => {
       return <span>2 sessiones</span>;
     },
   },
@@ -40,6 +34,13 @@ export const columns: ColumnDef<Service>[] = [
           {formatPrice(row.original.price.amount)}
         </span>
       );
+    },
+  },
+  {
+    accessorKey: "status",
+    header: "Estado",
+    cell: () => {
+      return <Badge variant="secondary">Borrador</Badge>;
     },
   },
   {
