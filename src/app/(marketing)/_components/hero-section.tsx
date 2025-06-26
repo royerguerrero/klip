@@ -26,10 +26,10 @@ export default function HeroSection() {
         <figure className="border p-3 rounded-xl aspect-video w-full"></figure>
         <p className="text-lg tracking-tight leading-tight text-muted-foreground/80 font-semibold w-5/6 text-balance">
           Usando Klip las empresas logran centralizar sus agendamientos,
-          interacciones con sus clientes y pagos. Logrando tener sus
-          servicios en internet pemitiendo crecer sus operaciones.
+          interacciones con sus clientes y pagos. Logrando tener sus servicios
+          en internet pemitiendo crecer sus operaciones.
         </p>
       </div>
     </section>
   );
-} 
+}

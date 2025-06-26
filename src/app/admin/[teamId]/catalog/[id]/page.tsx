@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default async function Page({ params }: Props) {
-  const { teamId, id } = await params;
+  const { id } = await params;
   const service = await retrieveService(id);
 
   if (!service) {

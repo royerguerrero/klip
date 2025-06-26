@@ -85,13 +85,13 @@ export function DataTable({ columns, data }: DataTableProps) {
             className="absolute top-2.5 left-2.5 text-muted-foreground"
           />
         </div>
-        <div className="flex items-center justify-end px-3 absolute -bottom-8 right-0 z-10 gap-1">
+        <div className="flex items-center justify-end px-3 absolute -bottom-8.5 right-0 z-10 gap-1">
           <Button
             size="icon"
             variant="outline"
             onClick={() => setShowSearch(!showSearch)}
           >
-            <Icon icon="ph:magnifying-glass-bold" height={16} />
+            <Icon icon="ph:magnifying-glass-bold" height={14} />
           </Button>
         </div>
       </section>
@@ -137,20 +137,22 @@ export function DataTable({ columns, data }: DataTableProps) {
           )}
         </TableBody>
       </Table>
-      <div className="flex items-center justify-end space-x-2 mt-2">
+      <div className="flex items-center justify-end space-x-2 mt-2 px-1.5">
         <Button
           size="icon"
+          variant="outline"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          <Icon icon="ph:caret-left-bold" height={16} />
+          <Icon icon="ph:caret-left-bold" height={14} />
         </Button>
         <Button
           size="icon"
+          variant="outline"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          <Icon icon="ph:caret-right-bold" height={16} />
+          <Icon icon="ph:caret-right-bold" height={14} />
         </Button>
       </div>
     </>

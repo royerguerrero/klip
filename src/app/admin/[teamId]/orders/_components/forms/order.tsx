@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { orderSchema, type OrderFormData } from "./schemas";
+import { orderSchema } from "./schemas";
 import { z } from "zod";
 
 import { Form } from "@/app/_components/ui/form";
@@ -154,4 +154,4 @@ export default function OrderForm({
       </form>
     </Form>
   );
-} 
+}

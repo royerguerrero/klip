@@ -60,7 +60,7 @@ export const columns: ColumnDef<Customer>[] = [
         </div>
       );
     },
-    cell: ({ row }) => {
+    cell: () => {
       return <span>{new Date().toLocaleDateString()}</span>;
     },
   },

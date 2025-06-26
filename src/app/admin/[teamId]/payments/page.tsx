@@ -4,8 +4,8 @@ import { Button } from "@/app/_components/ui/button";
 import { Icon } from "@iconify-icon/react";
 import Link from "next/link";
 
-export default function Page({ params }: { params: { teamId: string } }) {
-  const { teamId } = params;
+export default async function Page({ params }: { params: Promise<{ teamId: string }> }) {
+  const { teamId } = await params;
 
   return (
     <PageWrapper

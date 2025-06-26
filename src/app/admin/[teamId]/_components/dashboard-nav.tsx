@@ -32,7 +32,7 @@ export function DashboardNav() {
           <Button
             key={item.label}
             variant="ghost"
-            className={`border-b-2 rounded-none text-neutral-400 hover:border-primary/80 hover:text-primary hover:bg-inherit ${
+            className={`border-b-2 h-9 rounded-none text-neutral-400 hover:border-primary/80 hover:text-primary hover:bg-inherit ${
               isActive ? "border-primary/80 text-primary" : "border-transparent"
             }`}
             asChild

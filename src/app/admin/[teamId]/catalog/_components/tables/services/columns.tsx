@@ -20,7 +20,7 @@ export const columns: ColumnDef<Service>[] = [
   {
     accessorKey: "status",
     header: "Estado",
-    cell: ({ row }) => {
+    cell: () => {
       return <Badge variant="secondary">Borrador</Badge>;
     },
   },

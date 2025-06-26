@@ -7,7 +7,7 @@ import { Icon } from "@iconify-icon/react";
 import { useParams } from "next/navigation";
 
 export default function NotFound() {
-  const { teamId, id } = useParams<{ teamId: string; id: string }>();
+  const { teamId } = useParams<{ teamId: string; id: string }>();
 
   return (
     <PageWrapper
