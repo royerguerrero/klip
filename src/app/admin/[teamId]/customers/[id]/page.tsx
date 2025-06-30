@@ -18,12 +18,17 @@ export default async function Page({ params }: Props) {
     <div className="px-4 space-y-6">
       <section className="grid grid-cols-1 md:grid-cols-6 gap-3">
         <article className="rounded-xl p-1.5 md:col-span-2 bg-neutral-100 flex flex-col gap-0.5 h-52">
+          <div className="h-full bg-background rounded-lg border grid grid-cols-2 gap-2 px-3 py-1.5">
+            Avatar
+            Balance
+            LTV
+            Health
+          </div>
           <div className="flex items-center justify-between p-1.5">
-            <h2 className="font-semibold text-muted-foreground text-xs uppercase tracking-wide leading-none">
+            <h2 className="font-bold text-foreground/50 text-xs uppercase tracking-wide leading-none">
               Información
             </h2>
           </div>
-          <div className="h-full bg-background rounded-lg border grid grid-cols-2 gap-2"></div>
         </article>
         <article className="h-52 md:col-span-4">
           <div className="flex items-center justify-between">

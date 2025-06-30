@@ -33,7 +33,9 @@ export async function signup(unsafeData: z.infer<typeof signupSchema>) {
   const { success, data } = signupSchema.safeParse(unsafeData);
   if (!success) return new Error("Unable to sign you up");
 
-  redirect(`/admin/onboarding?email=${data.email}`);
+  if (!success) return new Error("Unable to sign you up");
+
+  const register = new UserRegister();
 
   //   const creator = await new UserCreator(
   //     new DrizzleUserRepository(),

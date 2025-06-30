@@ -28,7 +28,7 @@ export default async function Page({ params }: Props) {
       href={`/admin/${teamId}/orders`}
       breadcrumb={[
         {
-          label: `# ${formatOrderId(order.id)}`,
+          label: `${formatOrderId(order.id)}`,
           href: `/admin/${teamId}/orders/${id}`,
         },
         {

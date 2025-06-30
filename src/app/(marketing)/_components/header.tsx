@@ -34,7 +34,7 @@ function ListItem({
           {icon && (
             <Icon
               icon={icon}
-              height={16}
+              height={18}
               className={`flex-shrink-0 ${
                 iconClassName || "text-muted-foreground"
               }`}
@@ -111,10 +111,10 @@ export default function Header() {
       iconClassName: "text-rose-500",
     },
     {
-      title: "Pagos",
-      href: "/#payments",
+      title: "Finanzas",
+      href: "/#finances",
       description: "Controla ingresos, gastos y reportes.",
-      icon: "ph:cash-register-fill",
+      icon: "ph:bank-fill",
       iconClassName: "text-lime-500",
     },
   ];

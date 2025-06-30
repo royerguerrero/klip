@@ -10,6 +10,7 @@ import {
   getPaginationRowModel,
   useReactTable,
   getFilteredRowModel,
+  ColumnFiltersState,
 } from "@tanstack/react-table";
 
 import {
@@ -25,6 +26,7 @@ import { Input } from "@/app/_components/ui/input";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { cn } from "@/app/_lib/utils";
 import { Order } from "@/app/admin/[teamId]/orders/_lib/types";
+import { DataTableFacetedFilter } from "@/app/_components/ui/data-table-faceted-filter";
 
 interface DataTableProps {
   data: Order[];
@@ -34,7 +36,11 @@ interface DataTableProps {
 export function DataTable({ columns, data }: DataTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = React.useState("");
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
   const [showSearch, setShowSearch] = React.useState(false);
+  const [showFilters, setShowFilters] = React.useState(false);
 
   const table = useReactTable({
     data,
@@ -45,6 +51,7 @@ export function DataTable({ columns, data }: DataTableProps) {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onGlobalFilterChange: setGlobalFilter,
+    onColumnFiltersChange: setColumnFilters,
     globalFilterFn: (row, columnId, filterValue) => {
       const order = row.original;
       const searchableText = [
@@ -53,7 +60,7 @@ export function DataTable({ columns, data }: DataTableProps) {
         order.customer.phone,
         order.status,
         order.payment.status,
-        order.services.map(service => service.name).join(" "),
+        order.services.map((service) => service.name).join(" "),
         order.total.toString(),
       ]
         .join(" ")
@@ -64,8 +71,23 @@ export function DataTable({ columns, data }: DataTableProps) {
     state: {
       sorting,
       globalFilter,
+      columnFilters,
     },
   });
+
+  const paymentStatusOptions = [
+    { label: "Pendiente", value: "pending" },
+    { label: "Pagado", value: "paid" },
+    { label: "Fallido", value: "failed" },
+    { label: "Reembolsado", value: "refunded" },
+  ];
+
+  const orderStatusOptions = [
+    { label: "Pendiente", value: "pending" },
+    { label: "Confirmado", value: "confirmed" },
+    { label: "Completado", value: "completed" },
+    { label: "Cancelado", value: "cancelled" },
+  ];
 
   return (
     <>
@@ -88,7 +110,38 @@ export function DataTable({ columns, data }: DataTableProps) {
             className="absolute top-2.5 left-2.5 text-muted-foreground"
           />
         </div>
+        <div className={cn("gap-2", showFilters ? "flex" : "hidden")}>
+          <DataTableFacetedFilter
+            column={table.getColumn("payment")}
+            title="Estado de Pago"
+            options={paymentStatusOptions}
+          />
+          <DataTableFacetedFilter
+            column={table.getColumn("status")}
+            title="Progreso"
+            options={orderStatusOptions}
+          />
+          <Button
+            variant="ghost"
+            className="text-muted-foreground h-7.5"
+            onClick={() => {
+              setGlobalFilter("");
+              setColumnFilters([]);
+              table.resetColumnFilters();
+            }}
+          >
+            <Icon icon="ph:x-bold" height={14} />
+            Reiniciar filtros
+          </Button>
+        </div>
         <div className="flex items-center justify-end px-3 absolute -bottom-8.5 right-0 z-10 gap-1">
+          <Button
+            size="icon"
+            variant="outline"
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            <Icon icon="ph:funnel-simple-bold" height={14} />
+          </Button>
           <Button
             size="icon"
             variant="outline"
@@ -160,4 +213,4 @@ export function DataTable({ columns, data }: DataTableProps) {
       </div>
     </>
   );
-} 
+}

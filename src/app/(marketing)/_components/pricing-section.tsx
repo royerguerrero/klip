@@ -25,7 +25,7 @@ export default function PricingSection() {
               Todo listo en segundos
             </span>
           </h2>
-          <p className="pt-3 text-muted-foreground/80 text-lg tracking-tight leading-tight font-semibold text-balance self-end">
+          <p className="pt-3 text-muted-foreground/80 text-lg tracking-tight leading-tight font-semibold md:text-balance self-end">
             Empieza con todo en orden desde el día uno. Paga por equipo, mes a
             mes o{" "}
             <span className="text-foreground">ahorra con el plan anual.</span>

@@ -8,19 +8,24 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { formatOrderId } from "@/app/_lib/utils";
+import { Icon } from "@iconify/react";
 
 // Helper function to get payment status badge
 const getPaymentStatusBadge = (status: string) => {
   const variants = {
-    pending: "secondary",
-    paid: "default",
+    pending: "warning",
+    paid: "success",
     failed: "destructive",
-    refunded: "outline",
+    refunded: "secondary",
   } as const;
 
   return (
     <Badge variant={variants[status as keyof typeof variants] || "secondary"}>
-      {status === "pending" && "Pendiente"}
+      {status === "pending" && <Icon icon="ph:spinner-gap-bold" height={14} />}
+      {status === "paid" && <Icon icon="ph:seal-check-fill" height={12} />}
+      {status === "failed" && <Icon icon="ph:spinner-gap-bold" height={14} />}
+      {status === "refunded" && <Icon icon="ph:spinner-gap-bold" height={14} />}
+      {status === "pending" && "Pago pendiente"}
       {status === "paid" && "Pagado"}
       {status === "failed" && "Fallido"}
       {status === "refunded" && "Reembolsado"}
@@ -31,18 +36,22 @@ const getPaymentStatusBadge = (status: string) => {
 // Helper function to get order status badge
 const getOrderStatusBadge = (status: string) => {
   const variants = {
-    pending: "secondary",
-    confirmed: "default",
-    completed: "default",
+    pending: "warning",
+    confirmed: "success",
+    completed: "success",
     cancelled: "destructive",
   } as const;
 
   return (
     <Badge variant={variants[status as keyof typeof variants] || "secondary"}>
-      {status === "pending" && "Pendiente"}
-      {status === "confirmed" && "Confirmado"}
-      {status === "completed" && "Completado"}
-      {status === "cancelled" && "Cancelado"}
+      {status === "pending" && <Icon icon="ph:spinner-gap-bold" height={16} />}
+      {status === "confirmed" && <Icon icon="ph:check-circle-fill" height={16} />}
+      {status === "completed" && <Icon icon="ph:check-circle-fill" height={16} />}
+      {status === "cancelled" && <Icon icon="ph:x-circle-fill" height={16} />}
+      {status === "pending" && "Pendiente (1/10)"}
+      {status === "confirmed" && "Confirmada"}
+      {status === "completed" && "Completada"}
+      {status === "cancelled" && "Cancelada"}
     </Badge>
   );
 };
@@ -53,7 +62,9 @@ export const columns: ColumnDef<Order>[] = [
     header: "Orden",
     cell: ({ row }) => {
       return (
-        <span className="text-foreground">#{formatOrderId(row.original.id)}</span>
+        <span className="text-foreground">
+          #{formatOrderId(row.original.id)}
+        </span>
       );
     },
   },
@@ -97,7 +108,7 @@ export const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: "status",
-    header: "Estado",
+    header: "Progreso",
     cell: ({ row }) => {
       return getOrderStatusBadge(row.original.status);
     },

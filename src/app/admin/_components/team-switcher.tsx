@@ -40,17 +40,17 @@ export function TeamSwitcher() {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground p-1 h-fit"
             >
-              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8.5 items-center justify-center rounded-lg">
                 <Icon
-                  icon={organization?.logo || "ph:building-fill"}
-                  height={16}
+                  icon={organization?.logo || "ph:flag-fill"}
+                  height={18}
                 />
               </div>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">
+              <div className="grid flex-1 text-left text-sm leading-tight gap-0.5">
+                <span className="truncate font-semibold leading-none">
                   {activeTeam.name}
                 </span>
-                <span className="text-muted-foreground truncate text-xs font-medium line-clamp-1">
+                <span className="text-muted-foreground truncate text-xs font-medium line-clamp-1 leading-none">
                   {organization?.name}
                 </span>
               </div>

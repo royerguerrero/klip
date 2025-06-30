@@ -18,9 +18,7 @@ export default async function Page({ params }: Props) {
   const services = await listServices();
 
   return (
-    <PageWrapper
-      title="Catálogo"
-    >
+    <PageWrapper title="Catálogo">
       <main className="space-y-3">
         <Heading title="Catálogo" className="p-4 pb-0">
           <Button variant="primary" asChild>

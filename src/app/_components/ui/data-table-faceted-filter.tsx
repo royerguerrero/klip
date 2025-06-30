@@ -45,25 +45,21 @@ export function DataTableFacetedFilter<TData, TValue>({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button className="justify-between h-8 border border-dashed">
-          <Icon icon="ph:funnel-simple-bold" className="size-4" />
-          {title}
+        <Button className="justify-between h-7.5 border border-dashed rounded-lg has-[>svg]:px-2 text-foreground/50">
+          <Icon icon="ph:funnel-simple-bold" height={14} className="mb-0.5" />
+          <span className="uppercase text-xs font-bold tracking-wide">
+            {title}
+          </span>
           {selectedValues?.size > 0 && (
             <>
-              <Separator orientation="vertical" className="mx-2 h-4" />
-              <Badge
-                variant="secondary"
-                className="rounded-sm px-1 font-normal lg:hidden border border-rose-500"
-              >
+              <Separator orientation="vertical" className="mx-1 h-4" />
+              <Badge variant="secondary" className="lg:hidden">
                 {selectedValues.size}
               </Badge>
               <div className="hidden gap-1 lg:flex">
                 {selectedValues.size > 2 ? (
-                  <Badge
-                    variant="secondary"
-                    className="rounded-sm px-1 font-normal"
-                  >
-                    {selectedValues.size} selected
+                  <Badge variant="secondary" className="rounded-full">
+                    {selectedValues.size} seleccionados
                   </Badge>
                 ) : (
                   options
@@ -72,7 +68,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                       <Badge
                         variant="secondary"
                         key={option.value}
-                        className="rounded-sm border border-rose-500"
+                        className="rounded-sm"
                       >
                         {option.label}
                       </Badge>

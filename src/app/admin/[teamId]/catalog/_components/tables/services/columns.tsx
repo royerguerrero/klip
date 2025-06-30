@@ -22,7 +22,7 @@ export const columns: ColumnDef<Service>[] = [
     accessorKey: "sessions",
     header: "Sessiones",
     cell: () => {
-      return <span>2 sessiones</span>;
+      return <span>2 sesiones ⋅ 1h / sesión</span>;
     },
   },
   {
@@ -40,7 +40,7 @@ export const columns: ColumnDef<Service>[] = [
     accessorKey: "status",
     header: "Estado",
     cell: () => {
-      return <Badge variant="secondary">Borrador</Badge>;
+      return <Badge>Borrador</Badge>;
     },
   },
   {

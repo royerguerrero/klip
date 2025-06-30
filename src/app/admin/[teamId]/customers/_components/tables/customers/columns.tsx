@@ -55,7 +55,7 @@ export const columns: ColumnDef<Customer>[] = [
             size="icon"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            <Icon icon="ph:sort-ascending" className="size-4" />
+            <Icon icon="ph:sort-ascending-bold" height={16} />
           </Button>
         </div>
       );
