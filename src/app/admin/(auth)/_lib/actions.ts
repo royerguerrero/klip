@@ -13,28 +13,34 @@ import { CryptoPasswordHasher } from "@/contexts/shared/infrastructure/CryptoPas
 import { UserId } from "@/contexts/users/domain/UserId";
 import { createUserSession, removeUserFromSession } from "./session";
 import { cookies } from "next/headers";
+import { UserAuthenticator } from "@/contexts/users/application/UserAuthenticator";
 
 export async function login(unsafeData: z.infer<typeof loginSchema>) {
   const { success, data } = loginSchema.safeParse(unsafeData);
   if (!success) return new Error("Unable to log you in");
-  console.log(data);
 
-  // const authenticator = await new UserAuthenticator(
-  //   new DrizzleUserRepository(),
-  //   new CrpytoPasswordRepository()
-  // );
+  const authenticator = await new UserAuthenticator(
+    new DrizzleUserRepository(),
+    new CryptoPasswordHasher()
+  );
+  const { error, user } = await authenticator.authenticate(
+    data.email,
+    data.password
+  );
 
-  // const { error, user } = await authenticator.authenticate({
-  //   email: data.email,
-  //   password: data.password,
-  // });
+  if (error || !user) return error as Error;
 
-  // if (error || !user) return error as Error;
-  const user = {
-    id: "1",
-  };
+  await createUserSession(
+    {
+      id: user.id.value,
+      email: user.email.value,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    },
+    await cookies()
+  );
 
-  redirect(`/admin/${user.id}`);
+  redirect(`/admin/onboarding`);
 }
 
 export async function signup(

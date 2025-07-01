@@ -30,12 +30,12 @@ export default function LoginForm() {
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     const error = await login(data);
     switch (error?.name) {
-      case "UserNotFoundError":
+      case "UserDoesNotExistError":
         form.setError("root", {
           message: "Correo electrónico o contraseña incorrectos",
         });
         break;
-      case "UserInvalidCredentialsError":
+      case "InvalidPasswordError":
         form.setError("root", {
           message: "Correo electrónico o contraseña incorrectos",
         });
@@ -96,6 +96,7 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
+        <FormMessage>{form.formState.errors.root?.message}</FormMessage>
         <Button variant="secondary" className="w-full" type="submit">
           Ingresar
         </Button>
