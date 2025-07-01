@@ -118,6 +118,9 @@ export default function Header() {
       iconClassName: "text-lime-500",
     },
   ];
+  const contactLink = `https://wa.me/573214896631?text=${encodeURIComponent(
+    "Hola, me interesa conocer más sobre la plataforma"
+  )}`;
 
   return (
     <header className="sticky top-0 bg-background/60 backdrop-blur-xl z-50 border-b">
@@ -188,8 +191,8 @@ export default function Header() {
           </NavigationMenu>
           <div className="space-x-2">
             <Button variant="ghost" asChild>
-              <Link href="/admin/sales">
-                Contactar con ventas{" "}
+              <Link href={contactLink} target="_blank">
+                Contactar con ventas
                 <Icon icon="ph:caret-right" height={12} />
               </Link>
             </Button>

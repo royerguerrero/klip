@@ -1,5 +1,5 @@
-import { CryptoPasswordHasher } from "../../infrastructure/CrytoPasswordHasher";
-import { Password } from "../../domain/value-object/Password";
+import { CryptoPasswordHasher } from "@/contexts/shared/infrastructure/CryptoPasswordHasher";
+import { Password } from "@/contexts/shared/domain/value-object/Password";
 
 describe("CryptoPasswordHasher Integration", () => {
   let passwordHasher: CryptoPasswordHasher;

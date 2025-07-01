@@ -36,7 +36,7 @@ export const subcategories = pgTable("subcategories", {
 });
 
 // Status: Draft, Ready, Archived
-const status = pgEnum("status", ["D", "R", "A"]);
+export const status = pgEnum("status", ["D", "R", "A"]);
 
 export const services = pgTable("services", {
   id: uuid("id").primaryKey().defaultRandom().notNull(),

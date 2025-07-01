@@ -46,7 +46,7 @@ export default function PricingSection() {
           </p>
         </div>
       </div>
-      <div className="bg-muted/60 p-3 rounded-2xl flex flex-col gap-1 border">
+      <div className="bg-muted/60 p-1.5 rounded-2xl flex flex-col gap-1 border">
         <div className="border rounded-xl p-3 relative overflow-hidden text-primary-foreground flex flex-col justify-between aspect-video">
           <div
             className={`absolute inset-0 bg-gradient-to-t from-primary to-primary/40 transition-opacity duration-300 ${

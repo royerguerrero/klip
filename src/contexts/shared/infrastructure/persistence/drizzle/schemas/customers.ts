@@ -3,7 +3,7 @@ import { teams } from "./organization";
 import { pgEnum } from "drizzle-orm/pg-core";
 import { date } from "drizzle-orm/pg-core";
 
-const identityDocumentTypes = pgEnum("identity_document_types", [
+export const identityDocumentTypes = pgEnum("identity_document_types", [
   "dni",
   "passport",
   "le",

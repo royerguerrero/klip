@@ -1,6 +1,7 @@
-import { User } from "./User";
+import { Criteria } from "@/contexts/shared/domain/criteria/Criteria";
+import { User } from "@/contexts/users/domain/User";
 
 export abstract class UserRepository {
   abstract save(user: User): Promise<void>;
-  abstract matching(email: string): Promise<User | null>;
+  abstract matching(criteria: Criteria): Promise<User[]>;
 }

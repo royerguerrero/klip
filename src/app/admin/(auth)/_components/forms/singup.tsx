@@ -16,15 +16,18 @@ import { Button } from "@/app/_components/ui/button";
 import { z } from "zod";
 import { Icon } from "@iconify-icon/react";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function SignupForm() {
+  const searchParams = useSearchParams();
   const [passwordVisible, setPasswordVisible] = useState(false);
+
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
-      email: "",
+      email: searchParams.get("email") || "",
       password: "",
     },
   });
@@ -33,7 +36,7 @@ export default function SignupForm() {
     const error = await signup(data);
     switch (error?.name) {
       case "UserAlreadyExistsError":
-        form.setError("root", {
+        form.setError("email", {
           message: "El correo electrónico ya está en uso",
         });
         break;
@@ -68,7 +71,7 @@ export default function SignupForm() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input {...field} placeholder="Apellido" />
+                  <Input {...field} placeholder="Apellidos" />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -9,7 +9,7 @@ import {
 import { customers } from "./customers";
 import { services } from "./services";
 
-const paymentType = pgEnum("payment_type", ["full", "partial"]);
+export const paymentType = pgEnum("payment_type", ["full", "partial"]);
 
 export const orders = pgTable("orders", {
   id: uuid("id").primaryKey().defaultRandom().notNull(),
