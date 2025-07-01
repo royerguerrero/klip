@@ -26,15 +26,11 @@ export class UserAuthenticator {
     }
 
     const user = results[0];
-    const passwordMatch = await this.passwordHasher.compare(
-      new Password(password),
-      user.password,
-      user.salt
-    );
-
-    if (!passwordMatch) {
-      return { error: new InvalidPasswordError(), user: null };
-    }
+    await user.authenticate({
+      password: password,
+      passwordHasher: this.passwordHasher,
+    });
+   
 
     return { error: null, user };
   }

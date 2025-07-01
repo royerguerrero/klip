@@ -1,4 +1,3 @@
-import { Password } from "@/contexts/shared/domain/value-object/Password";
 import { User } from "../domain/User";
 import { UserRepository } from "../domain/UserRepository";
 import { UserAlreadyExistsError } from "../domain/errors/UserAlreadyExits";
@@ -14,7 +13,10 @@ export class UserRegister {
   ) {}
 
   async register(
-    params: Omit<ReturnType<User["toPrimitives"]>, "salt">
+    params: Omit<
+      ReturnType<User["toPrimitives"]>,
+      "salt" | "teams" | "organizationId"
+    >
   ): Promise<{ error: Error | null; user: User | null }> {
     const criteria = new Criteria([
       new Filter("email", Operator.EQUAL, params.email),
@@ -25,16 +27,15 @@ export class UserRegister {
       return { error: new UserAlreadyExistsError(), user: null };
     }
 
-    const { hashedPassword, salt } = await this.passwordHasher.hash(
-      new Password(params.password),
-      this.passwordHasher.generateSalt()
-    );
-
-    const user = User.fromPrimitives({
-      ...params,
-      password: hashedPassword,
-      salt,
+    const user = await User.register({
+      id: params.id,
+      firstName: params.firstName,
+      lastName: params.lastName,
+      email: params.email,
+      password: params.password,
+      passwordHasher: this.passwordHasher,
     });
+
     await this.repository.save(user);
 
     return { error: null, user };

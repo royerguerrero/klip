@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { z } from "zod";
 import { companySchema, teamSchema } from "../_components/forms/schemas";
 
@@ -22,6 +22,7 @@ interface OnboardingContextType {
   isLastStep: boolean;
   totalSteps: number;
   data: OnboardingData;
+  isInitialized: boolean;
   saveCompanyData: (data: CompanyData) => void;
   saveTeamData: (data: TeamData) => void;
   setTeamId: (id: string) => void;
@@ -30,10 +31,58 @@ interface OnboardingContextType {
 
 const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined);
 
+const STORAGE_KEY = "klip-onboarding-progress";
+
+// Helper functions for localStorage
+const saveToStorage = (data: { currentStep: number; data: OnboardingData }) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+};
+
+const loadFromStorage = (): { currentStep: number; data: OnboardingData } | null => {
+  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch (error) {
+        console.error("Error parsing stored onboarding data:", error);
+        return null;
+      }
+    }
+  }
+  return null;
+};
+
+const clearStorage = () => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem(STORAGE_KEY);
+  }
+};
+
 export function OnboardingProvider({ children }: { children: ReactNode }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [data, setData] = useState<OnboardingData>({});
+  const [isInitialized, setIsInitialized] = useState(false);
   const totalSteps = 3;
+
+  // Load data from localStorage on mount
+  useEffect(() => {
+    const stored = loadFromStorage();
+    if (stored) {
+      setCurrentStep(stored.currentStep);
+      setData(stored.data);
+    }
+    setIsInitialized(true);
+  }, []);
+
+  // Save data to localStorage whenever it changes
+  useEffect(() => {
+    if (isInitialized) {
+      saveToStorage({ currentStep, data });
+    }
+  }, [currentStep, data, isInitialized]);
 
   const nextStep = () => {
     if (currentStep < totalSteps) {
@@ -68,6 +117,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
   const clearData = () => {
     setData({});
     setCurrentStep(1);
+    clearStorage();
   };
 
   const value: OnboardingContextType = {
@@ -79,6 +129,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     isLastStep: currentStep === totalSteps,
     totalSteps,
     data,
+    isInitialized,
     saveCompanyData,
     saveTeamData,
     setTeamId,

@@ -22,7 +22,7 @@ import {
   PopoverTrigger,
 } from "@/app/_components/ui/popover";
 import { Separator } from "@/app/_components/ui/separator";
-import { Icon } from "@iconify/react";
+import { Icon } from "@iconify-icon/react";
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>;
@@ -46,7 +46,7 @@ export function DataTableFacetedFilter<TData, TValue>({
     <Popover>
       <PopoverTrigger asChild>
         <Button className="justify-between h-7.5 border border-dashed rounded-lg has-[>svg]:px-2 text-foreground/50">
-          <Icon icon="ph:funnel-simple-bold" height={14} className="mb-0.5" />
+          <Icon icon="ph:plus-bold" height={14} />
           <span className="uppercase text-xs font-bold tracking-wide">
             {title}
           </span>

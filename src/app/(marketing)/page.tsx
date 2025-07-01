@@ -34,6 +34,14 @@ export default function Home() {
         "Nunca más te preocupes por la organización de tu negocio. Klip te ayuda a centralizar tus agendamientos, interacciones con tus clientes y pagos.",
     },
     {
+      id: "orders",
+      icon: "ph:book-open-fill",
+      iconColor: "text-orange-500",
+      title: "Gestiona pedidos de forma eficiente",
+      description:
+        "Mantén un control total sobre todos tus pedidos. Desde la creación hasta la entrega, Klip te permite rastrear el estado de cada orden y mantener informados a tus clientes.",
+    },
+    {
       id: "finances",
       icon: "ph:bank-fill",
       iconColor: "text-lime-500",

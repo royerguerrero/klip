@@ -16,6 +16,70 @@ import {
 } from "@/app/admin/onboarding/_components/forms/schemas";
 import { logout } from "@/app/admin/(auth)/_lib/actions";
 
+const ONBOARDING_FEATURES = [
+  {
+    id: "agenda",
+    icon: "ph:calendar-blank-fill",
+    iconColor: "text-sky-500",
+    title: "¡Comienza a agendar!",
+    description:
+      "Organiza y programa todas tus citas y eventos de forma eficiente.",
+    href: (teamId: string) => `/admin/${teamId}/agenda`,
+  },
+  {
+    id: "customers",
+    icon: "ph:users-three-fill",
+    iconColor: "text-rose-500",
+    title: "¡Conecta con tus clientes!",
+    description:
+      "Gestiona tu base de datos de clientes y fortalece las relaciones.",
+    href: (teamId: string) => `/admin/${teamId}/customers`,
+  },
+  {
+    id: "orders",
+    icon: "ph:book-open-fill",
+    iconColor: "text-orange-500",
+    title: "¡Gestiona tus pedidos!",
+    description:
+      "Crea y administra todos los pedidos de tus clientes sin complicaciones.",
+    href: (teamId: string) => `/admin/${teamId}/orders`,
+  },
+  {
+    id: "finances",
+    icon: "ph:bank-fill",
+    iconColor: "text-lime-500",
+    title: "¡Controla tus finanzas!",
+    description:
+      "Monitorea ingresos, gastos y mantén el control total de tu negocio.",
+    href: (teamId: string) => `/admin/${teamId}/finances`,
+  },
+];
+
+interface FeatureItemProps {
+  feature: (typeof ONBOARDING_FEATURES)[0];
+  teamId: string;
+}
+
+function FeatureItem({ feature, teamId }: FeatureItemProps) {
+  return (
+    <li className="bg-neutral-50 p-3 rounded-lg">
+      <Link href={feature.href(teamId)} className="flex flex-row gap-2">
+        <Icon
+          icon={feature.icon}
+          height={16}
+          className={`flex-shrink-0 ${feature.iconColor}`}
+        />
+        <div className="space-y-1 text-start">
+          <h3 className="text-sm leading-none font-medium">{feature.title}</h3>
+          <p className="text-muted-foreground line-clamp-2 text-sm leading-4">
+            {feature.description}
+          </p>
+        </div>
+      </Link>
+    </li>
+  );
+}
+
 type Props = {
   user: {
     name: string;
@@ -31,9 +95,11 @@ export default function OnboardingContent({ user }: Props) {
     isFirstStep,
     totalSteps,
     data,
+    isInitialized,
     saveCompanyData,
     saveTeamData,
     setTeamId,
+    clearData,
   } = useOnboarding();
 
   const handleCompanySubmit = (data: z.infer<typeof companySchema>) => {
@@ -52,6 +118,21 @@ export default function OnboardingContent({ user }: Props) {
     setTeamId(teamId);
     nextStep();
   };
+
+  // Show loading state while initializing
+  if (!isInitialized) {
+    return (
+      <main className="grid place-items-center h-screen bg-neutral-50 p-3">
+        <section className="flex flex-col items-center justify-center w-full md:w-[460px] p-1.5 rounded-2xl bg-neutral-100 border">
+          <div className="w-full bg-background p-3 rounded-lg border border-neutral-200 space-y-4 h-full">
+            <div className="flex items-center justify-center h-32">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="grid place-items-center h-screen bg-neutral-50 p-3">
@@ -78,10 +159,15 @@ export default function OnboardingContent({ user }: Props) {
                   Klip Inc.
                 </span>
               </Link>
-              <Button size="icon" className="rounded-full">
-                <Link href="/">
-                  <Icon icon="ph:x-bold" height={12} />
-                </Link>
+              <Button 
+                size="icon" 
+                className="rounded-full"
+                onClick={() => {
+                  clearData();
+                  window.location.href = "/";
+                }}
+              >
+                <Icon icon="ph:x-bold" height={12} />
               </Button>
             </div>
           </section>
@@ -138,10 +224,24 @@ export default function OnboardingContent({ user }: Props) {
                     empezar a usar Klip.
                   </p>
                 </div>
-                <Button className="w-full" variant="primary" asChild>
-                  <Link href={`/admin/${data.teamId}/dashboard`}>
-                    Ir al dashboard
-                  </Link>
+                <ul className="flex flex-col gap-3">
+                  {ONBOARDING_FEATURES.map((feature) => (
+                    <FeatureItem
+                      key={feature.id}
+                      feature={feature}
+                      teamId={data.teamId || ""}
+                    />
+                  ))}
+                </ul>
+                <Button 
+                  className="w-full" 
+                  variant="secondary" 
+                  onClick={() => {
+                    clearData();
+                    window.location.href = `/admin/${data.teamId}/dashboard`;
+                  }}
+                >
+                  Ir al dashboard
                 </Button>
               </div>
             )}

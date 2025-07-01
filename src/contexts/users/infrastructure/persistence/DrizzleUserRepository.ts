@@ -4,7 +4,8 @@ import { Criteria } from "@/contexts/shared/domain/criteria/Criteria";
 import { DrizzleCriteriaConverter } from "@/contexts/shared/infrastructure/persistence/drizzle/DrizzleCriteriaConverter";
 import { users } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/users";
 import { db } from "@/contexts/shared/infrastructure/persistence/drizzle";
-import { sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
+import { teamMembers } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/organization";
 
 export class DrizzleUserRepository implements UserRepository {
   private dataMapper = {
@@ -14,6 +15,7 @@ export class DrizzleUserRepository implements UserRepository {
     email: users.email,
     password: users.password,
     salt: users.salt,
+    teams: teamMembers.userId,
   };
   private criteriaConverter = new DrizzleCriteriaConverter(this.dataMapper);
 
@@ -26,16 +28,19 @@ export class DrizzleUserRepository implements UserRepository {
     const result = await db
       .select()
       .from(users)
+      .leftJoin(teamMembers, eq(users.id, teamMembers.userId))
       .where(sql`${filters}`);
 
-    return result.map((user) =>
+    return result.map(({ users: user }) =>
       User.fromPrimitives({
         id: user.id,
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-        email: user.email || "",
-        password: user.password || "",
-        salt: user.salt || "",
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        password: user.password,
+        salt: user.salt,
+        teams: [],
+        organizationId: undefined,
       })
     );
   }
