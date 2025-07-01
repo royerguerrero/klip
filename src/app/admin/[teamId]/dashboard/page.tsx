@@ -1,7 +1,6 @@
-import { Badge } from "@/app/_components/ui/badge";
 import { Stat } from "@/app/_components/ui/stat";
 
-export default function Page() {
+export default async function Page() {
   const stats = [
     {
       title: "Ingresos Semanales",
@@ -45,7 +44,8 @@ export default function Page() {
           />
         ))}
       </div>
-      <div className="grid grid-cols-2 gap-2"></div>
+      <div className="grid grid-cols-2 gap-2">
+      </div>
     </section>
   );
 }

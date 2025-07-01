@@ -15,7 +15,7 @@ export class UserRegister {
   async register(
     params: Omit<
       ReturnType<User["toPrimitives"]>,
-      "salt" | "teams" | "organizationId"
+      "salt" | "organization"
     >
   ): Promise<{ error: Error | null; user: User | null }> {
     const criteria = new Criteria([
@@ -34,6 +34,7 @@ export class UserRegister {
       email: params.email,
       password: params.password,
       passwordHasher: this.passwordHasher,
+      organization: undefined,
     });
 
     await this.repository.save(user);

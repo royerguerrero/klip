@@ -7,4 +7,13 @@ export class Team extends AggregateRoot {
   }
 
   toPrimitives() {
+    return {
+      id: this.id.value,
+      name: this.name,
+    };
+  }
+
+  static fromPrimitives(primitives: ReturnType<Team["toPrimitives"]>): Team {
+    return new Team(new TeamId(primitives.id), primitives.name);
+  }
 }

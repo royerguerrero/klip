@@ -5,7 +5,11 @@ import { DrizzleCriteriaConverter } from "@/contexts/shared/infrastructure/persi
 import { users } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/users";
 import { db } from "@/contexts/shared/infrastructure/persistence/drizzle";
 import { eq, sql } from "drizzle-orm";
-import { teamMembers } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/organization";
+import {
+  organizations,
+  teamMembers,
+  teams,
+} from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/organization";
 
 export class DrizzleUserRepository implements UserRepository {
   private dataMapper = {
@@ -15,7 +19,6 @@ export class DrizzleUserRepository implements UserRepository {
     email: users.email,
     password: users.password,
     salt: users.salt,
-    teams: teamMembers.userId,
   };
   private criteriaConverter = new DrizzleCriteriaConverter(this.dataMapper);
 
@@ -25,23 +28,66 @@ export class DrizzleUserRepository implements UserRepository {
 
   async matching(criteria: Criteria): Promise<User[]> {
     const filters = this.criteriaConverter.convert(criteria);
-    const result = await db
+    const query = await db
       .select()
       .from(users)
       .leftJoin(teamMembers, eq(users.id, teamMembers.userId))
+      .leftJoin(teams, eq(teamMembers.teamId, teams.id))
+      .leftJoin(organizations, eq(teams.organizationId, organizations.id))
       .where(sql`${filters}`);
 
-    return result.map(({ users: user }) =>
-      User.fromPrimitives({
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        password: user.password,
-        salt: user.salt,
-        teams: [],
-        organizationId: undefined,
-      })
-    );
+    const results = new Map<string, User>();
+    query.forEach(({ users, team_members, teams, organizations }) => {
+      const user = results.get(users.id);
+      if (!user) {
+        results.set(
+          users.id,
+          User.fromPrimitives({
+            id: users.id,
+            firstName: users.firstName,
+            lastName: users.lastName,
+            email: users.email,
+            password: users.password,
+            salt: users.salt,
+            organization: organizations
+              ? {
+                  id: organizations.id,
+                  name: organizations.name,
+                  logo: "",
+                  country: organizations.country,
+                  teams: teams
+                    ? [
+                        {
+                          id: teams.id,
+                          name: teams.name ?? "",
+                          permissions: team_members?.permissions ?? [],
+                        },
+                      ]
+                    : [],
+                }
+              : undefined,
+          })
+        );
+      } else {
+        const updatedUser = User.fromPrimitives({
+          ...user.toPrimitives(),
+          organization: user.organization && {
+            ...user.organization.toPrimitives(),
+            teams: [
+              ...(user.organization?.teams.map((team) => team.toPrimitives()) ??
+                []),
+              {
+                id: teams?.id ?? "",
+                name: teams?.name ?? "",
+                permissions: team_members?.permissions ?? [],
+              },
+            ],
+          },
+        });
+        results.set(users.id, updatedUser);
+      }
+    });
+
+    return Array.from(results.values());
   }
 }

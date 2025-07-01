@@ -60,7 +60,6 @@ export async function signup(
     lastName: data.lastName,
     email: data.email,
     password: data.password,
-    teams: [],
   });
 
   if (error || !user) return error as Error;

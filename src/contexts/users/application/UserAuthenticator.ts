@@ -3,10 +3,8 @@ import { UserRepository } from "../domain/UserRepository";
 import { Filter } from "@/contexts/shared/domain/criteria/Filter";
 import { Operator } from "@/contexts/shared/domain/criteria/Operator";
 import { UserDoesNotExistError } from "../domain/errors/UserDoesNotExistError";
-import { InvalidPasswordError } from "@/contexts/shared/domain/errors/InvalidPasswordError";
 import { PasswordHasher } from "@/contexts/shared/domain/PasswordHasher";
 import { User } from "../domain/User";
-import { Password } from "@/contexts/shared/domain/value-object/Password";
 
 export class UserAuthenticator {
   constructor(
@@ -30,7 +28,6 @@ export class UserAuthenticator {
       password: password,
       passwordHasher: this.passwordHasher,
     });
-   
 
     return { error: null, user };
   }

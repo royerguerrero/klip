@@ -41,32 +41,32 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       title: "Ordenes",
       url: `/admin/${session.currentTeam.id}/orders`,
       icon: "ph:book-open-fill",
-      iconClassName: "bg-orange-200 text-orange-600",
+      iconClassName: "bg-orange-200 text-orange-500",
       isActive: true,
     },
     {
       title: "Agenda",
       url: `/admin/${session.currentTeam.id}/agenda`,
       icon: "ph:calendar-dots-fill",
-      iconClassName: "bg-sky-200 text-sky-600",
+      iconClassName: "bg-sky-200 text-sky-500",
     },
     {
       title: "Catalogo",
       url: `/admin/${session.currentTeam.id}/catalog`,
       icon: "ph:cards-three-fill",
-      iconClassName: "bg-fuchsia-200 text-fuchsia-600",
+      iconClassName: "bg-fuchsia-200 text-fuchsia-500",
     },
     {
       title: "Clientes",
       url: `/admin/${session.currentTeam.id}/customers`,
       icon: "ph:users-three-fill",
-      iconClassName: "bg-rose-200 text-rose-600",
+      iconClassName: "bg-rose-200 text-rose-500",
     },
     {
       title: "Finanzas",
       url: `/admin/${session.currentTeam.id}/finances`,
       icon: "ph:bank-fill",
-      iconClassName: "bg-lime-200 text-lime-600",
+      iconClassName: "bg-lime-200 text-lime-500",
     },
   ];
 

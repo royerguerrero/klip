@@ -1,31 +1,16 @@
-import { AggregateRoot } from "@/contexts/shared/domain/AggregateRoot";
-import { OrganizationId } from "./OrganizationId";
+import { OrganizationId } from "@/contexts/organizations/domain/OrganizationId";
+import { Entity } from "@/contexts/shared/domain/Entity";
 import { Team } from "./Team";
 
-export class Organization extends AggregateRoot {
+export class Organization extends Entity {
   constructor(
     public id: OrganizationId,
     public name: string,
-    public logo: string | null,
+    public logo: string,
     public country: string,
     public teams: Team[]
   ) {
     super();
-  }
-
-  static async register(params: {
-    id: string;
-    name: string;
-    logo: string | null;
-    country: string;
-  }) {
-    return new Organization(
-      new OrganizationId(params.id),
-      params.name,
-      params.logo,
-      params.country,
-      []
-    );
   }
 
   toPrimitives() {
