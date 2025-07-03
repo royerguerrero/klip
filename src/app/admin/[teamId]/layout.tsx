@@ -7,6 +7,7 @@ import { DrizzleUserRepository } from "@/contexts/users/infrastructure/persisten
 import { Criteria } from "@/contexts/shared/domain/criteria/Criteria";
 import { Filter } from "@/contexts/shared/domain/criteria/Filter";
 import { Operator } from "@/contexts/shared/domain/criteria/Operator";
+import { db } from "@/contexts/shared/infrastructure/persistence/drizzle";
 
 export const metadata: Metadata = {
   title: "Dashboard | Klip",
@@ -18,7 +19,7 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   const currentSession = await getCurrentSession();
-  const userRepository = new DrizzleUserRepository();
+  const userRepository = new DrizzleUserRepository(db);
   const criteria = new Criteria([
     new Filter("email", Operator.EQUAL, "royjuni3431@gmail.com"),
   ]);

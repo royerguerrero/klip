@@ -14,13 +14,14 @@ import { UserId } from "@/contexts/users/domain/UserId";
 import { createUserSession, removeUserFromSession } from "./session";
 import { cookies } from "next/headers";
 import { UserAuthenticator } from "@/contexts/users/application/UserAuthenticator";
+import { db } from "@/contexts/shared/infrastructure/persistence/drizzle";
 
 export async function login(unsafeData: z.infer<typeof loginSchema>) {
   const { success, data } = loginSchema.safeParse(unsafeData);
   if (!success) return new Error("Unable to log you in");
 
   const authenticator = await new UserAuthenticator(
-    new DrizzleUserRepository(),
+    new DrizzleUserRepository(db),
     new CryptoPasswordHasher()
   );
   const { error, user } = await authenticator.authenticate(
@@ -50,7 +51,7 @@ export async function signup(
   if (!success) return new Error("Unable to sign you up");
 
   const register = new UserRegister(
-    new DrizzleUserRepository(),
+    new DrizzleUserRepository(db),
     new CryptoPasswordHasher()
   );
 

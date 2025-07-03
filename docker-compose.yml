@@ -10,6 +10,17 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  test-db:
+    image: postgres:16.2
+    environment:
+      - POSTGRES_PASSWORD=${TEST_DB_PASSWORD}
+      - POSTGRES_USER=${TEST_DB_USER}
+      - POSTGRES_DB=${TEST_DB_NAME}
+    ports:
+      - ${TEST_DB_PORT}:5432
+    volumes:
+      - test-pgdata:/var/lib/postgresql/data
+
   redis:
     image: redis:7.4.4
     ports:
@@ -19,4 +30,5 @@ services:
 
 volumes:
   pgdata:
+  test-pgdata:
   redisdata:

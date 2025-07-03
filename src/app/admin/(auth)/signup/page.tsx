@@ -28,7 +28,13 @@ export default function Page() {
               clientes
             </p>
           </div>
-          <Suspense fallback={<div className="h-64 flex items-center justify-center">Cargando...</div>}>
+          <Suspense
+            fallback={
+              <div className="h-64 flex items-center justify-center">
+                Cargando...
+              </div>
+            }
+          >
             <SignupForm />
           </Suspense>
         </div>

@@ -10,8 +10,12 @@ import {
   teamMembers,
   teams,
 } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/organization";
+import { DrizzleRepository } from "@/contexts/shared/infrastructure/persistence/drizzle/DrizzleRepository";
 
-export class DrizzleUserRepository implements UserRepository {
+export class DrizzleUserRepository
+  extends DrizzleRepository
+  implements UserRepository
+{
   private dataMapper = {
     id: users.id,
     firstName: users.firstName,
@@ -23,18 +27,22 @@ export class DrizzleUserRepository implements UserRepository {
   private criteriaConverter = new DrizzleCriteriaConverter(this.dataMapper);
 
   async save(user: User): Promise<void> {
-    await db.insert(users).values(user.toPrimitives());
+    await this.connection.insert(users).values(user.toPrimitives());
   }
 
   async matching(criteria: Criteria): Promise<User[]> {
     const filters = this.criteriaConverter.convert(criteria);
-    const query = await db
+
+    const base = this.connection
       .select()
       .from(users)
       .leftJoin(teamMembers, eq(users.id, teamMembers.userId))
       .leftJoin(teams, eq(teamMembers.teamId, teams.id))
-      .leftJoin(organizations, eq(teams.organizationId, organizations.id))
-      .where(sql`${filters}`);
+      .leftJoin(organizations, eq(teams.organizationId, organizations.id));
+
+    // Only add where clause if there are filters
+    const query =
+      filters.length > 0 ? await base.where(sql`${filters}`) : await base;
 
     const results = new Map<string, User>();
     query.forEach(({ users, team_members, teams, organizations }) => {

@@ -66,7 +66,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       title: "Finanzas",
       url: `/admin/${session.currentTeam.id}/finances`,
       icon: "ph:bank-fill",
-      iconClassName: "bg-lime-200 text-lime-500",
+      iconClassName: "bg-lime-200 text-lime-600",
     },
   ];
 

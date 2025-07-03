@@ -10,6 +10,7 @@ const EnvSchema = z.object({
   DB_NAME: z.string(),
   DB_PORT: z.coerce.number(),
   DATABASE_URL: z.string(),
+  TEST_DATABASE_URL: z.string(),
   REDIS_URL: z.string(),
   REDIS_TOKEN: z.string(),
 });
