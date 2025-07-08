@@ -17,6 +17,13 @@ import { Button } from "@/app/_components/ui/button";
 import { addOrder, editOrder } from "@/app/admin/[teamId]/orders/_lib/actions";
 import { useRouter } from "next/navigation";
 import { Heading } from "../../../_components/heading";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/app/_components/ui/select";
 
 type OrderData = z.infer<typeof orderSchema>;
 
@@ -35,12 +42,8 @@ export default function OrderForm({
   const form = useForm<OrderData>({
     resolver: zodResolver(orderSchema),
     defaultValues: {
-      customerId: initialData?.customerId || "",
-      serviceId: initialData?.serviceId || "",
-      onboardingId: initialData?.onboardingId || "",
-      externalInvoiceId: initialData?.externalInvoiceId || "",
-      paymentId: initialData?.paymentId || "",
-      externalReciptId: initialData?.externalReciptId || "",
+      customer: initialData?.customer || "",
+      service: initialData?.service || "",
     },
   });
 
@@ -66,86 +69,55 @@ export default function OrderForm({
           </Button>
         </Heading>
 
-        <div className="grid grid-cols-2 gap-2">
-          <FormField
-            control={form.control}
-            name="customerId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Cliente ID</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="ID del cliente" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="serviceId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Servicio ID</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="ID del servicio" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
         <FormField
           control={form.control}
-          name="onboardingId"
+          name="customer"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Onboarding ID</FormLabel>
+              <FormLabel>Nombre del cliente</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="ID del onboarding" />
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Elije un cliente existente o crea uno nuevo" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="m@example.com">Raw Alejandro</SelectItem>
+                    <SelectItem value="m@google.com">Raw Alejandro</SelectItem>
+                    <SelectItem value="m@support.com">Raw Alejandro</SelectItem>
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
-        <div className="grid grid-cols-2 gap-2">
-          <FormField
-            control={form.control}
-            name="externalInvoiceId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Factura Externa ID</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="ID de la factura externa" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="paymentId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Pago ID</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="ID del pago" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
         <FormField
           control={form.control}
-          name="externalReciptId"
+          name="service"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Recibo Externo ID</FormLabel>
+              <FormLabel>Servicio</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="ID del recibo externo" />
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Elije el servicio" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="m@example.com">Raw Alejandro</SelectItem>
+                    <SelectItem value="m@google.com">Raw Alejandro</SelectItem>
+                    <SelectItem value="m@support.com">Raw Alejandro</SelectItem>
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>
