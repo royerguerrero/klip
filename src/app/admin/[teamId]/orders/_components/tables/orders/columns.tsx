@@ -8,7 +8,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { formatOrderId } from "@/app/_lib/utils";
-import { Icon } from "@iconify/react";
+import { Icon } from "@iconify-icon/react";
 
 // Helper function to get payment status badge
 const getPaymentStatusBadge = (status: string) => {

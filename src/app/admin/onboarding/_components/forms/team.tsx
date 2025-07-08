@@ -36,7 +36,7 @@ export default function TeamForm({ onNext, defaultValues }: TeamFormProps) {
     resolver: zodResolver(teamSchema),
     defaultValues: defaultValues || {
       team: {
-        name: "",
+        name: "Workspace",
         members: [],
       },
     },
@@ -154,7 +154,7 @@ export default function TeamForm({ onNext, defaultValues }: TeamFormProps) {
                         </FormControl>
                         <SelectContent>
                           <SelectItem value="admin">Admin</SelectItem>
-                          <SelectItem value="staff">Staff</SelectItem>
+                          <SelectItem value="staff">Colaborador</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />

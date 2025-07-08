@@ -1,4 +1,10 @@
-import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  pgTable,
+  timestamp,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core";
 import { teams } from "./organization";
 import { pgEnum } from "drizzle-orm/pg-core";
 import { date } from "drizzle-orm/pg-core";
@@ -8,19 +14,38 @@ export const identityDocumentTypes = pgEnum("identity_document_types", [
   "passport",
   "le",
   "lc",
+  "ci",
+  "rut",
+  "cc",
+  "ce",
+  "ti",
+  "cedula",
+  "dui",
+  "nie",
+  "dpi",
+  "ine",
+  "curp",
+  "ssn",
+  "drivers_license",
+  "state_id",
 ]);
 
 export const customers = pgTable("customers", {
-  id: uuid("id").primaryKey().defaultRandom().notNull(),
+  id: uuid("id").primaryKey().notNull(),
   firstName: varchar("first_name", { length: 255 }).notNull(),
-  lastName: varchar("last_name", { length: 255 }),
-  identityDocument: varchar("identity_document", { length: 255 }),
-  identityDocumentType: identityDocumentTypes("identity_document_type"),
+  lastName: varchar("last_name", { length: 255 }).notNull(),
+  identityDocument: varchar("identity_document", { length: 255 }).notNull(),
+  identityDocumentType: identityDocumentTypes(
+    "identity_document_type"
+  ).notNull(),
   dob: date("date_of_birth").notNull(),
-  email: varchar("email", { length: 255 }),
-  phone: varchar("phone", { length: 255 }),
-  teamId: uuid("team_id").references(() => teams.id),
-  createdAt: timestamp("created_at", { mode: "date", precision: 3 })
+  email: varchar("email", { length: 255 }).notNull(),
+  phone: varchar("phone", { length: 255 }).notNull(),
+  archived: boolean("archived").notNull().default(false),
+  teamId: uuid("team_id")
+    .references(() => teams.id)
+    .notNull(),
+  addedAt: timestamp("added_at", { mode: "date", precision: 3 })
     .defaultNow()
     .notNull(),
   updatedAt: timestamp("updated_at", { mode: "date", precision: 3 })
@@ -28,3 +53,5 @@ export const customers = pgTable("customers", {
     .notNull()
     .$onUpdate(() => new Date()),
 });
+
+export type NewCustomer = typeof customers.$inferInsert;

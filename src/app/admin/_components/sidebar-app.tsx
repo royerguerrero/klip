@@ -18,53 +18,46 @@ import { useCurrentSession } from "@/app/admin/_contexts/current-session";
 import { TeamSwitcher } from "./team-switcher";
 import Image from "next/image";
 
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-};
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { session } = useCurrentSession();
+  const currentTeam = session.organization?.currentTeam;
 
   const navMain = [
     {
       title: "Dashboard",
-      url: `/admin/${session.currentTeam.id}/dashboard`,
+      url: `/admin/${currentTeam?.id}/dashboard`,
       icon: "ph:house-line-fill",
       iconClassName: "bg-background text-foreground",
       isActive: true,
     },
     {
       title: "Ordenes",
-      url: `/admin/${session.currentTeam.id}/orders`,
+      url: `/admin/${currentTeam?.id}/orders`,
       icon: "ph:book-open-fill",
-      iconClassName: "bg-orange-200 text-orange-600",
+      iconClassName: "bg-orange-200 text-orange-500",
       isActive: true,
     },
     {
       title: "Agenda",
-      url: `/admin/${session.currentTeam.id}/agenda`,
+      url: `/admin/${currentTeam?.id}/agenda`,
       icon: "ph:calendar-dots-fill",
-      iconClassName: "bg-sky-200 text-sky-600",
+      iconClassName: "bg-sky-200 text-sky-500",
     },
     {
       title: "Catalogo",
-      url: `/admin/${session.currentTeam.id}/catalog`,
+      url: `/admin/${currentTeam?.id}/catalog`,
       icon: "ph:cards-three-fill",
-      iconClassName: "bg-fuchsia-200 text-fuchsia-600",
+      iconClassName: "bg-fuchsia-200 text-fuchsia-500",
     },
     {
       title: "Clientes",
-      url: `/admin/${session.currentTeam.id}/customers`,
+      url: `/admin/${currentTeam?.id}/customers`,
       icon: "ph:users-three-fill",
-      iconClassName: "bg-rose-200 text-rose-600",
+      iconClassName: "bg-rose-200 text-rose-500",
     },
     {
       title: "Finanzas",
-      url: `/admin/${session.currentTeam.id}/finances`,
+      url: `/admin/${currentTeam?.id}/finances`,
       icon: "ph:bank-fill",
       iconClassName: "bg-lime-200 text-lime-600",
     },
@@ -87,9 +80,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain items={navMain} />
       </SidebarContent>
-      <SidebarFooter className="flex flex-row justify-between items-center gap-2 px-2">
-        <Image src="/klip-icon.svg" alt="Logo" width={36} height={36} />
-        <NavUser user={data.user} />
+      <SidebarFooter className="flex gap-2 py-2 px-0">
+        <article className="flex items-center border rounded-lg p-1.5 bg-background">
+          <Image src="/klip-icon.svg" alt="Logo" width={30} height={30} />
+        </article>
+        <NavUser
+          user={{
+            name: `${session.user.firstName} ${session.user.lastName}`,
+            email: session.user.email,
+            avatar: "/avatars/user.jpg",
+          }}
+        />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

@@ -16,7 +16,7 @@ export default function Event({
   price,
 }: Props) {
   return (
-    <div className="flex flex-col gap-1 p-2 rounded-lg w-[280px] min-w-[280px] overflow-x-auto pb-2 bg-neutral-50">
+    <div className="flex flex-col gap-1 p-1 rounded-lg w-[280px] min-w-[280px] overflow-x-auto pb-2 bg-background border border-neutral-100">
       <article className="flex gap-6 text-sm p-2 rounded-md w-fill justify-between h-full bg-sky-100 text-sky-500">
         <div className="flex flex-col">
           <h2 className="font-semibold leading-none flex gap-1">{title}</h2>

@@ -22,6 +22,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/app/_components/ui/sidebar";
+import { logout } from "../(auth)/_lib/actions";
 
 export function NavUser({
   user,
@@ -35,20 +36,26 @@ export function NavUser({
   const { isMobile } = useSidebar();
 
   return (
-    <SidebarMenu className="w-fit">
+    <SidebarMenu className="w-full">
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground p-0 h-fit w-fit rounded-md"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground p-1.5 h-fit rounded-lg justify-between w-full"
             >
-              <Avatar className="size-9 rounded-md">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-md text-neutral-400 bg-neutral-100">
-                  <Icon icon="ph:dots-three-vertical-bold" height={24} />
-                </AvatarFallback>
-              </Avatar>
+              <div className="flex items-center gap-2 text-left text-sm">
+                <Avatar className="size-7 rounded-full">
+                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarFallback className="rounded-lg text-muted-foreground">
+                    <Icon icon="ph:user-fill" height={18} />
+                  </AvatarFallback>
+                </Avatar>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-medium">{user.name}</span>
+                </div>
+              </div>
+              <Icon icon="ph:dots-three-vertical" height={18} />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -81,7 +88,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={logout}>
               <Icon icon="ph:sign-out-fill" height={20} />
               Log out
             </DropdownMenuItem>

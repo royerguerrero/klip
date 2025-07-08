@@ -1,5 +1,4 @@
 import { AggregateRoot } from "@/contexts/shared/domain/AggregateRoot";
-import { User } from "@/contexts/users/domain/User";
 import { OrganizationId } from "./OrganizationId";
 import { Team } from "./Team";
 

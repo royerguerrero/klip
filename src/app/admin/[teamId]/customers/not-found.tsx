@@ -25,17 +25,19 @@ export default function NotFound() {
         </Button>
       }
     >
-      <main className="space-y-4 py-4">
+      <main className="space-y-4 py-8">
         <section className="px-4 space-y-1 flex flex-col items-center justify-center text-center">
           <Icon
             className="text-muted-foreground/50"
-            icon="ph:user-circle-dashed-duotone"
+            icon="ph:list-magnifying-glass"
             height={48}
           />
-          <h1 className="text-lg font-semibold">Cliente no encontrado</h1>
-          <p className="text-muted-foreground text-sm text-balance">
-            El cliente con ID &ldquo;{id}&rdquo; no existe o ha sido eliminado.
-            Verifica que el ID sea correcto o regresa a la lista de clientes.
+          <h1 className="text-xl font-semibold tracking-tight">
+            Cliente no encontrado
+          </h1>
+          <p className="text-muted-foreground text-sm text-balance md:w-2/5">
+            No hemos encontrado el cliente que buscas. Puedes crearlo y empezar
+            a asociar ordenes, sesiones, pagos y más.
           </p>
           <Button variant="primary" className="mt-3" asChild>
             <Link href={`/admin/${teamId}/customers/add`}>

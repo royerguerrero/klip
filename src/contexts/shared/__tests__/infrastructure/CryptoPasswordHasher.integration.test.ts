@@ -116,7 +116,12 @@ describe("CryptoPasswordHasher Integration", () => {
     it("should return false for wrong hash", async () => {
       const password = new Password("testpassword123");
       const salt = "test-salt";
-      const wrongHash = "wrong-hash-value";
+
+      const { hashedPassword: realHash } = await passwordHasher.hash(
+        password,
+        salt
+      );
+      const wrongHash = "0".repeat(realHash.length);
 
       const result = await passwordHasher.compare(password, wrongHash, salt);
 
@@ -128,12 +133,14 @@ describe("CryptoPasswordHasher Integration", () => {
       const salt = "test-salt";
       const { hashedPassword } = await passwordHasher.hash(password, salt);
 
+      const wrongHash = "0".repeat(hashedPassword.length);
+
       const startTime = Date.now();
       await passwordHasher.compare(password, hashedPassword, salt);
       const correctTime = Date.now() - startTime;
 
       const startTime2 = Date.now();
-      await passwordHasher.compare(password, "wrong-hash", salt);
+      await passwordHasher.compare(password, wrongHash, salt);
       const wrongTime = Date.now() - startTime2;
 
       // Timing should be similar (within 100ms) due to timing-safe comparison

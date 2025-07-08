@@ -15,6 +15,7 @@ import {
   teamSchema,
 } from "@/app/admin/onboarding/_components/forms/schemas";
 import { logout } from "@/app/admin/(auth)/_lib/actions";
+import { TeamId } from "@/contexts/organizations/domain/TeamId";
 
 const ONBOARDING_FEATURES = [
   {
@@ -63,7 +64,7 @@ interface FeatureItemProps {
 function FeatureItem({ feature, teamId }: FeatureItemProps) {
   return (
     <li className="bg-neutral-50 p-3 rounded-lg">
-      <Link href={feature.href(teamId)} className="flex flex-row gap-2">
+      <Link href={feature.href(teamId)} className="flex flex-row gap-3">
         <Icon
           icon={feature.icon}
           height={16}
@@ -112,9 +113,7 @@ export default function OnboardingContent({ user }: Props) {
     console.log("Team data:", data);
     saveTeamData(data);
     // Generate a simple team ID (in a real app, this would come from the backend)
-    const teamId = `team_${Date.now()}_${Math.random()
-      .toString(36)
-      .substr(2, 9)}`;
+    const teamId = TeamId.nextId().value;
     setTeamId(teamId);
     nextStep();
   };

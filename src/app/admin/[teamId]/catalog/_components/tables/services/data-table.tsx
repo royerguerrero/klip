@@ -22,7 +22,7 @@ import {
 } from "@/app/_components/ui/table";
 import { Button } from "@/app/_components/ui/button";
 import { Input } from "@/app/_components/ui/input";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify-icon/react";
 import { cn } from "@/app/_lib/utils";
 import { Service } from "@/app/admin/[teamId]/catalog/_lib/types";
 

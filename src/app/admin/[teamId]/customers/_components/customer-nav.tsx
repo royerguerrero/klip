@@ -12,23 +12,24 @@ type Props = {
 export function CustomerNav({ customerId }: Props) {
   const pathname = usePathname();
   const { session } = useCurrentSession();
+  const currentTeam = session.organization?.currentTeam;
 
   const items = [
     {
-      label: "General",
-      href: `/admin/${session.currentTeam.id}/customers/${customerId}`,
+      label: "Información",
+      href: `/admin/${currentTeam?.id}/customers/${customerId}`,
     },
     {
       label: "Ordenes",
-      href: `/admin/${session.currentTeam.id}/customers/${customerId}/orders`,
+      href: `/admin/${currentTeam?.id}/customers/${customerId}/orders`,
     },
     {
       label: "Pagos",
-      href: `/admin/${session.currentTeam?.id}/customers/${customerId}/payments`,
+      href: `/admin/${currentTeam?.id}/customers/${customerId}/payments`,
     },
     {
-      label: "Agendamientos",
-      href: `/admin/${session.currentTeam.id}/customers/${customerId}/agenda`,
+      label: "Agenda",
+      href: `/admin/${currentTeam?.id}/customers/${customerId}/agenda`,
     },
   ];
 

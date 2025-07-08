@@ -1,7 +1,8 @@
 import { Button } from "@/app/_components/ui/button";
-import SignupForm from "@/app/admin/(auth)/_components/forms/singup";
+import SignupForm from "@/app/admin/(auth)/_components/forms/signup";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function Page() {
   return (
@@ -14,6 +15,7 @@ export default function Page() {
                 src="/klip-icon.svg"
                 alt="Klip Logo"
                 className="mx-auto mb-2"
+                priority={true}
                 width={36}
                 height={36}
               />
@@ -27,7 +29,15 @@ export default function Page() {
               clientes
             </p>
           </div>
-          <SignupForm />
+          <Suspense
+            fallback={
+              <div className="h-64 flex items-center justify-center">
+                Cargando...
+              </div>
+            }
+          >
+            <SignupForm />
+          </Suspense>
         </div>
         <Button variant="link" className="w-full text-sm pt-3" asChild>
           <Link href="/admin/login">

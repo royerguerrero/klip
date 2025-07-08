@@ -40,6 +40,9 @@ import { countries } from "@/app/admin/_lib/countries";
 import { es } from "date-fns/locale";
 import { Icon } from "@iconify-icon/react";
 import { Heading } from "../../../_components/heading";
+import addCustomer from "../../_lib/actions/addCustomer";
+import editCustomer from "../../_lib/actions/editCustomer";
+import { init } from "next/dist/compiled/webpack/webpack";
 
 type CustomerData = z.infer<typeof customerSchema>;
 
@@ -68,26 +71,76 @@ export default function CustomerForm({
     },
   });
 
-  const handleSubmit = async (data: CustomerData) => {
-    console.log(data);
-    // TODO: Implement customer creation/update logic based on mode
+  const onSubmit = async (data: CustomerData) => {
     if (mode === "create") {
-      // Handle customer creation
-      console.log("Creating customer:", data);
-    } else {
-      // Handle customer update
-      console.log("Updating customer:", data);
+      const error = await addCustomer(
+        {
+          ...data,
+          phonePrefix:
+            countries.get(data.phonePrefix)?.prefix || data.phonePrefix,
+        },
+        session.organization.currentTeam.id
+      );
+
+      switch (error?.name) {
+        case "CustomerAlreadyExistsError":
+          form.setError("root", {
+            message: "El cliente ya existe",
+          });
+          break;
+        case "CustomerInvalidDateBirthError":
+          form.setError("dob", {
+            message: "La fecha de nacimiento no es válida",
+          });
+          break;
+        case "PhoneNumberIsNotValid":
+          form.setError("phone", {
+            message: "El número de teléfono no es válido",
+          });
+          break;
+        default:
+          form.setError("root", {
+            message: "Ocurrió un error",
+          });
+      }
+    } else if (initialData?.id) {
+      const error = await editCustomer(
+        initialData.id,
+        session.organization.currentTeam.id,
+        {
+          ...data,
+          phonePrefix:
+            countries.get(data.phonePrefix)?.prefix || data.phonePrefix,
+        }
+      );
+
+      switch (error?.name) {
+        case "CustomerDoesNotExistError":
+          form.setError("root", {
+            message: "El cliente no existe",
+          });
+          break;
+        default:
+          form.setError("root", {
+            message: "Ocurrió un error",
+          });
+      }
     }
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
-        <Heading title={mode === "create" ? "Añadir cliente" : "Editar cliente"}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <Heading
+          title={mode === "create" ? "Añadir cliente" : "Editar cliente"}
+        >
           <Button type="submit" variant="secondary">
             {mode === "create" ? "Guardar" : "Actualizar"}
           </Button>
         </Heading>
+        {form.formState.errors.root && (
+          <FormMessage>{form.formState.errors.root.message}</FormMessage>
+        )}
         <div className="grid grid-cols-2 gap-2">
           <FormField
             control={form.control}
@@ -184,7 +237,11 @@ export default function CustomerForm({
                       ) : (
                         <span>Seleccionar fecha</span>
                       )}
-                      <Icon icon="ph-calendar-blank-duotone" className="ml-auto" height={16} />
+                      <Icon
+                        icon="ph-calendar-blank-duotone"
+                        className="ml-auto"
+                        height={16}
+                      />
                     </Button>
                   </FormControl>
                 </PopoverTrigger>

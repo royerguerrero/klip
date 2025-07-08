@@ -1,7 +1,6 @@
-import { Badge } from "@/app/_components/ui/badge";
 import { Stat } from "@/app/_components/ui/stat";
 
-export default function Page() {
+export default async function Page() {
   const stats = [
     {
       title: "Ingresos Semanales",
@@ -39,9 +38,6 @@ export default function Page() {
             value={stat.value}
             percentage={stat.percentage}
             format={stat.format as "price" | "number" | "currency"}
-            className={`border-r ${
-              index === stats.length - 1 ? "" : "last:border-r-0"
-            }`}
           />
         ))}
       </div>

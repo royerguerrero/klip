@@ -51,7 +51,7 @@ export function DataTable({ columns, data }: DataTableProps) {
         `${customer.firstName} ${customer.lastName}`,
         customer.email,
         `${customer.phone.prefix} ${customer.phone.number}`,
-        `${customer.document.type} ${customer.document.number}`,
+        `${customer.document.type} ${customer.document.value}`,
       ]
         .join(" ")
         .toLowerCase();

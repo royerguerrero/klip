@@ -1,22 +1,20 @@
 import { AggregateRoot } from "@/contexts/shared/domain/AggregateRoot";
 import { Email } from "@/contexts/shared/domain/value-object/Email";
 import { UserId } from "./UserId";
-import { OrganizationId } from "@/contexts/organizations/domain/OrganizationId";
-import { Team } from "@/contexts/users/domain/Team";
 import { PasswordHasher } from "@/contexts/shared/domain/PasswordHasher";
 import { Password } from "@/contexts/shared/domain/value-object/Password";
 import { InvalidPasswordError } from "@/contexts/shared/domain/errors/InvalidPasswordError";
+import { Organization } from "./Organization";
 
 export class User extends AggregateRoot {
   constructor(
-    public id: UserId,
-    public firstName: string,
-    public lastName: string,
-    public email: Email,
-    public password: string,
-    public salt: string,
-    public teams?: Team[],
-    public organizationId?: OrganizationId
+    readonly id: UserId,
+    readonly firstName: string,
+    readonly lastName: string,
+    readonly email: Email,
+    readonly password: string,
+    readonly salt: string,
+    readonly organization?: Organization
   ) {
     super();
   }
@@ -40,8 +38,7 @@ export class User extends AggregateRoot {
       params.lastName,
       new Email(params.email),
       hashedPassword,
-      salt,
-      []
+      salt
     );
   }
 
@@ -56,21 +53,8 @@ export class User extends AggregateRoot {
     );
 
     if (!passwordMatch) {
-      throw new InvalidPasswordError();
+      return new InvalidPasswordError();
     }
-  }
-
-  static fromPrimitives(primitives: ReturnType<User["toPrimitives"]>): User {
-    return new User(
-      new UserId(primitives.id),
-      primitives.firstName,
-      primitives.lastName,
-      new Email(primitives.email),
-      primitives.password,
-      primitives.salt,
-      primitives.teams,
-      primitives.organizationId
-    );
   }
 
   toPrimitives() {
@@ -81,8 +65,21 @@ export class User extends AggregateRoot {
       email: this.email.value,
       password: this.password,
       salt: this.salt,
-      organizationId: this.organizationId,
-      teams: this.teams,
+      organization: this.organization?.toPrimitives(),
     };
+  }
+
+  static fromPrimitives(primitives: ReturnType<User["toPrimitives"]>): User {
+    return new User(
+      new UserId(primitives.id),
+      primitives.firstName,
+      primitives.lastName,
+      new Email(primitives.email),
+      primitives.password,
+      primitives.salt,
+      primitives.organization
+        ? Organization.fromPrimitives(primitives.organization)
+        : undefined
+    );
   }
 }

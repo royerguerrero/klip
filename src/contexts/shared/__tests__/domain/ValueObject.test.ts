@@ -37,10 +37,10 @@ describe("ValueObject", () => {
     it("should return false when comparing with different type", () => {
       const vo1 = new TestValueObject("test");
       const differentVo = new (class extends ValueObject {
-        equals(other: ValueObject): boolean {
+        equals(): boolean {
           return false;
         }
-        notEquals(other: ValueObject): boolean {
+        notEquals(): boolean {
           return true;
         }
       })();
@@ -64,4 +64,4 @@ describe("ValueObject", () => {
       expect(vo1.notEquals(vo2)).toBe(false);
     });
   });
-}); 
+});

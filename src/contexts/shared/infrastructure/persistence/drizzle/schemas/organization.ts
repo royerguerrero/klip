@@ -17,8 +17,8 @@ export const countries = pgEnum("countries", [
 
 export const organizations = pgTable("organizations", {
   id: uuid("id").primaryKey().defaultRandom().notNull(),
-  name: varchar("name", { length: 255 }),
-  country: countries("country"),
+  name: varchar("name", { length: 120 }).notNull(),
+  country: countries("country").notNull(),
   createdAt: timestamp("created_at", { mode: "date", precision: 3 })
     .defaultNow()
     .notNull(),
@@ -43,8 +43,12 @@ export const teams = pgTable("teams", {
 
 export const teamMembers = pgTable("team_members", {
   id: uuid("id").primaryKey().defaultRandom().notNull(),
-  teamId: uuid("team_id").references(() => teams.id),
-  userId: uuid("user_id").references(() => users.id),
+  teamId: uuid("team_id")
+    .references(() => teams.id)
+    .notNull(),
+  userId: uuid("user_id")
+    .references(() => users.id)
+    .notNull(),
   permissions: text("permissions")
     .array()
     .notNull()
