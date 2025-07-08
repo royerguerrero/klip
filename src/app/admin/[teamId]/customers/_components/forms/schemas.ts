@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const customerSchema = z.object({
+  id: z.string().optional(),
   firstName: z.string().min(1, { message: "El nombre es requerido" }),
   lastName: z.string().min(1, { message: "El apellido es requerido" }),
   documentType: z

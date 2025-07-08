@@ -3,7 +3,6 @@ import { User } from "@/contexts/users/domain/User";
 import { Criteria } from "@/contexts/shared/domain/criteria/Criteria";
 import { DrizzleCriteriaConverter } from "@/contexts/shared/infrastructure/persistence/drizzle/DrizzleCriteriaConverter";
 import { users } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/users";
-import { db } from "@/contexts/shared/infrastructure/persistence/drizzle";
 import { eq, sql } from "drizzle-orm";
 import {
   organizations,
@@ -27,7 +26,13 @@ export class DrizzleUserRepository
   private criteriaConverter = new DrizzleCriteriaConverter(this.dataMapper);
 
   async save(user: User): Promise<void> {
-    await this.connection.insert(users).values(user.toPrimitives());
+    await this.connection
+      .insert(users)
+      .values(user.toPrimitives())
+      .onConflictDoUpdate({
+        target: [users.id],
+        set: user.toPrimitives(),
+      });
   }
 
   async matching(criteria: Criteria): Promise<User[]> {

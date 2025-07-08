@@ -2,8 +2,12 @@ import { Button } from "@/app/_components/ui/button";
 import LoginForm from "@/app/admin/(auth)/_components/forms/login";
 import Image from "next/image";
 import Link from "next/link";
+import { getCurrentUserSession } from "../_lib/data";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+export default async function Page() {
+  const user = await getCurrentUserSession();
+
   return (
     <main className="grid place-items-center h-screen bg-neutral-50 p-3">
       <section className="flex flex-col items-center justify-center w-full md:w-[420px] p-1.5 rounded-2xl bg-neutral-100 border">
@@ -14,6 +18,7 @@ export default function Page() {
                 src="/klip-icon.svg"
                 alt="Klip Logo"
                 className="mb-2 mx-auto"
+                priority={true}
                 width={36}
                 height={36}
               />

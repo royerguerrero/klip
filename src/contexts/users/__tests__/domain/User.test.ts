@@ -45,7 +45,9 @@ describe("User", () => {
     it("should create a user with organization", () => {
       const userId = new UserId("123e4567-e89b-12d3-a456-426614174000");
       const email = new Email("test@example.com");
-      const organizationId = new OrganizationId("123e4567-e89b-12d3-a456-426614174001");
+      const organizationId = new OrganizationId(
+        "123e4567-e89b-12d3-a456-426614174001"
+      );
       const teamId = new TeamId("123e4567-e89b-12d3-a456-426614174002");
       const team = new Team(teamId, "Team A", ["read", "write"]);
       const organization = new Organization(
@@ -137,7 +139,7 @@ describe("User", () => {
       );
     });
 
-    it("should throw InvalidPasswordError with incorrect password", async () => {
+    it("should return InvalidPasswordError with incorrect password", async () => {
       const user = new User(
         new UserId("123e4567-e89b-12d3-a456-426614174000"),
         "John",
@@ -149,12 +151,12 @@ describe("User", () => {
 
       mockPasswordHasher.compare.mockResolvedValue(false);
 
-      await expect(
-        user.authenticate({
-          password: "wrongPassword",
-          passwordHasher: mockPasswordHasher as any,
-        })
-      ).rejects.toThrow(InvalidPasswordError);
+      const result = await user.authenticate({
+        password: "wrongPassword",
+        passwordHasher: mockPasswordHasher as any,
+      });
+
+      expect(result).toBeInstanceOf(InvalidPasswordError);
 
       expect(mockPasswordHasher.compare).toHaveBeenCalledWith(
         new Password("wrongPassword"),
@@ -189,7 +191,9 @@ describe("User", () => {
     });
 
     it("should return primitives with organization", () => {
-      const organizationId = new OrganizationId("123e4567-e89b-12d3-a456-426614174001");
+      const organizationId = new OrganizationId(
+        "123e4567-e89b-12d3-a456-426614174001"
+      );
       const teamId = new TeamId("123e4567-e89b-12d3-a456-426614174002");
       const team = new Team(teamId, "Team A", ["read", "write"]);
       const organization = new Organization(
@@ -296,4 +300,4 @@ describe("User", () => {
       expect(user.organization?.teams[0].name).toBe("Team A");
     });
   });
-}); 
+});

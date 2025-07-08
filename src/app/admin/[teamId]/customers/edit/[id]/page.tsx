@@ -5,6 +5,7 @@ import Link from "next/link";
 import CustomerForm from "@/app/admin/[teamId]/customers/_components/forms/customer";
 import { retrieveCustomer } from "@/app/admin/[teamId]/customers/_lib/data";
 import { notFound } from "next/navigation";
+import { countries } from "@/app/admin/_lib/countries";
 
 type Props = {
   params: Promise<{
@@ -23,11 +24,17 @@ export default async function Page({ params }: Props) {
   }
 
   const formData = {
-    ...customer,
+    id: customer.id,
+    firstName: customer.firstName,
+    lastName: customer.lastName,
     documentType: customer.document.type,
-    documentNumber: customer.document.number,
-    phonePrefix: customer.phone.prefix,
+    documentNumber: customer.document.value,
+    phonePrefix:
+      [...countries.values()].find((c) => c.prefix === customer.phone.prefix)
+        ?.code ?? customer.phone.prefix,
     phone: customer.phone.number,
+    email: customer.email,
+    dob: customer.dateBirth,
   };
 
   return (

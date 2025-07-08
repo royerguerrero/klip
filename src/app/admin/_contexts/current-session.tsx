@@ -7,9 +7,9 @@ type SessionContextType = {
   session: Session;
   setSession: (session: Session) => void;
   updateUser: (user: User) => void;
-  updateOrganization: (organization: Organization) => void;
-  updateTeams: (teams: Team[]) => void;
-  updateCurrentTeam: (team: Team) => void;
+  updateOrganization: (organization: Organization | null) => void;
+  updateTeams: (teams: Team[] | null) => void;
+  updateCurrentTeam: (team: Team | null) => void;
   clearSession: () => void;
 };
 
@@ -28,16 +28,26 @@ export function CurrentSessionProvider({
     setSession((prev) => ({ ...prev, user }));
   };
 
-  const updateOrganization = (organization: Organization) => {
+  const updateOrganization = (organization: Organization | null) => {
     setSession((prev) => ({ ...prev, organization }));
   };
 
-  const updateTeams = (teams: Team[]) => {
-    setSession((prev) => ({ ...prev, teams }));
+  const updateTeams = (teams: Team[] | null) => {
+    setSession((prev) => ({
+      ...prev,
+      organization: prev.organization
+        ? { ...prev.organization, teams }
+        : null,
+    }));
   };
 
-  const updateCurrentTeam = (team: Team) => {
-    setSession((prev) => ({ ...prev, currentTeam: team }));
+  const updateCurrentTeam = (team: Team | null) => {
+    setSession((prev) => ({
+      ...prev,
+      organization: prev.organization
+        ? { ...prev.organization, currentTeam: team }
+        : null,
+    }));
   };
 
   const clearSession = () => {

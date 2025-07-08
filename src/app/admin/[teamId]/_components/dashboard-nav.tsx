@@ -8,19 +8,20 @@ import { useCurrentSession } from "../../_contexts/current-session";
 export function DashboardNav() {
   const pathname = usePathname();
   const { session } = useCurrentSession();
+  const currentTeam = session.organization?.currentTeam;
 
   const items = [
     {
       label: "Resumen",
-      href: `/admin/${session.currentTeam?.id}/dashboard`,
+      href: `/admin/${currentTeam?.id}/dashboard`,
     },
     {
       label: "Transaciones",
-      href: `/admin/${session.currentTeam?.id}/dashboard/transactions`,
+      href: `/admin/${currentTeam?.id}/dashboard/transactions`,
     },
     {
       label: "Clientes",
-      href: `/admin/${session.currentTeam?.id}/dashboard/customers`,
+      href: `/admin/${currentTeam?.id}/dashboard/customers`,
     },
   ];
 

@@ -24,10 +24,12 @@ export class UserAuthenticator {
     }
 
     const user = results[0];
-    await user.authenticate({
+    const error = await user.authenticate({
       password: password,
       passwordHasher: this.passwordHasher,
     });
+
+    if (error) return { error: error, user: null };
 
     return { error: null, user };
   }

@@ -53,7 +53,7 @@ export class User extends AggregateRoot {
     );
 
     if (!passwordMatch) {
-      throw new InvalidPasswordError();
+      return new InvalidPasswordError();
     }
   }
 

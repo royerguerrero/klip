@@ -14,7 +14,8 @@ import { FormLabel } from "@/app/_components/ui/form";
 
 import { Input } from "@/app/_components/ui/input";
 import { Button } from "@/app/_components/ui/button";
-import { archiveCustomer } from "../../_lib/actions";
+
+import archiveCustomer from "../../_lib/actions/archiveCustomer";
 import { Customer } from "../../_lib/types";
 import { Separator } from "@/app/_components/ui/separator";
 import {
@@ -40,7 +41,7 @@ export default function ArchiveCustomerForm({ customer }: Props) {
   });
 
   const handleSubmit = async () => {
-    await archiveCustomer(customer.id);
+    await archiveCustomer(customer.id, customer.teamId);
   };
 
   return (

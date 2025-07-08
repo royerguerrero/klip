@@ -19,10 +19,7 @@ export default async function Page({ params }: Props) {
       <section className="grid grid-cols-1 md:grid-cols-6 gap-3">
         <article className="rounded-xl p-1.5 md:col-span-2 bg-neutral-100 flex flex-col gap-0.5 h-52">
           <div className="h-full bg-background rounded-lg border grid grid-cols-2 gap-2 px-3 py-1.5">
-            Avatar
-            Balance
-            LTV
-            Health
+            Avatar Balance LTV Health
           </div>
           <div className="flex items-center justify-between p-1.5">
             <h2 className="font-bold text-foreground/50 text-xs uppercase tracking-wide leading-none">

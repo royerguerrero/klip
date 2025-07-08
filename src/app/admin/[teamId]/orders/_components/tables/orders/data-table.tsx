@@ -23,7 +23,7 @@ import {
 } from "@/app/_components/ui/table";
 import { Button } from "@/app/_components/ui/button";
 import { Input } from "@/app/_components/ui/input";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify-icon/react";
 import { cn } from "@/app/_lib/utils";
 import { Order } from "@/app/admin/[teamId]/orders/_lib/types";
 import { DataTableFacetedFilter } from "@/app/_components/ui/data-table-faceted-filter";
@@ -123,7 +123,7 @@ export function DataTable({ columns, data }: DataTableProps) {
           />
           <Button
             variant="ghost"
-            className="text-muted-foreground h-7.5"
+            className="text-muted-foreground h-7 px-2"
             onClick={() => {
               setGlobalFilter("");
               setColumnFilters([]);

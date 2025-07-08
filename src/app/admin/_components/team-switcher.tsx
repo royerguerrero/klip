@@ -1,6 +1,6 @@
 "use client";
 
-import { Icon } from "@iconify/react";
+import { Icon } from "@iconify-icon/react";
 
 import {
   DropdownMenu,
@@ -23,13 +23,19 @@ import { useRouter } from "next/navigation";
 export function TeamSwitcher() {
   const { isMobile } = useSidebar();
   const { session, updateCurrentTeam } = useCurrentSession();
-  const { teams, organization } = session;
-  const activeTeam = session.currentTeam || teams[0];
+  const { organization } = session;
+  const teams = organization?.teams || [];
+  const activeTeam = organization?.currentTeam || teams[0];
   const router = useRouter();
 
   if (!activeTeam || teams.length === 0) {
     return null;
   }
+
+  const handleTeamChange = (team: { id: string; name: string }) => {
+    updateCurrentTeam(team);
+    router.push(`/admin/${team.id}/dashboard`);
+  };
 
   return (
     <SidebarMenu>
@@ -41,10 +47,7 @@ export function TeamSwitcher() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground p-1 h-fit"
             >
               <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8.5 items-center justify-center rounded-lg">
-                <Icon
-                  icon={organization?.logo || "ph:flag-fill"}
-                  height={18}
-                />
+                <Icon icon={organization?.logo || "ph:flag-fill"} height={18} />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight gap-0.5">
                 <span className="truncate font-semibold leading-none">
@@ -54,7 +57,7 @@ export function TeamSwitcher() {
                   {organization?.name}
                 </span>
               </div>
-              <Icon icon="ph:caret-up-down" height={8} className="mr-1" />
+              <Icon icon="ph:caret-up-down" height={14} className="mr-1" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -66,17 +69,20 @@ export function TeamSwitcher() {
             <DropdownMenuLabel className="text-muted-foreground text-xs">
               Equipos
             </DropdownMenuLabel>
-            {teams.map((team, index) => (
+            {teams.map((team) => (
               <DropdownMenuItem
                 key={team.id}
                 onClick={async () => {
-                  await updateCurrentTeam(team);
-                  router.push(`/admin/${team.id}/dashboard`);
+                  await handleTeamChange(team);
                 }}
-                className="p-2"
+                className="p-2 flex justify-between"
               >
                 {team.name}
-                <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+                <Icon 
+                  icon={team.id === activeTeam.id ? "ph:seal-fill" : "ph:seal-bold"} 
+                  height={14} 
+                  className={team.id === activeTeam.id ? "text-lime-500" : "text-muted-foreground"} 
+                />
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />

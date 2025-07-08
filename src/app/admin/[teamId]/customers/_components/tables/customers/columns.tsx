@@ -22,7 +22,7 @@ export const columns: ColumnDef<Customer>[] = [
     accessorKey: "document",
     header: "Documento",
     cell: ({ row }) => {
-      return `${row.original.document.type} ${row.original.document.number}`;
+      return <span className="uppercase">{`${row.original.document.type} ${row.original.document.value}`}</span>;
     },
     filterFn: (row, id, value) => {
       const documentType = row.original.document.type;
@@ -60,8 +60,15 @@ export const columns: ColumnDef<Customer>[] = [
         </div>
       );
     },
-    cell: () => {
-      return <span>{new Date().toLocaleDateString()}</span>;
+    cell: ({ row }) => {
+      if (!row.original.addedAt) return <span>-</span>;
+      return <span>{row.original.addedAt.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      })}</span>;
     },
   },
   {

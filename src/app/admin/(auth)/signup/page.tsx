@@ -15,6 +15,7 @@ export default function Page() {
                 src="/klip-icon.svg"
                 alt="Klip Logo"
                 className="mx-auto mb-2"
+                priority={true}
                 width={36}
                 height={36}
               />

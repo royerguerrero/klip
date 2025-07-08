@@ -38,14 +38,10 @@ export default async function Page() {
             value={stat.value}
             percentage={stat.percentage}
             format={stat.format as "price" | "number" | "currency"}
-            className={`border-r ${
-              index === stats.length - 1 ? "" : "last:border-r-0"
-            }`}
           />
         ))}
       </div>
-      <div className="grid grid-cols-2 gap-2">
-      </div>
+      <div className="grid grid-cols-2 gap-2"></div>
     </section>
   );
 }

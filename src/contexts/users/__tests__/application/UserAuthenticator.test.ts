@@ -1,10 +1,8 @@
 import { UserAuthenticator } from "../../application/UserAuthenticator";
 import { UserRepository } from "../../domain/UserRepository";
 import { PasswordHasher } from "@/contexts/shared/domain/PasswordHasher";
-import { User } from "../../domain/User";
 import { UserDoesNotExistError } from "../../domain/errors/UserDoesNotExistError";
 import { InvalidPasswordError } from "@/contexts/shared/domain/errors/InvalidPasswordError";
-import { Criteria } from "@/contexts/shared/domain/criteria/Criteria";
 import { Filter } from "@/contexts/shared/domain/criteria/Filter";
 import { Operator } from "@/contexts/shared/domain/criteria/Operator";
 
@@ -25,7 +23,10 @@ describe("UserAuthenticator", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    userAuthenticator = new UserAuthenticator(mockUserRepository, mockPasswordHasher);
+    userAuthenticator = new UserAuthenticator(
+      mockUserRepository,
+      mockPasswordHasher
+    );
   });
 
   describe("authenticate", () => {
@@ -202,4 +203,4 @@ describe("UserAuthenticator", () => {
       });
     });
   });
-}); 
+});

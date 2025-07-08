@@ -5,14 +5,46 @@ import { redis } from "@/contexts/shared/infrastructure/persistence/redis";
 const COOKIE_SESSION_KEY = "user-auth-session-id";
 const SESSION_EXPIRATION_TIME = 60 * 60 * 24 * 30; // 30 days
 
-const sessionSchema = z.object({
+const documentTypeSchema = z.object({
+  value: z.string(),
+  label: z.string(),
+});
+
+const countrySchema = z.object({
+  code: z.string(),
+  name: z.string(),
+  flag: z.string(),
+  prefix: z.string(),
+  currency: z.string(),
+  documentTypes: z.array(documentTypeSchema),
+});
+
+const userSchema = z.object({
   id: z.string(),
   firstName: z.string(),
   lastName: z.string(),
-  email: z.string(),
 });
 
-type UserSession = z.infer<typeof sessionSchema>;
+const teamSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+});
+
+const organizationSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  logo: z.string().nullable(),
+  country: countrySchema,
+  teams: z.array(teamSchema).nullable(),
+  currentTeam: teamSchema.nullable(),
+});
+
+const sessionSchema = z.object({
+  user: userSchema,
+  organization: organizationSchema.nullable(),
+});
+
+export type Session = z.infer<typeof sessionSchema>;
 
 export type Cookies = {
   set: (
@@ -20,7 +52,7 @@ export type Cookies = {
     value: string,
     options: {
       secure?: boolean;
-      httpsOnly?: boolean;
+      httpOnly?: boolean;
       sameSite?: "strict" | "lax";
       expires?: number;
     }
@@ -30,13 +62,13 @@ export type Cookies = {
 };
 
 export async function createUserSession(
-  user: UserSession,
+  session: Session,
   cookies: Pick<Cookies, "set">
 ) {
   const sessionId = crypto.randomBytes(512).toString("hex").normalize();
   redis.set(
     `user:session:${sessionId}`,
-    JSON.stringify(sessionSchema.parse(user)),
+    JSON.stringify(sessionSchema.parse(session)),
     "EX",
     SESSION_EXPIRATION_TIME
   );
@@ -64,7 +96,7 @@ export async function removeUserFromSession(
 function setCookie(sessionId: string, cookies: Pick<Cookies, "set">) {
   cookies.set(COOKIE_SESSION_KEY, sessionId, {
     secure: true,
-    httpsOnly: true,
+    httpOnly: true,
     sameSite: "lax",
     expires: Date.now() + SESSION_EXPIRATION_TIME * 1000,
   });
@@ -74,11 +106,13 @@ function removeCookie(cookies: Pick<Cookies, "delete">) {
   cookies.delete(COOKIE_SESSION_KEY);
 }
 
-async function getUserSessionById(sessionID: string) {
-  const rawUser = await redis.get(`user:session:${sessionID}`);
-  const { success, data: user } = sessionSchema.safeParse(
-    JSON.parse(rawUser || "")
+async function getUserSessionById(sessionID: string): Promise<Session | null> {
+  const rawSession = await redis.get(`user:session:${sessionID}`);
+  if (!rawSession) return null;
+
+  const { success, data: session } = sessionSchema.safeParse(
+    JSON.parse(rawSession)
   );
 
-  return success ? user : null;
+  return success ? session : null;
 }
