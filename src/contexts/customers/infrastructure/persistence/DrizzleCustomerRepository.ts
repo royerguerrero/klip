@@ -7,7 +7,7 @@ import {
   customers,
   NewCustomer,
 } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/customers";
-import { eq, sql } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 import { DrizzleRepository } from "@/contexts/shared/infrastructure/persistence/drizzle/DrizzleRepository";
 
 export class DrizzleCustomerRepository

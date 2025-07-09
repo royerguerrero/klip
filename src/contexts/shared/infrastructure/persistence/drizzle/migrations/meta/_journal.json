@@ -15,6 +15,20 @@
       "when": 1751772728100,
       "tag": "0001_purple_juggernaut",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1752101278829,
+      "tag": "0002_violet_hairball",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1752101430092,
+      "tag": "0003_bumpy_sebastian_shaw",
+      "breakpoints": true
     }
   ]
 }

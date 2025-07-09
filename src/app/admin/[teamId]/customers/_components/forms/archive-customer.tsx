@@ -15,7 +15,7 @@ import { FormLabel } from "@/app/_components/ui/form";
 import { Input } from "@/app/_components/ui/input";
 import { Button } from "@/app/_components/ui/button";
 
-import archiveCustomer from "../../_lib/actions/archiveCustomer";
+import { archiveCustomer } from "@/app/admin/[teamId]/customers/_lib/actions";
 import { Customer } from "../../_lib/types";
 import { Separator } from "@/app/_components/ui/separator";
 import {

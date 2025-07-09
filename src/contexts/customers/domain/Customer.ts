@@ -7,7 +7,7 @@ import { DateBirth } from "@/contexts/customers/domain/DateBirth";
 import { IdentityDocument } from "@/contexts/customers/domain/IdentityDocument";
 import { CustomerStatus } from "./CustomerStatus";
 
-export class Customer extends AggregateRoot {
+export class Customer implements AggregateRoot {
   constructor(
     public readonly id: CustomerId,
     public readonly firstName: string,
@@ -21,9 +21,7 @@ export class Customer extends AggregateRoot {
     public readonly status: CustomerStatus = new CustomerStatus(
       CustomerStatus.ACTIVE
     )
-  ) {
-    super();
-  }
+  ) {}
 
   static create(
     params: Omit<ReturnType<Customer["toPrimitives"]>, "addedAt" | "status">

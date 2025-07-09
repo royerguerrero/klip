@@ -29,7 +29,7 @@ export default async function Page({ params }: Props) {
             </Link>
           </Button>
         </Heading>
-        <section className="px-4">
+        <section className="px-3">
           <DataTable columns={columns} data={customers} />
         </section>
       </main>

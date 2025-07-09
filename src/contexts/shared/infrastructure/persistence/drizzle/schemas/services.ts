@@ -7,6 +7,7 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
+import { teams } from "./organization";
 
 export const categories = pgTable("categories", {
   id: uuid("id").primaryKey().defaultRandom().notNull(),
@@ -35,20 +36,21 @@ export const subcategories = pgTable("subcategories", {
     .$onUpdate(() => new Date()),
 });
 
-// Status: Draft, Ready, Archived
-export const status = pgEnum("status", ["D", "R", "A"]);
+// Status: Draft, Published, Archived
+export const status = pgEnum("status", ["D", "P", "A"]);
 
 export const services = pgTable("services", {
   id: uuid("id").primaryKey().defaultRandom().notNull(),
   name: varchar("name", { length: 255 }).notNull(),
   description: varchar("description", { length: 255 }),
-  category: varchar("category", { length: 255 }).notNull(),
+  category: varchar("category", { length: 255 }),
   subcategory: varchar("subcategory", { length: 255 }),
   price: numeric("price", { precision: 10, scale: 2 }).notNull(),
   currency: varchar("currency", { length: 3 }).notNull(),
   sessions: integer("sessions").notNull(),
   sessionDuration: integer("session_duration").notNull(),
   status: status("status").notNull().default("D"),
+  teamId: uuid("team_id").references(() => teams.id),
   createdAt: timestamp("created_at", { mode: "date", precision: 3 })
     .defaultNow()
     .notNull(),

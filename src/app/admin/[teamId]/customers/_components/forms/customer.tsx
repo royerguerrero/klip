@@ -40,9 +40,10 @@ import { countries } from "@/app/admin/_lib/countries";
 import { es } from "date-fns/locale";
 import { Icon } from "@iconify-icon/react";
 import { Heading } from "../../../_components/heading";
-import addCustomer from "../../_lib/actions/addCustomer";
-import editCustomer from "../../_lib/actions/editCustomer";
-import { init } from "next/dist/compiled/webpack/webpack";
+import {
+  addCustomer,
+  editCustomer,
+} from "@/app/admin/[teamId]/customers/_lib/actions";
 
 type CustomerData = z.infer<typeof customerSchema>;
 

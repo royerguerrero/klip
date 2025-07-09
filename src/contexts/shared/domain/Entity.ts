@@ -1,4 +1,4 @@
 export abstract class Entity {
-  protected id: unknown;
+  public id: unknown;
   abstract toPrimitives(): object;
 }
