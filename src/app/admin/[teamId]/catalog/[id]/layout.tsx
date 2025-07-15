@@ -12,6 +12,8 @@ import {
   DropdownMenuTrigger,
 } from "@/app/_components/ui/dropdown-menu";
 import { Heading } from "../../_components/heading";
+import { StatusSelect } from "../_components/status-select";
+import { ServiceNav } from "../_components/service-nav";
 
 type Props = {
   params: Promise<{
@@ -40,20 +42,31 @@ export default async function CatalogItemLayout({ params, children }: Props) {
         },
       ]}
       actions={
-        <Button asChild>
-          <Link href={`/admin/${teamId}/catalog/edit/${id}`}>Editar</Link>
+        <Button size="icon" asChild>
+          <Link href={`/admin/${teamId}/catalog/`}>
+            <Icon icon="ph:x-bold" height={14} />
+          </Link>
         </Button>
       }
     >
-      <main className="space-y-4 py-4">
+      <main className="space-y-4 py-4 h-full">
         <Heading
-          title={service.name}
+          title={
+            <span className="flex items-center gap-3">
+              {service.name}
+              <StatusSelect
+                currentStatus={service.status}
+                serviceId={id}
+                teamId={teamId}
+              />
+            </span>
+          }
           className="px-4"
         >
           <>
             <Button variant="secondary" asChild>
               <Link href={`/admin/${teamId}/catalog/edit/${id}`}>
-                Nuevo agendamiento
+                Orden Rapida
               </Link>
             </Button>
             <DropdownMenu>
@@ -65,20 +78,17 @@ export default async function CatalogItemLayout({ params, children }: Props) {
               <DropdownMenuContent align="end" sideOffset={8} className="w-56">
                 <DropdownMenuItem asChild>
                   <Link href={`/admin/${teamId}/catalog/edit/${id}`}>
-                    <Icon icon="ph:pencil-bold" height={16} />
                     Editar
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href={`/admin/${teamId}/catalog/archive/${id}`}>
-                    <Icon icon="ph:archive-bold" height={16} />
                     Archivar
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link href={`/admin/${teamId}/catalog`}>
-                    <Icon icon="ph:arrow-left-bold" height={16} />
                     Volver al catálogo
                   </Link>
                 </DropdownMenuItem>
@@ -90,4 +100,4 @@ export default async function CatalogItemLayout({ params, children }: Props) {
       </main>
     </PageWrapper>
   );
-} 
+}

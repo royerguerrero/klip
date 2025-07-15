@@ -12,22 +12,41 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const { id, teamId } = await params;
-  await retrieveCustomer(id);
+  const customer = await retrieveCustomer(id);
 
   return (
     <div className="px-4 space-y-6">
-      <section className="grid grid-cols-1 md:grid-cols-6 gap-3">
-        <article className="rounded-xl p-1.5 md:col-span-2 bg-neutral-100 flex flex-col gap-0.5 h-52">
-          <div className="h-full bg-background rounded-lg border grid grid-cols-2 gap-2 px-3 py-1.5">
-            Avatar Balance LTV Health
-          </div>
+      {/* <section className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <article className="rounded-xl p-1.5 bg-neutral-100 flex flex-col gap-0.5">
           <div className="flex items-center justify-between p-1.5">
             <h2 className="font-bold text-foreground/50 text-xs uppercase tracking-wide leading-none">
-              Información
+              Información personal
             </h2>
           </div>
+          <div className="h-full bg-background rounded-lg border px-3 py-1.5 grid grid-cols-2 gap-3 text-sm">
+            <span className="text-sm text-muted-foreground font-medium">
+              Nombre completo:
+            </span>
+            <span>
+              {customer?.firstName} {customer?.lastName}
+            </span>
+            <span className="text-sm text-muted-foreground font-medium">
+              Fecha de nacimiento:
+            </span>
+            <span>{customer?.dateBirth.toLocaleDateString()}</span>
+            <span className="text-sm text-muted-foreground font-medium">
+              Email:
+            </span>
+            <span>{customer?.email}</span>
+            <span className="text-sm text-muted-foreground font-medium">
+              Teléfono:
+            </span>
+            <span>
+              {customer?.phone?.prefix} {customer?.phone?.number}
+            </span>
+          </div>
         </article>
-        <article className="h-52 md:col-span-4">
+        <article className="">
           <div className="flex items-center justify-between">
             <h2 className="font-semibold text-secondary-foreground leading-none">
               Linea temporal
@@ -38,7 +57,7 @@ export default async function Page({ params }: Props) {
             </Button>
           </div>
         </article>
-      </section>
+      </section> */}
       <div className="grid grid-cols-2 gap-6">
         <section className="flex flex-col gap-3">
           <div className="flex items-center justify-between">

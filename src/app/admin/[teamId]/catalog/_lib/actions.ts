@@ -74,3 +74,19 @@ export async function archiveService(id: string, teamId: string) {
 
   return redirect(`/admin/${teamId}/catalog`);
 }
+
+export async function changeServiceStatus(
+  id: string,
+  teamId: string,
+  status: string
+) {
+  const editor = new ServiceEditor(new DrizzleServiceRepository(db));
+  const { error, service } = await editor.edit(id, {
+    status: status,
+    teamId: teamId,
+  });
+
+  if (error || !service) return error as Error;
+
+  return { success: true };
+}

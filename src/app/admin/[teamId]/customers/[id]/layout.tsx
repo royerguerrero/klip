@@ -60,9 +60,7 @@ export default async function CustomerLayout({ params, children }: Props) {
               email={customer.email}
               customerName={`${customer.firstName} ${customer.lastName}`}
             >
-              <Button>
-                Contactar
-              </Button>
+              <Button>Contactar</Button>
             </ContactDrawer>
             <Button variant="secondary" asChild>
               <Link href={`/admin/${teamId}/orders/add?customer=${id}`}>

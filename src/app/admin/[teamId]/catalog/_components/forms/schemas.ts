@@ -8,3 +8,10 @@ export const serviceSchema = z.object({
   sessions: z.number().min(1, { message: "El número de sesiones debe ser mayor a 0" }),
   sessionDuration: z.number().min(30, { message: "La duración debe ser al menos 30 minutos" }),
 });
+
+export const questionSchema = z.object({
+  label: z.string().min(1, { message: "La pregunta es requerida" }),
+  inputType: z.enum(["name", "short text", "long text", "date", "select", "email", "phone"]),
+  required: z.boolean(),
+  options: z.array(z.string()).optional(),
+});

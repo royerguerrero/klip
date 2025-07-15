@@ -1,83 +1,35 @@
-import { Service } from "./types";
+import { db } from "@/contexts/shared/infrastructure/persistence/drizzle";
+import { getCurrentUserSession } from "@/app/admin/(auth)/_lib/data";
+import { DrizzleServiceRepository } from "@/contexts/services/infrastructure/persistence/drizzle/DrizzleServiceRepository";
+import { ServiceSearcher } from "@/contexts/services/application/ServiceSearcher";
+import { ServiceFinder } from "@/contexts/services/application/ServiceFinder";
 
-export const categories = [
-  { value: "belleza", label: "Belleza" },
-  { value: "salud", label: "Salud" },
-  { value: "bienestar", label: "Bienestar" },
-  { value: "otros", label: "Otros" },
-];
+export async function listServices() {
+  const currentUser = await getCurrentUserSession({
+    redirectIfNotFound: true,
+    redirectIfOnboardingNotCompleted: true,
+  });
 
-export const subcategories = {
-  belleza: [
-    { value: "corte", label: "Corte" },
-    { value: "coloracion", label: "Coloración" },
-    { value: "manicure", label: "Manicure" },
-    { value: "pedicure", label: "Pedicure" },
-    { value: "tratamiento", label: "Tratamiento" },
-  ],
-  salud: [
-    { value: "consulta", label: "Consulta" },
-    { value: "terapia", label: "Terapia" },
-    { value: "masaje", label: "Masaje" },
-  ],
-  bienestar: [
-    { value: "spa", label: "Spa" },
-    { value: "relajacion", label: "Relajación" },
-    { value: "meditacion", label: "Meditación" },
-  ],
-  otros: [
-    { value: "general", label: "General" },
-  ],
-};
+  const searcher = new ServiceSearcher(new DrizzleServiceRepository(db));
+  const { services } = await searcher.search(
+    currentUser.organization.currentTeam.id
+  );
 
-export async function listServices(): Promise<Service[]> {
-  return [
-    {
-      id: "1",
-      name: "Corte de cabello",
-      description: "Corte de cabello profesional con lavado incluido",
-      price: {
-        amount: 25000,
-        currency: "CO",
-      },
-      teamId: "1",
-    },
-    {
-      id: "2",
-      name: "Coloración completa",
-      description: "Coloración profesional del cabello con productos de calidad",
-      price: {
-        amount: 80.00,
-        currency: "PEN",
-      },
-      teamId: "1",
-    },
-    {
-      id: "3",
-      name: "Manicure básica",
-      description: "Manicure con esmalte regular",
-      price: {
-        amount: 15.00,
-        currency: "PEN",
-      },
-      teamId: "1",
-    },
-    {
-      id: "4",
-      name: "Pedicure spa",
-      description: "Pedicure con exfoliación y masaje relajante",
-      price: {
-        amount: 35.00,
-        currency: "PEN",
-      },
-      teamId: "1",
-    },
-  ];
+  return services?.map((service) => service.toPrimitives()) ?? [];
 }
 
-export async function retrieveService(
-  serviceId: string
-): Promise<Service | null> {
-  const services = await listServices();
-  return services.find((service) => service.id === serviceId) ?? null;
-} 
+export async function retrieveService(serviceId: string) {
+  const currentUser = await getCurrentUserSession({
+    redirectIfNotFound: true,
+    redirectIfOnboardingNotCompleted: true,
+  });
+
+  const finder = new ServiceFinder(new DrizzleServiceRepository(db));
+
+  const { service } = await finder.find(
+    currentUser.organization.currentTeam.id,
+    serviceId
+  );
+
+  return service?.toPrimitives() ?? null;
+}

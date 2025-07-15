@@ -82,7 +82,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarFooter className="flex gap-2 py-2 px-0">
         <article className="flex items-center border rounded-lg p-1.5 bg-background">
-          <Image src="/klip-icon.svg" alt="Logo" width={30} height={30} />
+          <Image src="/klip-icon.svg" alt="Logo" width={28} height={28} />
         </article>
         <NavUser
           user={{

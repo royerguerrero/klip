@@ -47,7 +47,7 @@ export function TeamSwitcher() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground p-1 h-fit"
             >
               <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8.5 items-center justify-center rounded-lg">
-                <Icon icon={organization?.logo || "ph:flag-fill"} height={18} />
+                <Icon icon={organization?.logo || "ph:flag-banner-fold-fill"} height={18} />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight gap-0.5">
                 <span className="truncate font-semibold leading-none">

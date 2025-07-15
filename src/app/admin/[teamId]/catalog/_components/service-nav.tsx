@@ -6,30 +6,18 @@ import { usePathname } from "next/navigation";
 import { useCurrentSession } from "../../../_contexts/current-session";
 
 type Props = {
-  customerId: string;
+  serviceId: string;
 };
 
-export function CustomerNav({ customerId }: Props) {
+export function ServiceNav({ serviceId }: Props) {
   const pathname = usePathname();
   const { session } = useCurrentSession();
   const currentTeam = session.organization?.currentTeam;
 
   const items = [
     {
-      label: "Resumen",
-      href: `/admin/${currentTeam?.id}/customers/${customerId}`,
-    },
-    {
-      label: "Ordenes",
-      href: `/admin/${currentTeam?.id}/customers/${customerId}/orders`,
-    },
-    {
-      label: "Pagos",
-      href: `/admin/${currentTeam?.id}/customers/${customerId}/payments`,
-    },
-    {
-      label: "Agenda",
-      href: `/admin/${currentTeam?.id}/customers/${customerId}/agenda`,
+      label: "Información",
+      href: `/admin/${currentTeam?.id}/catalog/${serviceId}`,
     },
   ];
 
