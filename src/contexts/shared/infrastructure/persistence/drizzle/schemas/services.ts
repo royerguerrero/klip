@@ -1,4 +1,4 @@
-import { pgEnum } from "drizzle-orm/pg-core";
+import { boolean, jsonb, pgEnum } from "drizzle-orm/pg-core";
 import {
   integer,
   numeric,
@@ -58,4 +58,14 @@ export const services = pgTable("services", {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date()),
+});
+
+export const questions = pgTable("questions", {
+  id: uuid("id").primaryKey().defaultRandom().notNull(),
+  label: varchar("label", { length: 255 }).notNull(),
+  inputType: varchar("input_type", { length: 255 }).notNull(),
+  required: boolean("required").notNull(),
+  order: integer("order").notNull(),
+  options: jsonb("options"),
+  serviceId: uuid("service_id").references(() => services.id),
 });

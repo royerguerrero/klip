@@ -5,6 +5,8 @@ import { Money } from "@/contexts/shared/domain/value-object/Money";
 import { ServiceStatus } from "./ServiceStatus";
 import { Category } from "./Category";
 import { TeamId } from "@/contexts/organizations/domain/TeamId";
+import { Question } from "./Question";
+import { QuestionId } from "./QuestionId";
 
 export class Service implements AggregateRoot {
   constructor(
@@ -15,6 +17,7 @@ export class Service implements AggregateRoot {
     public readonly sessions: Sessions,
     public readonly price: Money,
     public readonly status: ServiceStatus,
+    public readonly questions: Map<QuestionId, Question>,
     public readonly teamId: TeamId
   ) {}
 
@@ -31,6 +34,12 @@ export class Service implements AggregateRoot {
       new Sessions(params.sessions.amount, params.sessions.duration),
       new Money(params.price.amount, params.price.currency),
       new ServiceStatus(ServiceStatus.DRAFT),
+      new Map(
+        params.questions.map((q) => {
+          const question = Question.fromPrimitives(q);
+          return [question.id, question];
+        })
+      ) as Map<QuestionId, Question>,
       new TeamId(params.teamId)
     );
   }
@@ -54,6 +63,7 @@ export class Service implements AggregateRoot {
         params.price?.currency ?? this.price.currency
       ),
       new ServiceStatus(params.status ?? this.status.value),
+      this.questions,
       new TeamId(params.teamId ?? this.teamId.value)
     );
   }
@@ -74,6 +84,9 @@ export class Service implements AggregateRoot {
         currency: this.price.currency,
       },
       status: this.status.value,
+      questions: Array.from(this.questions.values()).map((q) =>
+        q.toPrimitives()
+      ),
       teamId: this.teamId.value,
     };
   }
@@ -91,6 +104,12 @@ export class Service implements AggregateRoot {
       new Sessions(primitives.sessions.amount, primitives.sessions.duration),
       new Money(primitives.price.amount, primitives.price.currency),
       new ServiceStatus(primitives.status),
+      new Map(
+        (primitives.questions || []).map((q) => [
+          new QuestionId(q.id),
+          Question.fromPrimitives(q),
+        ])
+      ) as Map<QuestionId, Question>,
       new TeamId(primitives.teamId)
     );
   }

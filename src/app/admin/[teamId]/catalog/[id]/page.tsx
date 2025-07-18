@@ -1,6 +1,9 @@
 import { Button } from "@/app/_components/ui/button";
 import { retrieveService } from "../_lib/data";
 import { OnboardingSection } from "../_components/onboarding-section";
+import { Badge } from "@/app/_components/ui/badge";
+import { Icon } from "@iconify-icon/react";
+import Link from "next/link";
 
 type Props = {
   params: Promise<{
@@ -19,7 +22,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="flex border-t h-full">
-      <section className="p-4 w-4/6 space-y-6">
+      <section className="p-4 w-full space-y-6">
         <article className="space-y-3">
           <h2 className="font-semibold text-secondary-foreground leading-none">
             Información General
@@ -37,118 +40,43 @@ export default async function Page({ params }: Props) {
             <dd className="col-span-2 py-2">1 sesiones ⋅ 1 hora / sesión</dd>
           </dl>
           <div>
-            <Button variant={"outline"}>Editar</Button>
+            <Button variant={"outline"} asChild>
+              <Link href={`/admin/${teamId}/catalog/edit/${id}`}>Editar</Link>
+            </Button>
           </div>
         </article>
-        <OnboardingSection 
-          questions={[
-            {
-              id: "1",
-              label: "Cual es tu nombre?",
-              inputType: "name",
-              required: true,
-              order: 1
-            },
-            {
-              id: "2",
-              label: "Email",
-              inputType: "email",
-              required: true,
-              order: 2
-            },
-            {
-              id: "3",
-              label: "Numero de teléfono",
-              inputType: "phone",
-              required: true,
-              order: 3
-            },
-            {
-              id: "4",
-              label: "Fecha de matrícula",
-              inputType: "date",
-              required: true,
-              order: 4
-            },
-            {
-              id: "5",
-              label: "Fecha de nacimiento",
-              inputType: "date",
-              required: true,
-              order: 5
-            },
-            {
-              id: "6",
-              label: "Dirección",
-              inputType: "long text",
-              required: true,
-              order: 6
-            },
-            {
-              id: "7",
-              label: "EPS",
-              inputType: "select",
-              required: true,
-              order: 7,
-              options: [
-                "Nueva EPS",
-                "EPS Sanitas",
-                "EPS Sura",
-                "Salud Total EPS",
-                "Famisanar",
-                "Compensar EPS",
-                "EPS Suramericana (Susalud)",
-                "Coomeva EPS",
-                "Cruz Blanca EPS",
-                "Comfenalco Valle EPS",
-                "Saludvida EPS",
-                "Capresoca EPS",
-                "Servicio Occidental de Salud (SOS EPS)",
-                "Capital Salud EPS‑S",
-                "EPS Familiar de Colombia",
-                "Asmet Salud",
-                "Emssanar",
-                "Mutual Ser",
-                "Comfaoriente",
-                "Cajacopi (Atlántico)",
-                "Comfachocó",
-                "Savia Salud",
-                "Coosalud EPS-S",
-                "Ecoopsos",
-                "Salud Mía",
-                "Asociación Mutual Barrios Unidos – EPS AmbuQ",
-                "Aliansalud EPS",
-                "Dusakawi EPSI",
-                "Anas Wayuu",
-                "Mallamas",
-                "Pijaos Salud",
-                "EPS Bolívar",
-                "Salud Total EPS"
-              ]
-            },
-            {
-              id: "8",
-              label: "Nombre del acudiente",
-              inputType: "name",
-              required: false,
-              order: 8
-            },
-            {
-              id: "9",
-              label: "Teléfono del acudiente",
-              inputType: "phone",
-              required: false,
-              order: 9
-            }
-          ]} 
+        <OnboardingSection
+          questions={service.questions.map((q) => ({
+            id: q.id,
+            label: q.label,
+            inputType: q.inputType,
+            required: q.required,
+            order: q.order,
+            options: q.options as unknown as string[],
+          }))}
         />
       </section>
-      <aside className="border-l p-4 flex flex-col gap-4 h-full">
+      <aside className="border-l p-4 flex flex-col gap-4 h-full w-[480px]">
         <h2 className="font-semibold text-secondary-foreground leading-none">
           Propiedades
         </h2>
-        <span>Category</span>
-        <span>Subcategory</span>
+        <div className="flex flex-col gap-3">
+          <div className="flex gap-3 items-center">
+            <span className="text-sm text-muted-foreground font-medium w-24">
+              Categoría
+            </span>
+            <Badge>Programa</Badge>
+          </div>
+          <div className="flex gap-3 items-center">
+            <span className="text-sm text-muted-foreground font-medium w-24">
+              Subcategoría
+            </span>
+            <Badge>
+              <Icon icon="ph:plus-circle-bold" height={14} />
+              Añadir sub-categoría
+            </Badge>
+          </div>
+        </div>
       </aside>
     </div>
   );

@@ -29,6 +29,13 @@
       "when": 1752101430092,
       "tag": "0003_bumpy_sebastian_shaw",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1752863159789,
+      "tag": "0004_purple_moonstone",
+      "breakpoints": true
     }
   ]
 }

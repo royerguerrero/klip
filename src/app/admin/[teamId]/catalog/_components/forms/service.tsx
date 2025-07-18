@@ -31,15 +31,12 @@ import { createService } from "../../_lib/actions";
 
 type ServiceData = z.infer<typeof serviceSchema>;
 
-interface ServiceFormProps {
+type Props = {
   mode?: "create" | "edit";
   initialData?: Partial<ServiceData>;
-}
+};
 
-export default function ServiceForm({
-  mode = "create",
-  initialData,
-}: ServiceFormProps) {
+export default function ServiceForm({ mode = "create", initialData }: Props) {
   const { session } = useCurrentSession();
   const form = useForm<ServiceData>({
     resolver: zodResolver(serviceSchema),
@@ -55,7 +52,10 @@ export default function ServiceForm({
 
   const onSubmit = async (data: ServiceData) => {
     if (mode === "create") {
-      const error = await createService(data, session.organization.currentTeam.id);
+      const error = await createService(
+        data,
+        session.organization.currentTeam.id
+      );
       if (error) {
         form.setError("root", {
           message: "Error al crear el servicio",

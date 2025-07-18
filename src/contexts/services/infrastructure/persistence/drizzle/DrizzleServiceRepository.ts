@@ -1,11 +1,15 @@
 import { ServiceRepository } from "@/contexts/services/domain/ServiceRepository";
 import { DrizzleRepository } from "@/contexts/shared/infrastructure/persistence/drizzle/DrizzleRepository";
 import { DrizzleCriteriaConverter } from "@/contexts/shared/infrastructure/persistence/drizzle/DrizzleCriteriaConverter";
-import { services } from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/services";
+import {
+  questions,
+  services,
+} from "@/contexts/shared/infrastructure/persistence/drizzle/schemas/services";
 import { Service } from "@/contexts/services/domain/Service";
 import { Criteria } from "@/contexts/shared/domain/criteria/Criteria";
 import { Currencies } from "@/contexts/shared/domain/value-object/Money";
-import { sql } from "drizzle-orm";
+import { inArray, sql } from "drizzle-orm";
+import { QuestionInputType } from "@/contexts/services/domain/Question";
 
 export class DrizzleServiceRepository
   extends DrizzleRepository
@@ -41,23 +45,46 @@ export class DrizzleServiceRepository
       status: this.statusToDb[primitives.status] || "D",
     };
 
-    await this.connection
-      .insert(services)
-      .values(data)
-      .onConflictDoUpdate({
-        target: [services.id],
-        set: data,
-      });
+    this.connection.transaction(async (tx) => {
+      await tx
+        .insert(services)
+        .values(data)
+        .onConflictDoUpdate({
+          target: [services.id],
+          set: data,
+        });
+
+      await tx
+        .delete(questions)
+        .where(inArray(questions.serviceId, [primitives.id]));
+
+      await tx.insert(questions).values(
+        primitives.questions.map((q) => ({
+          ...q,
+          serviceId: primitives.id,
+        }))
+      );
+    });
   }
 
   async matching(criteria: Criteria): Promise<Service[]> {
     const filters = this.criteriaConverter.convert(criteria);
-    const result = await this.connection
+    const query = await this.connection
       .select()
       .from(services)
       .where(sql`${filters}`);
 
-    return result.map((service) =>
+    const questionsQuery = await this.connection
+      .select()
+      .from(questions)
+      .where(
+        inArray(
+          questions.serviceId,
+          query.map((service) => service.id)
+        )
+      );
+
+    return query.map((service) =>
       Service.fromPrimitives({
         id: service.id,
         name: service.name,
@@ -73,6 +100,19 @@ export class DrizzleServiceRepository
           currency: service.currency as Currencies,
         },
         status: this.statusFromDb[service.status] || "draft",
+        questions: questionsQuery
+          .filter((q) => q.serviceId === service.id)
+          .map((q) => ({
+            id: q.id,
+            label: q.label,
+            inputType: q.inputType as QuestionInputType,
+            required: q.required,
+            order: q.order,
+            options: q.options as
+              | { label: string; value: string }
+              | { max: Date | null; min: Date | null }
+              | undefined,
+          })),
         teamId: service.teamId || "",
       })
     );

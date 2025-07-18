@@ -9,6 +9,7 @@ import { ServiceEditor } from "@/contexts/services/application/ServiceEditor";
 import { ServiceArchiver } from "@/contexts/services/application/ServiceArchiver";
 import { DrizzleServiceRepository } from "@/contexts/services/infrastructure/persistence/drizzle/DrizzleServiceRepository";
 import { ServiceId } from "@/contexts/services/domain/ServiceId";
+import { QuestionId } from "@/contexts/services/domain/QuestionId";
 
 export async function createService(
   unsafeData: z.infer<typeof serviceSchema>,
@@ -33,6 +34,32 @@ export async function createService(
       amount: data.price,
       currency: data.currency as "USD" | "EUR" | "COP",
     },
+    questions: [
+      {
+        id: QuestionId.nextId().value,
+        label: "¿Cual es tu nombre?",
+        inputType: "name",
+        required: true,
+        order: 1,
+        options: undefined,
+      },
+      {
+        id: QuestionId.nextId().value,
+        label: "Email",
+        inputType: "email",
+        required: true,
+        order: 2,
+        options: undefined,
+      },
+      {
+        id: QuestionId.nextId().value,
+        label: "Número de teléfono",
+        inputType: "phone",
+        required: true,
+        order: 3,
+        options: undefined,
+      },
+    ],
     teamId: teamId,
   });
   console.error(error);

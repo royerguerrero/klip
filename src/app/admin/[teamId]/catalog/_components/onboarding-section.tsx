@@ -35,8 +35,6 @@ interface OnboardingSectionProps {
   questions: Question[];
 }
 
-
-
 export function OnboardingSection({ questions }: OnboardingSectionProps) {
   const [questionsState, setQuestionsState] = useState(questions);
 
@@ -76,18 +74,13 @@ export function OnboardingSection({ questions }: OnboardingSectionProps) {
                       <DialogHeader>
                         <DialogTitle>Editar pregunta</DialogTitle>
                       </DialogHeader>
-                                            <QuestionFormComponent 
+                      <QuestionFormComponent
+                        mode="edit"
                         initialData={{
                           label: question.label,
                           inputType: question.inputType,
                           required: question.required,
-                          options: question.options
-                        }}
-                        onSave={(data) => {
-                          handleQuestionUpdate({
-                            ...question,
-                            ...data
-                          });
+                          options: question.options,
                         }}
                       />
                     </DialogContent>
@@ -103,12 +96,20 @@ export function OnboardingSection({ questions }: OnboardingSectionProps) {
             <Icon icon="ph:dots-six-vertical" height={20} />
           </article>
         ))}
-      <div className="flex flex-col gap-3 items-end">
-        <Button variant="outline" className="w-fit px-1">
-          <Icon icon="ph:plus" height={12} />
-          Agregar pregunta
-        </Button>
-      </div>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline" className="w-fit px-1">
+            <Icon icon="ph:plus" height={12} />
+            Agregar pregunta
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Agregar nueva pregunta</DialogTitle>
+          </DialogHeader>
+          <QuestionFormComponent />
+        </DialogContent>
+      </Dialog>
     </article>
   );
 }

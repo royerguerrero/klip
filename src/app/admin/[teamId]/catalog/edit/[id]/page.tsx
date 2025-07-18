@@ -24,8 +24,9 @@ export default async function Page({ params }: Props) {
   const initialData = {
     name: service.name,
     description: service.description,
-    priceAmount: service.price.amount,
-    priceCurrency: service.price.currency,
+    price: service.price.amount,
+    sessions: service.sessions.amount,
+    sessionDuration: service.sessions.duration,
   };
 
   return (
@@ -49,4 +50,4 @@ export default async function Page({ params }: Props) {
       </main>
     </PageWrapper>
   );
-} 
+}

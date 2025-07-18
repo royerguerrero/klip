@@ -26,15 +26,12 @@ import { Switch } from "@/app/_components/ui/switch";
 
 type QuestionData = z.infer<typeof questionSchema>;
 
-interface QuestionFormProps {
+type Props = {
+  mode?: "create" | "edit";
   initialData?: Partial<QuestionData>;
-  onSave: (data: QuestionData) => void;
-}
+};
 
-export default function QuestionForm({
-  initialData,
-  onSave,
-}: QuestionFormProps) {
+export default function QuestionForm({ mode = "create", initialData }: Props) {
   const form = useForm<QuestionData>({
     resolver: zodResolver(questionSchema),
     defaultValues: {
@@ -46,7 +43,11 @@ export default function QuestionForm({
   });
 
   const onSubmit = async (data: QuestionData) => {
-    onSave(data);
+    if (mode === "create") {
+      // TODO: Create question
+    } else {
+      // TODO: Edit question
+    }
   };
 
   const inputTypeOptions = [
@@ -143,8 +144,8 @@ export default function QuestionForm({
           />
         )}
 
-        <div className="flex justify-end">
-          <Button type="submit" variant="outline">
+        <div className="flex justify-end pt-4">
+          <Button type="submit" variant="secondary" className="w-full">
             Guardar
           </Button>
         </div>

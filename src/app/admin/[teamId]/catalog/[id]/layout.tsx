@@ -65,8 +65,8 @@ export default async function CatalogItemLayout({ params, children }: Props) {
         >
           <>
             <Button variant="secondary" asChild>
-              <Link href={`/admin/${teamId}/catalog/edit/${id}`}>
-                Orden Rapida
+              <Link href={`/admin/${teamId}/orders/${id}`}>
+                Crear orden
               </Link>
             </Button>
             <DropdownMenu>
